@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piękno Dojrzałości – Siła, Ciepło i Mądrość Pokoleń</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Tailwind Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            amberRose: {
+              50: '#FDF8F6',
+              100: '#F7EDE8',
+              200: '#EEDBD2',
+              300: '#DEBFB1',
+              400: '#C79A87',
+              500: '#B0755F',
+              600: '#945844',
+              700: '#754131',
+              800: '#5A3024',
+              900: '#3D2018',
+              950: '#2A130C',
+            },
+            crimsonAccent: '#9B1D36',
+            electricRed: '#E50914',
+            warmSand: '#FBF9F5',
+            softGold: '#C5A059'
+          },
+          fontFamily: {
+            serif: ['"Cormorant Garamond"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #FAF6F0;
+      color: #382E2B;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    
+    .font-serif-title {
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .photo-clickable {
+      cursor: zoom-in;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+    }
+    .photo-clickable:hover {
+      transform: scale(1.03);
+    }
+
+    .glow-card {
+      box-shadow: 0 10px 30px -10px rgba(155, 29, 54, 0.10);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glow-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 35px -8px rgba(155, 29, 54, 0.20);
+    }
+
+    .drag-active {
+      border-color: #E50914 !important;
+      background-color: #FFF0F2 !important;
+      transform: scale(1.01);
+    }
+
+    #toast {
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.35s ease-in-out;
+    }
+    #toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @keyframes pulse-ring {
+      0% { transform: scale(0.96); opacity: 0.7; }
+      50% { transform: scale(1.04); opacity: 0.35; }
+      100% { transform: scale(0.96); opacity: 0.7; }
+    }
+    .halo-pulse {
+      animation: pulse-ring 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#FAF6F0] text-[#3A2D28] antialiased selection:bg-rose-200 selection:text-crimsonAccent">
+
+  <section id="dropZoneBanner" class="bg-gradient-to-r from-amberRose-950 via-crimsonAccent to-amberRose-900 text-white py-3 px-4 shadow-md border-b-2 border-softGold transition-all duration-300">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-white/15 flex items-center justify-center text-white shrink-0 border border-white/20 shadow-inner">
+          <i data-lucide="image-down" class="w-5 h-5 text-softGold"></i>
+        </div>
+        <div>
+          <h2 class="text-sm font-bold tracking-wide flex items-center justify-center md:justify-start gap-2">
+            <span>Załaduj zdjęcie</span>
+            <span id="photoStatusBadge" class="bg-white/20 text-[10px] px-2 py-0.5 rounded-full font-semibold">Wierna grafika aktywna</span>
+          </h2>
+          <p class="text-xs text-amberRose-200/90 mt-0.5">
+            Przeciągnij i upuść plik tutaj, <strong>wklej ze schowka (Ctrl+V)</strong> lub kliknij przycisk obok.
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center flex-wrap justify-center gap-2">
+        <input type="file" id="directImageInput" accept="image/*" class="hidden" onchange="processSelectedFile(this.files[0])">
+        <button 
+          onclick="document.getElementById('directImageInput').click()" 
+          class="bg-white hover:bg-amberRose-100 text-amberRose-950 px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 transition-all shadow-md active:scale-95"
+        >
+          <i data-lucide="upload" class="w-3.5 h-3.5 text-crimsonAccent"></i>
+          <span>Wybierz plik zdjęcia</span>
+        </button>
+        <button 
+          id="btnRevert"
+          onclick="resetToDefaultArtwork()" 
+          class="hidden bg-black/30 hover:bg-black/50 text-white/90 px-3 py-2 rounded-full text-xs font-medium transition-colors border border-white/10"
+          title="Przywróć domyślny portret wektorowy"
+        >
+          Przywróć ilustrację
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <nav class="sticky top-0 z-40 backdrop-blur-md bg-[#FAF6F0]/90 border-b border-amberRose-200/70 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3.5 group">
+        <div class="relative w-12 h-12 rounded-full p-0.5 bg-gradient-to-tr from-softGold via-crimsonAccent to-amberRose-400 shadow-md group-hover:scale-105 transition-transform duration-300">
+          <img 
+            data-portrait="true" 
+            alt="Logo - Portret Babci" 
+            class="w-full h-full object-cover rounded-full photo-clickable"
+            onclick="openLightbox(this.src, 'Główny portret w logo – piękno, godność i odwaga wyboru.')"
+          >
+          <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-crimsonAccent text-white rounded-full flex items-center justify-center text-[9px] shadow-sm font-bold">♥</span>
+        </div>
+        <div>
+          <span class="block text-xl font-serif-title font-bold text-amberRose-950 tracking-wide group-hover:text-crimsonAccent transition-colors">Piękno Dojrzałości</span>
+          <span class="block text-[11px] uppercase tracking-widest text-crimsonAccent font-semibold">Twarz Mądrości i Odwagi</span>
+        </div>
+      </a>
+
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-amberRose-900">
+        <a href="#o-pieknie" class="hover:text-crimsonAccent transition-colors">Portret i Misja</a>
+        <a href="#filary" class="hover:text-crimsonAccent transition-colors">Filary Piękna</a>
+        <a href="#mysli" class="hover:text-crimsonAccent transition-colors">Mądrość na Dziś</a>
+        <a href="#ksiega" class="hover:text-crimsonAccent transition-colors">Księga Serc</a>
+        
+        <button onclick="openLightboxFromAnywhere('Portret Seniorki – symbol odwagi i autentycznego piękna')" class="flex items-center gap-2 px-4 py-2 rounded-full border border-crimsonAccent/30 bg-crimsonAccent/5 text-crimsonAccent hover:bg-crimsonAccent hover:text-white transition-all text-xs font-semibold shadow-sm">
+          <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
+          <span>Otwórz Portret</span>
+        </button>
+      </div>
+
+      <div class="md:hidden flex items-center gap-2">
+        <button onclick="openLightboxFromAnywhere('Portret Seniorki')" class="p-0.5 rounded-full border border-amberRose-300">
+          <img data-portrait="true" alt="Miniatura" class="w-9 h-9 rounded-full object-cover">
+        </button>
+        <a href="#ksiega" class="text-xs px-3.5 py-2 rounded-full bg-crimsonAccent text-white font-medium shadow-sm">
+          Księga Serc
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <header class="relative pt-8 pb-20 md:pt-14 md:pb-28 overflow-hidden border-b border-amberRose-200/60 bg-gradient-to-b from-[#F7EDE8]/60 via-[#FAF6F0] to-[#FAF6F0]">
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-rose-200/35 via-amber-100/40 to-pink-200/25 rounded-full blur-3xl pointer-events-none -z-10"></div>
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8">
+          <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/95 border border-amberRose-300/80 shadow-sm text-xs sm:text-sm font-medium text-amberRose-900 backdrop-blur-md">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-crimsonAccent opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-crimsonAccent"></span>
+            </span>
+            <span>W hołdzie każdej Babci, Mamie i dojrzałej kobiecie z zasadami</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+            <h1 class="font-serif-title text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-amberRose-950 leading-[1.12]">
+              Dojrzałość to nie wiek.<br/>
+              <span class="italic font-normal text-crimsonAccent">To czyste piękno i siła wyboru.</span>
+            </h1>
+
+            <p class="text-base sm:text-lg md:text-xl text-amberRose-900/90 leading-relaxed font-light">
+              Prawdziwe piękno seniorów nie przemija wraz z upływem lat. Ono rozkwita w mądrym, ciepłym spojrzeniu, odwadze do mówienia prawdy i sercu, które potrafi przytulić cały świat.
+            </p>
+
+            <div class="p-5 rounded-2xl bg-white/95 border-l-4 border-crimsonAccent border-amberRose-200 shadow-sm backdrop-blur-sm">
+              <div class="flex items-start gap-3.5">
+                <div class="w-8 h-8 rounded-full bg-red-100 text-crimsonAccent flex items-center justify-center shrink-0 mt-0.5">
+                  <i data-lucide="zap" class="w-4 h-4 fill-crimsonAccent"></i>
+                </div>
+                <div class="text-left">
+                  <h4 class="font-serif-title font-bold text-lg text-amberRose-950 flex items-center gap-2">
+                    <span>Głos Pokoleń: „Wybór, nie zakaz”</span>
+                  </h4>
+                  <p class="text-xs sm:text-sm text-amberRose-800 mt-1 leading-snug">
+                    Dojrzała kobieta to nie tylko strażniczka domowego ciepła, ale niezłomna obrończyni wolności, autonomii i godności swoich córek i wnuczek.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+              <a href="#filary" class="px-7 py-3.5 rounded-full bg-crimsonAccent text-white font-medium hover:bg-amberRose-800 transition-all shadow-md hover:shadow-lg flex items-center gap-2 text-sm">
+                <span>Poznaj filary piękna</span>
+                <i data-lucide="arrow-down" class="w-4 h-4"></i>
+              </a>
+
+              <button onclick="drawWarmWord()" class="px-6 py-3.5 rounded-full bg-white text-amberRose-950 font-medium hover:bg-amberRose-50 border border-amberRose-300 transition-all shadow-sm flex items-center gap-2 text-sm">
+                <i data-lucide="heart" class="w-4 h-4 text-crimsonAccent fill-crimsonAccent"></i>
+                <span>Wylosuj dobre słowo</span>
+              </button>
+
+              <button onclick="document.getElementById('directImageInput').click()" class="px-5 py-3.5 rounded-full bg-amberRose-100 text-amberRose-900 hover:bg-amberRose-200 border border-amberRose-300 transition-all text-xs font-semibold flex items-center gap-1.5">
+                <i data-lucide="camera" class="w-4 h-4 text-crimsonAccent"></i>
+                <span>Załaduj zdjęcie</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="lg:col-span-5 flex justify-center">
+            <div class="relative w-full max-w-sm sm:max-w-md">
+              <div class="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-softGold via-crimsonAccent/40 to-pink-300 halo-pulse blur-xl -z-10"></div>
+              <div class="relative bg-white p-3.5 rounded-3xl shadow-2xl border-2 border-amberRose-200 glow-card">
+                <div class="relative overflow-hidden rounded-2xl aspect-square bg-amberRose-100 group">
+                  <img 
+                    data-portrait="true"
+                    alt="Portret Babci - Piękno i Siła Seniorów"
+                    class="w-full h-full object-cover photo-clickable group-hover:scale-105 transition-transform duration-500"
+                    onclick="openLightbox(this.src, 'Niezwykły portret – uosobienie ciepła, mądrości spojrzenia oraz odwagi walki o lepszy los pokoleń.')"
+                  >
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent opacity-85 group-hover:opacity-95 transition-opacity flex flex-col justify-end p-5 text-white pointer-events-none">
+                    <span class="inline-flex items-center gap-1.5 text-[11px] text-amber-200 font-semibold uppercase tracking-wider mb-1">
+                      <i data-lucide="sparkle" class="w-3.5 h-3.5"></i> Kliknij, aby powiększyć
+                    </span>
+                    <p class="font-serif-title text-2xl font-bold leading-tight drop-shadow-sm">Portret Pełen Życia</p>
+                    <p class="text-xs text-amberRose-100 font-light mt-0.5">Spokój, determinacja i serce na dłoni</p>
+                  </div>
+                </div>
+
+                <div class="mt-3.5 pt-3 border-t border-amberRose-100 flex items-center justify-between text-xs text-amberRose-700">
+                  <span class="font-medium flex items-center gap-1.5">
+                    <i data-lucide="camera" class="w-3.5 h-3.5 text-softGold"></i>
+                    Archiwum Serca &bull; 100% Autentyczności
+                  </span>
+                  <button 
+                    onclick="openLightboxFromAnywhere('Główny portret – kliknij, aby podziwiać w pełnym rozmiarze')"
+                    class="text-crimsonAccent font-semibold hover:underline flex items-center gap-1"
+                  >
+                    <span>Zobacz</span>
+                    <i data-lucide="external-link" class="w-3 h-3"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="o-pieknie" class="py-16 md:py-24 bg-white/70 border-b border-amberRose-200/50">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-5 space-y-4">
+            <div class="relative bg-amberRose-50 p-4 rounded-3xl border border-amberRose-200 shadow-md">
+              <div class="flex items-center gap-4 mb-3">
+                <img 
+                  data-portrait="true" 
+                  alt="Miniatura portretu" 
+                  class="w-16 h-16 rounded-2xl object-cover photo-clickable shadow-sm border-2 border-white"
+                  onclick="openLightbox(this.src, 'Ujęcie portretowe z bliska – spojrzenie niosące zrozumienie i spokój.')"
+                >
+                <div>
+                  <h4 class="font-serif-title font-bold text-lg text-amberRose-950">Światło w Oczach</h4>
+                  <p class="text-xs text-amberRose-700">Świadectwo godności i miłości</p>
+                </div>
+              </div>
+
+              <div class="relative rounded-2xl overflow-hidden aspect-[4/3] border border-amberRose-200">
+                <img 
+                  data-portrait="true" 
+                  alt="Zbliżenie" 
+                  class="w-full h-full object-cover photo-clickable hover:scale-105 transition-transform duration-300"
+                  onclick="openLightbox(this.src, 'Portret: Niezłomność i delikatność w jednym kadrze.')"
+                >
+                <div class="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-[10px] font-semibold text-crimsonAccent shadow">
+                  Dotknij, aby powiększyć
+                </div>
+              </div>
+
+              <p class="font-serif-title italic text-sm text-amberRose-800 mt-3 text-center">
+                „Kiedy kobieta dojrzewa, jej siła staje się tarczą dla całej rodziny.”
+              </p>
+            </div>
+          </div>
+
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-crimsonAccent/10 text-crimsonAccent text-xs font-bold tracking-wider uppercase">
+              <i data-lucide="heart-handshake" class="w-3.5 h-3.5"></i>
+              Oda do Naszych Seniorek
+            </div>
+
+            <h2 class="font-serif-title text-3xl sm:text-5xl font-bold text-amberRose-950 leading-tight">
+              To nie zmarszczki.<br/>
+              <span class="text-crimsonAccent font-normal italic">To promienie przeżytych chwil i walki o wolność.</span>
+            </h2>
+
+            <p class="text-amberRose-900 text-base sm:text-lg leading-relaxed">
+              Patrząc na to zdjęcie, widzimy coś znacznie głębszego niż tylko kadr: widzimy kobietę, która ma swoje przekonania, nie pozwala się uciszyć i ma odwagę nosić hasła wolnościowe z podniesionym czołem. To współczesna babcia – nie zamknięta w stereotypach, lecz zaangażowana, żywa, wrażliwa i pełna charyzmy.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="p-4 rounded-2xl bg-amberRose-50/80 border border-amberRose-200/80 flex items-start gap-3">
+                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-crimsonAccent shrink-0 shadow-sm border border-amberRose-200">
+                  <i data-lucide="shield-heart" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-amberRose-950">Głos i Świadomość</h4>
+                  <p class="text-xs text-amberRose-800 mt-0.5">Nauczyła nas, że wolność wyboru to prawo każdego człowieka, bez względu na wiek.</p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-amberRose-50/80 border border-amberRose-200/80 flex items-start gap-3">
+                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-softGold shrink-0 shadow-sm border border-amberRose-200">
+                  <i data-lucide="sparkles" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-amberRose-950">Uśmiech i Nadzieja</h4>
+                  <p class="text-xs text-amberRose-800 mt-0.5">W każdym jej spojrzeniu tli się wiara, że jutro może być lepsze, mądrzejsze i bezpieczniejsze.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="filary" class="py-16 md:py-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-2xl mx-auto mb-14">
+          <span class="text-xs uppercase tracking-widest text-crimsonAccent font-bold">W czym kryje się ten blask</span>
+          <h2 class="font-serif-title text-3xl sm:text-5xl font-bold text-amberRose-950 mt-2">
+            Cztery Oblicza Piękna Seniorów
+          </h2>
+          <div class="w-20 h-1 bg-softGold mx-auto mt-4 rounded-full"></div>
+          <p class="text-amberRose-800 text-sm sm:text-base mt-4">
+            Każdy detal na tym portrecie opowiada historię wartości, które czynią naszych seniorów fundamentem naszego życia.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-white p-6 rounded-3xl border border-amberRose-200 glow-card flex flex-col justify-between relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-10 h-10 rounded-xl bg-amberRose-100 flex items-center justify-center text-amberRose-800">
+                <i data-lucide="eye" class="w-5 h-5"></i>
+              </span>
+              <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-amberRose-300 shadow-sm photo-clickable" onclick="openLightboxFromAnywhere('Oczy pełne zrozumienia i spokoju')">
+                <img data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
+              </div>
+            </div>
+            <div>
+              <h3 class="font-serif-title text-2xl font-bold text-amberRose-950 mb-2">Mądre Spojrzenie</h3>
+              <p class="text-sm text-amberRose-800 leading-relaxed">
+                Spojrzenie, które nie ocenia powierzchownie. Przebija przez nie życiowe doświadczenie, wyrozumiałość dla cudzych błędów i cicha gotowość do pomocy.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-amberRose-100 flex items-center justify-between text-xs text-amberRose-600">
+              <span class="font-semibold uppercase tracking-wider text-[10px]">Czyste zaufanie</span>
+              <i data-lucide="check" class="w-3.5 h-3.5 text-crimsonAccent"></i>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-3xl border border-amberRose-200 glow-card flex flex-col justify-between relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-10 h-10 rounded-xl bg-pink-100 flex items-center justify-center text-crimsonAccent">
+                <i data-lucide="zap" class="w-5 h-5"></i>
+              </span>
+              <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-crimsonAccent/40 shadow-sm photo-clickable" onclick="openLightboxFromAnywhere('Odwaga i godność w walce o przyszłość')">
+                <img data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
+              </div>
+            </div>
+            <div>
+              <h3 class="font-serif-title text-2xl font-bold text-amberRose-950 mb-2">Niezłomny Wybór</h3>
+              <p class="text-sm text-amberRose-800 leading-relaxed">
+                Prawdziwe piękno nie jest bierne. To odwaga, by nosić hasła wolności, mieć własne zdanie i bronić prawa młodszego pokolenia do samostanowienia.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-amberRose-100 flex items-center justify-between text-xs text-crimsonAccent">
+              <span class="font-semibold uppercase tracking-wider text-[10px]">Siła charakteru</span>
+              <i data-lucide="check" class="w-3.5 h-3.5 text-crimsonAccent"></i>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-3xl border border-amberRose-200 glow-card flex flex-col justify-between relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-800">
+                <i data-lucide="sun" class="w-5 h-5"></i>
+              </span>
+              <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-amber-300 shadow-sm photo-clickable" onclick="openLightboxFromAnywhere('Ciepło, które koi każdy lęk')">
+                <img data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
+              </div>
+            </div>
+            <div>
+              <h3 class="font-serif-title text-2xl font-bold text-amberRose-950 mb-2">Ciepło i Ostoja</h3>
+              <p class="text-sm text-amberRose-800 leading-relaxed">
+                Niezastąpiony uścisk, dom wypełniony spokojem i kubek herbaty podany wtedy, gdy świat na zewnątrz wydaje się zbyt głośny i nieprzyjazny.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-amberRose-100 flex items-center justify-between text-xs text-amber-700">
+              <span class="font-semibold uppercase tracking-wider text-[10px]">Czułość bez granic</span>
+              <i data-lucide="check" class="w-3.5 h-3.5 text-crimsonAccent"></i>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-3xl border border-amberRose-200 glow-card flex flex-col justify-between relative overflow-hidden group">
+            <div class="flex items-center justify-between mb-4">
+              <span class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center text-rose-800">
+                <i data-lucide="feather" class="w-5 h-5"></i>
+              </span>
+              <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-rose-300 shadow-sm photo-clickable" onclick="openLightboxFromAnywhere('Prawdziwość, wolność od sztuczności i blask autentyzmu')">
+                <img data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
+              </div>
+            </div>
+            <div>
+              <h3 class="font-serif-title text-2xl font-bold text-amberRose-950 mb-2">Żywa Autentyczność</h3>
+              <p class="text-sm text-amberRose-800 leading-relaxed">
+                Okulary na głowie, szczery uśmiech, brak sztucznych masek. Seniorzy uczą nas, że najpiękniejszy człowiek to ten, który żyje w pełnej prawdzie ze sobą.
+              </p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-amberRose-100 flex items-center justify-between text-xs text-rose-700">
+              <span class="font-semibold uppercase tracking-wider text-[10px]">Prawdziwy wdzięk</span>
+              <i data-lucide="check" class="w-3.5 h-3.5 text-crimsonAccent"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="mysli" class="py-16 md:py-24 bg-amberRose-100/50 border-y border-amberRose-200">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6">
+        <div class="text-center mb-8">
+          <span class="text-xs uppercase tracking-widest text-crimsonAccent font-bold">Złote Myśli i Rada Życiowa</span>
+          <h2 class="font-serif-title text-3xl sm:text-4xl font-bold text-amberRose-950 mt-1">
+            Mądrość Prosto z Serca Naszej Seniorki
+          </h2>
+        </div>
+
+        <div class="bg-white rounded-3xl p-6 sm:p-10 border border-amberRose-200/90 shadow-xl relative overflow-hidden">
+          <div class="flex flex-col sm:flex-row items-center gap-6 mb-6 pb-6 border-b border-amberRose-100">
+            <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-4 border-softGold/60 shadow-md shrink-0">
+              <img 
+                data-portrait="true" 
+                alt="Babcia radzi"
+                class="w-full h-full object-cover photo-clickable"
+                onclick="openLightboxFromAnywhere('Głos mądrości – słowa pełne ciepła i troski o Ciebie.')"
+              >
+            </div>
+
+            <div class="text-center sm:text-left">
+              <div class="inline-flex items-center gap-1.5 text-xs text-crimsonAccent font-bold uppercase tracking-wider">
+                <i data-lucide="quote" class="w-4 h-4"></i>
+                <span>Głos Doświadczenia</span>
+              </div>
+              <h3 class="font-serif-title text-xl sm:text-2xl font-bold text-amberRose-950">Rada na każdy trudny moment</h3>
+              <p class="text-xs text-amberRose-600">Kliknij poniższy przycisk, aby wylosować kolejne ciepłe słowo</p>
+            </div>
+          </div>
+
+          <div class="min-h-[120px] flex flex-col justify-center items-center text-center px-2">
+            <p id="quoteText" class="font-serif-title italic text-2xl sm:text-3xl text-amberRose-950 leading-snug transition-opacity duration-300">
+              „Pamiętaj kochanie: cokolwiek się dzieje, twoja wartość nie zależy od opinii świata. Bądź wierna swojemu sercu i walcz o swój wolny wybór.”
+            </p>
+            <p id="quoteAuthor" class="text-xs sm:text-sm uppercase tracking-widest font-semibold text-crimsonAccent mt-4 transition-opacity duration-300">
+              – Dojrzała Mądrość z Fotografii
+            </p>
+          </div>
+
+          <div class="mt-8 flex flex-wrap items-center justify-center gap-3 pt-4 border-t border-amberRose-100">
+            <button onclick="drawWarmWord()" class="px-6 py-3 rounded-full bg-crimsonAccent text-white font-medium hover:bg-amberRose-800 transition-all shadow-md flex items-center gap-2 text-sm">
+              <i data-lucide="sparkles" class="w-4 h-4"></i>
+              <span>Wylosuj inne słowo serca</span>
+            </button>
+            <button onclick="copyCurrentQuote()" class="px-5 py-3 rounded-full bg-amberRose-50 text-amberRose-900 font-medium hover:bg-amberRose-100 border border-amberRose-200 transition-all text-sm flex items-center gap-2">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+              <span>Skopiuj sentencję</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ksiega" class="py-16 md:py-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+          <div class="flex items-center justify-center gap-2 mb-2">
+            <img 
+              data-portrait="true" 
+              alt="Znaczek" 
+              class="w-7 h-7 rounded-full object-cover border border-crimsonAccent shadow-sm photo-clickable"
+              onclick="openLightboxFromAnywhere('Księga Wdzięczności – wizerunek pamięci i miłości')"
+            >
+            <span class="text-xs uppercase tracking-widest text-crimsonAccent font-bold">Księga Wdzięczności</span>
+          </div>
+          <h2 class="font-serif-title text-3xl sm:text-5xl font-bold text-amberRose-950">
+            Podziękuj Swojej Babci lub Mamie
+          </h2>
+          <div class="w-20 h-1 bg-crimsonAccent mx-auto mt-4 rounded-full"></div>
+          <p class="text-amberRose-800 text-sm sm:text-base mt-4">
+            Zostaw dedykację. Każde słowo wdzięczności wzbogaci tę tablicę i zostanie opatrzone pamiątkową pieczęcią z portretem.
+          </p>
+        </div>
+
+        <div class="max-w-3xl mx-auto bg-white rounded-3xl p-6 sm:p-8 border border-amberRose-200/90 shadow-md mb-14 relative">
+          <div class="flex items-center gap-3.5 mb-6 pb-4 border-b border-amberRose-100">
+            <img 
+              data-portrait="true" 
+              alt="Pieczęć formularza" 
+              class="w-12 h-12 rounded-xl object-cover border border-amberRose-300 shadow-sm photo-clickable"
+              onclick="openLightboxFromAnywhere('Pamiątkowa pieczęć formularza wdzięczności')"
+            >
+            <div>
+              <h4 class="font-serif-title font-bold text-lg text-amberRose-950">Dodaj swoje podziękowanie</h4>
+              <p class="text-xs text-amberRose-600">Napisz kilka ciepłych słów dla osoby, która jest Twoją ostoją</p>
+            </div>
+          </div>
+
+          <form id="gratitudeForm" onsubmit="handleGratitudeSubmit(event)" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="authorName" class="block text-xs font-semibold uppercase tracking-wider text-amberRose-800 mb-1">
+                  Kto pisze (Twoje Imię):
+                </label>
+                <input 
+                  type="text" 
+                  id="authorName" 
+                  required 
+                  placeholder="np. Wnuczka Ola, Kasia"
+                  class="w-full px-4 py-2.5 rounded-xl border border-amberRose-200 bg-amberRose-50/40 text-amberRose-950 placeholder-amberRose-400 focus:outline-none focus:ring-2 focus:ring-crimsonAccent focus:bg-white text-sm"
+                >
+              </div>
+
+              <div>
+                <label for="recipientName" class="block text-xs font-semibold uppercase tracking-wider text-amberRose-800 mb-1">
+                  Dla kogo (Dedykacja):
+                </label>
+                <input 
+                  type="text" 
+                  id="recipientName" 
+                  required 
+                  placeholder="np. Dla Najwspanialszej Babci"
+                  class="w-full px-4 py-2.5 rounded-xl border border-amberRose-200 bg-amberRose-50/40 text-amberRose-950 placeholder-amberRose-400 focus:outline-none focus:ring-2 focus:ring-crimsonAccent focus:bg-white text-sm"
+                >
+              </div>
+            </div>
+
+            <div>
+              <label for="messageText" class="block text-xs font-semibold uppercase tracking-wider text-amberRose-800 mb-1">
+                Twoja wiadomość lub wspomnienie:
+              </label>
+              <textarea 
+                id="messageText" 
+                rows="3" 
+                required 
+                placeholder="Dziękuję Ci za Twoją odwagę, za to że zawsze stoisz po stronie wolności i za najcieplejsze uściski na świecie..."
+                class="w-full px-4 py-2.5 rounded-xl border border-amberRose-200 bg-amberRose-50/40 text-amberRose-950 placeholder-amberRose-400 focus:outline-none focus:ring-2 focus:ring-crimsonAccent focus:bg-white text-sm"
+              ></textarea>
+            </div>
+
+            <div class="flex items-center justify-between flex-wrap gap-4 pt-2">
+              <span class="text-xs text-amberRose-600 flex items-center gap-1.5">
+                <i data-lucide="shield-check" class="w-4 h-4 text-crimsonAccent"></i>
+                Wpis jest trwale zapisywany w pamięci Twojej przeglądarki
+              </span>
+
+              <button 
+                type="submit" 
+                class="px-6 py-2.5 rounded-full bg-crimsonAccent text-white font-medium hover:bg-amberRose-800 transition-colors shadow-sm flex items-center gap-2 text-sm"
+              >
+                <i data-lucide="send" class="w-4 h-4"></i>
+                <span>Opublikuj na tablicy</span>
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-6">
+            <h3 class="font-serif-title text-2xl font-bold text-amberRose-950 flex items-center gap-2">
+              <i data-lucide="heart" class="w-5 h-5 text-crimsonAccent fill-crimsonAccent"></i>
+              Głosy Pokoleń
+            </h3>
+            <button onclick="resetToSampleNotes()" class="text-xs text-amberRose-600 hover:text-crimsonAccent underline">
+              Przywróć wpisy domyślne
+            </button>
+          </div>
+
+          <div id="gratitudeCardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-14 bg-gradient-to-r from-amberRose-950 via-crimsonAccent to-amberRose-900 text-white relative overflow-hidden">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
+        <div class="relative w-16 h-16 mx-auto mb-4 rounded-full p-1 bg-gradient-to-tr from-softGold to-white shadow-xl">
+          <img 
+            data-portrait="true" 
+            alt="Portret Akcent" 
+            class="w-full h-full object-cover rounded-full photo-clickable"
+            onclick="openLightboxFromAnywhere('Zadzwoń dziś do swojej Babci!')"
+          >
+        </div>
+
+        <h2 class="font-serif-title text-3xl sm:text-4xl font-bold mb-3">
+          Zadzwoń dziś do swojej Babci lub Mamy
+        </h2>
+        <p class="text-amberRose-100 max-w-xl mx-auto text-sm sm:text-base mb-6 leading-relaxed">
+          Niezłomne kobiety z zasadami, które dały nam życie i wychowanie, zasługują na to, by każdego dnia czuć, jak bardzo są podziwiane i potrzebne.
+        </p>
+        <div class="flex flex-wrap justify-center gap-3">
+          <a href="#ksiega" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-amberRose-950 rounded-full font-semibold text-sm hover:bg-amberRose-100 transition-colors shadow-lg">
+            <i data-lucide="message-square-heart" class="w-4 h-4 text-crimsonAccent"></i>
+            <span>Napisz dedykację</span>
+          </a>
+          <button onclick="openLightboxFromAnywhere('Uroczysty portret seniorki w pełnym kadrze')" class="inline-flex items-center gap-2 px-6 py-3 bg-crimsonAccent/60 text-white border border-white/30 rounded-full font-semibold text-sm hover:bg-crimsonAccent transition-colors">
+            <i data-lucide="maximize-2" class="w-4 h-4"></i>
+            <span>Powiększ zdjęcie</span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#241A17] text-[#D8C9C1] py-12 border-t border-amberRose-900/40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-sm">
+      <div class="flex items-center gap-3.5">
+        <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-softGold photo-clickable" onclick="openLightboxFromAnywhere('Pamiątkowy medalion stopki')">
+          <img data-portrait="true" alt="Medalion Stopki" class="w-full h-full object-cover">
+        </div>
+        <div>
+          <p class="font-serif-title font-bold text-lg text-white">Piękno Dojrzałości</p>
+          <p class="text-xs text-amberRose-300">W hołdzie seniorom, odwadze wyboru i wielkiemu sercu</p>
+        </div>
+      </div>
+
+      <div class="text-center text-xs text-amberRose-400 max-w-md">
+        <p>„Kobieta o pięknej duszy nie starzeje się nigdy – z wiekiem staje się tylko bardziej wyrazista.”</p>
+        <p class="mt-1 text-[11px] text-amberRose-500">Wklej dowolne zdjęcie (Ctrl+V) w dowolnym momencie przeglądania</p>
+      </div>
+
+      <div>
+        <button 
+          onclick="openLightboxFromAnywhere('W pełnej krasie: uśmiech, okulary i odwaga wyboru.')"
+          class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-xs text-white transition-all flex items-center gap-2"
+        >
+          <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+          <span>Podziwiaj fotografię</span>
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0" onclick="closeLightbox(event)">
+    <div class="relative max-w-2xl w-full bg-[#FAF6F0] rounded-3xl overflow-hidden shadow-2xl border border-amberRose-300" onclick="event.stopPropagation()">
+      <div class="px-5 py-3.5 bg-amberRose-100/70 border-b border-amberRose-200 flex items-center justify-between">
+        <div class="flex items-center gap-2 text-amberRose-950 font-serif-title font-bold text-lg">
+          <i data-lucide="sparkles" class="w-4 h-4 text-crimsonAccent"></i>
+          <span>Wizerunek Piękna i Odwagi</span>
+        </div>
+        <button onclick="closeLightbox(null, true)" class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-amberRose-800 hover:text-crimsonAccent hover:bg-rose-50 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="p-4 sm:p-6 bg-gradient-to-b from-[#FAF6F0] to-amberRose-50 flex flex-col items-center">
+        <div class="relative rounded-2xl overflow-hidden shadow-xl border-4 border-white max-h-[60vh] max-w-md">
+          <img id="lightboxImage" src="" alt="Powiększenie portretu" class="w-full h-auto object-contain">
+        </div>
+
+        <p id="lightboxCaption" class="mt-4 text-center font-serif-title italic text-amberRose-950 text-base sm:text-lg max-w-lg">
+          Dojrzałe piękno, odwaga oraz mądrość pokoleń.
+        </p>
+
+        <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
+          <button onclick="closeLightbox(null, true)" class="px-5 py-2.5 rounded-full bg-amberRose-800 text-white font-medium hover:bg-crimsonAccent transition-all text-xs">
+            Zamknij podgląd
+          </button>
+          <button onclick="document.getElementById('directImageInput').click(); closeLightbox(null, true);" class="px-4 py-2.5 rounded-full bg-crimsonAccent text-white font-medium hover:bg-amberRose-900 transition-all text-xs flex items-center gap-1.5 shadow-sm">
+            <i data-lucide="upload" class="w-3.5 h-3.5"></i>
+            <span>Zmień zdjęcie na inne</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-amberRose-950 text-white px-5 py-3 rounded-2xl shadow-2xl border border-softGold/60 flex items-center gap-3 text-sm">
+    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+    <span id="toastMsg">Gotowe!</span>
+  </div>
+
+  <script>
+    const DEFAULT_PORTRAIT_SVG = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700" width="100%" height="100%">
+        <defs>
+          <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#EED5D9"/>
+            <stop offset="50%" stop-color="#F6E7E4"/>
+            <stop offset="100%" stop-color="#DDC8D3"/>
+          </linearGradient>
+          <linearGradient id="hairGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#803D2E"/>
+            <stop offset="45%" stop-color="#A1563F"/>
+            <stop offset="100%" stop-color="#672F22"/>
+          </linearGradient>
+          <linearGradient id="faceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#FCEAE2"/>
+            <stop offset="60%" stop-color="#F7DACF"/>
+            <stop offset="100%" stop-color="#EBC6B6"/>
+          </linearGradient>
+          <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#2D3748" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="#1A202C" stop-opacity="0.95"/>
+          </linearGradient>
+          <linearGradient id="boltGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#FF1A1A"/>
+            <stop offset="100%" stop-color="#CC0000"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="700" height="700" fill="url(#bgGrad)"/>
+        <path d="M 40,0 Q 80,300 45,700 L 0,700 L 0,0 Z" fill="#E8B7C5" opacity="0.45"/>
+        
+        <g stroke="#C5A059" stroke-width="3" fill="none" opacity="0.75">
+          <line x1="350" y1="0" x2="350" y2="100" stroke-width="4"/>
+          <path d="M 280,100 Q 350,140 420,100"/>
+          <path d="M 250,90 Q 350,150 450,90"/>
+          <circle cx="280" cy="85" r="4" fill="#F6E05E"/>
+          <circle cx="350" cy="70" r="5" fill="#F6E05E"/>
+          <circle cx="420" cy="85" r="4" fill="#F6E05E"/>
+        </g>
+
+        <g fill="#FFF" opacity="0.8">
+          <path d="M 80,240 Q 80,260 60,260 Q 80,260 80,280 Q 80,260 100,260 Q 80,260 80,240" fill="#FFE2EC"/>
+          <path d="M 620,170 Q 620,190 600,190 Q 620,190 620,210 Q 620,190 640,190 Q 620,190 620,170" fill="#FFE2EC"/>
+          <path d="M 640,430 Q 640,445 625,445 Q 640,445 640,460 Q 640,445 655,445 Q 640,445 640,430" fill="#FFE2EC"/>
+        </g>
+
+        <path d="M 160,700 C 180,590 240,540 350,540 C 460,540 520,590 540,700 Z" fill="#4B3338"/>
+        <path d="M 305,430 L 305,550 C 330,565 370,565 395,550 L 395,430 Z" fill="#E8BFAF"/>
+
+        <path d="M 180,300 C 160,420 170,590 250,680 C 210,540 220,380 230,300 Z" fill="url(#hairGrad)"/>
+        <path d="M 520,300 C 540,420 530,590 450,680 C 490,540 480,380 470,300 Z" fill="url(#hairGrad)"/>
+        <path d="M 235,320 C 230,440 260,530 350,530 C 440,530 470,440 465,320 C 460,210 240,210 235,320 Z" fill="url(#faceGrad)"/>
+
+        <ellipse cx="232" cy="360" rx="14" ry="24" fill="#E8BFAF"/>
+        <ellipse cx="468" cy="360" rx="14" ry="24" fill="#E8BFAF"/>
+        <circle cx="232" cy="384" r="5" fill="#E2E8F0" opacity="0.9"/>
+        <circle cx="468" cy="384" r="5" fill="#E2E8F0" opacity="0.9"/>
+
+        <path d="M 220,280 C 250,190 450,190 480,280 C 490,360 480,480 450,520 C 440,410 440,320 420,290 C 370,270 290,260 250,340 C 235,370 230,440 220,520 C 200,450 200,340 220,280 Z" fill="url(#hairGrad)"/>
+
+        <g id="sunglasses" filter="drop-shadow(0px 6px 8px rgba(0,0,0,0.25))">
+          <rect x="250" y="150" width="85" height="52" rx="14" fill="url(#glassGrad)" stroke="#A0AEC0" stroke-width="3.5"/>
+          <rect x="365" y="150" width="85" height="52" rx="14" fill="url(#glassGrad)" stroke="#A0AEC0" stroke-width="3.5"/>
+          <path d="M 335,172 Q 350,166 365,172" stroke="#CBD5E0" stroke-width="4" fill="none"/>
+          <path d="M 250,165 L 220,185" stroke="#A0AEC0" stroke-width="3" fill="none"/>
+          <path d="M 450,165 L 480,185" stroke="#A0AEC0" stroke-width="3" fill="none"/>
+          <path d="M 260,160 L 290,160 L 270,195 L 255,195 Z" fill="#FFF" opacity="0.35"/>
+          <path d="M 375,160 L 405,160 L 385,195 L 370,195 Z" fill="#FFF" opacity="0.35"/>
+        </g>
+
+        <path d="M 280,315 Q 310,305 335,316" stroke="#7B3A2C" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+        <path d="M 365,316 Q 390,305 420,315" stroke="#7B3A2C" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+
+        <g>
+          <path d="M 280,345 Q 310,325 340,345 Q 310,365 280,345 Z" fill="#FFF"/>
+          <circle cx="310" cy="345" r="13" fill="#6B7C96"/>
+          <circle cx="310" cy="345" r="6" fill="#1A202C"/>
+          <circle cx="314" cy="341" r="3" fill="#FFF"/>
+          <path d="M 276,343 Q 310,320 344,343" stroke="#3D2018" stroke-width="3" fill="none"/>
+        </g>
+        
+        <g>
+          <path d="M 360,345 Q 390,325 420,345 Q 390,365 360,345 Z" fill="#FFF"/>
+          <circle cx="390" cy="345" r="13" fill="#6B7C96"/>
+          <circle cx="390" cy="345" r="6" fill="#1A202C"/>
+          <circle cx="394" cy="341" r="3" fill="#FFF"/>
+          <path d="M 356,343 Q 390,320 424,343" stroke="#3D2018" stroke-width="3" fill="none"/>
+        </g>
+
+        <path d="M 270,342 Q 262,347 268,354" stroke="#DDA899" stroke-width="2" fill="none"/>
+        <path d="M 430,342 Q 438,347 432,354" stroke="#DDA899" stroke-width="2" fill="none"/>
+        <path d="M 348,345 L 344,405 Q 350,414 360,405" stroke="#D39886" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M 315,445 Q 350,470 385,445" stroke="#B85853" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M 320,446 Q 350,460 380,446" fill="#C96864" opacity="0.35"/>
+
+        <g id="protestEmblem" filter="drop-shadow(0px 8px 12px rgba(0,0,0,0.35))">
+          <polygon points="360,380 435,380 345,510 405,510 325,650 355,525 295,525" fill="url(#boltGrad)"/>
+          <text x="180" y="475" font-family="'Impact', 'Arial Black', sans-serif" font-size="56" font-weight="900" fill="#000000" letter-spacing="1">
+            WYBÓR
+          </text>
+          <text x="215" y="525" font-family="'Impact', 'Arial Black', sans-serif" font-size="46" font-weight="900" fill="#E50914" letter-spacing="1">
+            NIE ZAKAZ
+          </text>
+        </g>
+      </svg>
+    `);
+
+    const STORAGE_KEY_PHOTO = "piekno_seniorow_custom_portrait_v3";
+    let currentActivePortrait = DEFAULT_PORTRAIT_SVG;
+
+    function applyPortraitEverywhere(src, isCustomUserPhoto = false) {
+      currentActivePortrait = src;
+
+      const targetImages = document.querySelectorAll('img[data-portrait="true"]');
+      targetImages.forEach(img => {
+        img.src = src;
+        img.onerror = () => {
+          img.src = DEFAULT_PORTRAIT_SVG;
+        };
+      });
+
+      const lightboxImg = document.getElementById('lightboxImage');
+      if (lightboxImg) lightboxImg.src = src;
+
+      const badge = document.getElementById('photoStatusBadge');
+      const btnRevert = document.getElementById('btnRevert');
+
+      if (isCustomUserPhoto) {
+        if (badge) {
+          badge.textContent = "Twoje oryginalne zdjęcie jest aktywne!";
+          badge.className = "bg-emerald-500 text-white text-[10px] px-2.5 py-0.5 rounded-full font-bold shadow-sm";
+        }
+        if (btnRevert) btnRevert.classList.remove('hidden');
+      } else {
+        if (badge) {
+          badge.textContent = "Wierna grafika aktywna";
+          badge.className = "bg-white/20 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold";
+        }
+        if (btnRevert) btnRevert.classList.add('hidden');
+      }
+
+      renderNotes();
+    }
+
+    function processSelectedFile(file) {
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        showToast("Wybrany plik nie jest obrazem (JPG, PNG, WEBP itp.)");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const base64Data = e.target.result;
+        try {
+          localStorage.setItem(STORAGE_KEY_PHOTO, base64Data);
+        } catch (err) {
+          console.warn("Storage quota exceeded; image kept in session.");
+        }
+        applyPortraitEverywhere(base64Data, true);
+        showToast("Dokładnie Twoje zdjęcie pojawiło się wszędzie na stronie!");
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function resetToDefaultArtwork() {
+      localStorage.removeItem(STORAGE_KEY_PHOTO);
+      applyPortraitEverywhere(DEFAULT_PORTRAIT_SVG, false);
+      showToast("Przywrócono domyślną ilustrację.");
+    }
+
+    window.addEventListener('paste', (e) => {
+      const clipboardItems = e.clipboardData && e.clipboardData.items;
+      if (!clipboardItems) return;
+
+      for (let i = 0; i < clipboardItems.length; i++) {
+        if (clipboardItems[i].type.indexOf('image') !== -1) {
+          const file = clipboardItems[i].getAsFile();
+          if (file) {
+            processSelectedFile(file);
+            showToast("Wklejono zdjęcie ze schowka!");
+            break;
+          }
+        }
+      }
+    });
+
+    const dropZone = document.getElementById('dropZoneBanner');
+    if (dropZone) {
+      ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropZone.classList.add('drag-active');
+        }, false);
+      });
+
+      ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          dropZone.classList.remove('drag-active');
+        }, false);
+      });
+
+      dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files && files.length > 0) {
+          processSelectedFile(files[0]);
+        }
+      }, false);
+    }
+
+    function openLightboxFromAnywhere(caption) {
+      openLightbox(currentActivePortrait, caption);
+    }
+
+    function openLightbox(src, caption) {
+      const modal = document.getElementById('lightboxModal');
+      const img = document.getElementById('lightboxImage');
+      const cap = document.getElementById('lightboxCaption');
+
+      img.src = src || currentActivePortrait;
+      cap.textContent = caption || 'Portret Seniorki – piękno, godność i mądrość';
+      
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      
+      setTimeout(() => {
+        modal.classList.remove('opacity-0');
+        modal.classList.add('opacity-100');
+      }, 20);
+    }
+
+    function closeLightbox(event, force) {
+      const modal = document.getElementById('lightboxModal');
+      if (force || event.target === modal) {
+        modal.classList.remove('opacity-100');
+        modal.classList.add('opacity-0');
+        setTimeout(() => {
+          modal.classList.remove('flex');
+          modal.classList.add('hidden');
+        }, 300);
+      }
+    }
+
+    const warmQuotes = [
+      {
+        quote: "„Pamiętaj kochanie: cokolwiek się dzieje, twoja wartość nie zależy od opinii świata. Bądź wierna swojemu sercu i walcz o wolny wybór.”",
+        author: "– Głos Dojrzałej Odwagi"
+      },
+      {
+        quote: "„Zmarszczki to mapa uśmiechów, które podarowałaś światu, i łez, które przemieniłaś w niezniszczalną siłę.”",
+        author: "– Refleksja o Kobiecym Pięknie"
+      },
+      {
+        quote: "„Wybór, nie zakaz. Mądra babcia wie, że wolność i zaufanie to najpiękniejszy spadek, jaki można zostawić dzieciom.”",
+        author: "– Złota Myśl Pokoleniowa"
+      },
+      {
+        quote: "„Prawdziwe piękno rodzi się w momencie, gdy przestajesz przepraszać za to, kim jesteś.”",
+        author: "– Lekcja Życiowej Dumy"
+      },
+      {
+        quote: "„Ciepła herbata, chwila szczerej rozmowy i uścisk rąk potrafią uleczyć to, z czym świat sobie nie radzi.”",
+        author: "– Babcine Ciepło"
+      }
+    ];
+
+    let currentQuoteIndex = 0;
+
+    function drawWarmWord() {
+      const textEl = document.getElementById('quoteText');
+      const authorEl = document.getElementById('quoteAuthor');
+      
+      textEl.style.opacity = '0';
+      authorEl.style.opacity = '0';
+
+      setTimeout(() => {
+        let newIndex;
+        do {
+          newIndex = Math.floor(Math.random() * warmQuotes.length);
+        } while (newIndex === currentQuoteIndex && warmQuotes.length > 1);
+
+        currentQuoteIndex = newIndex;
+        textEl.textContent = warmQuotes[newIndex].quote;
+        authorEl.textContent = warmQuotes[newIndex].author;
+
+        textEl.style.opacity = '1';
+        authorEl.style.opacity = '1';
+      }, 200);
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toastMsg');
+      toastMsg.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    function copyCurrentQuote() {
+      const text = document.getElementById('quoteText').textContent;
+      const author = document.getElementById('quoteAuthor').textContent;
+      const combined = `${text} ${author}`;
+      
+      const tempInput = document.createElement("textarea");
+      tempInput.value = combined;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand("copy");
+        showToast("Sentencja została skopiowana do schowka!");
+      } catch (err) {
+        showToast("Nie udało się skopiować automatycznie.");
+      }
+      document.body.removeChild(tempInput);
+    }
+
+    const initialNotes = [
+      {
+        id: "1",
+        author: "Agnieszka",
+        recipient: "Moja Ukochana Babcia",
+        message: "Dziękuję Ci za Twoje nieustraszone serce, za to że nigdy nie pozwoliłaś zamknąć ust kobietom w naszej rodzinie i zawsze częstowałaś nas miłością.",
+        date: "Wczoraj"
+      },
+      {
+        id: "2",
+        author: "Michał",
+        recipient: "Dla Mamy i Babci Haliny",
+        message: "Twoje okulary zawsze na czole i to uważne spojrzenie... Przy Tobie każdy z nas czuje się bezpieczny i wysłuchany. Dziękuję za wszystko!",
+        date: "2 dni temu"
+      },
+      {
+        id: "3",
+        author: "Marta z dziećmi",
+        recipient: "Babcia Marysia",
+        message: "Dziękujemy za każdą opowieść i Twoją niezłomną postawę. Jesteś żywym dowodem na to, że prawdziwe piękno z wiekiem staje się tylko potężniejsze.",
+        date: "Niedawno"
+      }
+    ];
+
+    function loadNotes() {
+      const saved = localStorage.getItem('gratitude_notes_portrait_v3');
+      if (saved) {
+        try {
+          return JSON.parse(saved);
+        } catch (e) {
+          return initialNotes;
+        }
+      }
+      return initialNotes;
+    }
+
+    function saveNotes(notes) {
+      localStorage.setItem('gratitude_notes_portrait_v3', JSON.stringify(notes));
+    }
+
+    function renderNotes() {
+      const container = document.getElementById('gratitudeCardsContainer');
+      if (!container) return;
+      
+      const notes = loadNotes();
+      container.innerHTML = '';
+
+      notes.forEach((note) => {
+        const card = document.createElement('div');
+        card.className = "bg-white p-5 rounded-3xl border border-amberRose-200/90 shadow-sm relative flex flex-col justify-between hover:border-crimsonAccent/40 hover:shadow-md transition-all";
+        
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-3.5">
+              <div class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full overflow-hidden border border-softGold shadow-sm photo-clickable" onclick="openLightboxFromAnywhere('Dedykacja dla: ${escapeHTML(note.recipient)}')">
+                  <img 
+                    src="${currentActivePortrait}" 
+                    alt="Pieczęć" 
+                    class="w-full h-full object-cover"
+                  >
+                </div>
+                <span class="inline-flex items-center gap-1 text-xs font-bold text-crimsonAccent bg-rose-50 px-2.5 py-1 rounded-md">
+                  ${escapeHTML(note.recipient)}
+                </span>
+              </div>
+              <span class="text-[10px] text-amberRose-400 font-medium">${escapeHTML(note.date || 'Wpis')}</span>
+            </div>
+            <p class="font-serif-title italic text-base sm:text-lg text-amberRose-950 mb-4 leading-relaxed">
+              „${escapeHTML(note.message)}”
+            </p>
+          </div>
+          <div class="pt-3 border-t border-amberRose-100 flex items-center justify-between text-xs text-amberRose-700">
+            <span>Od: <strong class="text-amberRose-950">${escapeHTML(note.author)}</strong></span>
+            <span class="text-[11px] text-softGold font-semibold">Pieczęć Serca ♥</span>
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
+    function escapeHTML(str) {
+      if (!str) return '';
+      return str.replace(/[&<>'"]/g, 
+        tag => ({
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          "'": '&#39;',
+          '"': '&quot;'
+        }[tag] || tag)
+      );
+    }
+
+    function handleGratitudeSubmit(event) {
+      event.preventDefault();
+      
+      const authorInput = document.getElementById('authorName');
+      const recipientInput = document.getElementById('recipientName');
+      const messageInput = document.getElementById('messageText');
+
+      const author = authorInput.value.trim();
+      const recipient = recipientInput.value.trim();
+      const message = messageInput.value.trim();
+
+      if (!author || !recipient || !message) return;
+
+      const newNote = {
+        id: Date.now().toString(),
+        author,
+        recipient,
+        message,
+        date: "Przed chwilą"
+      };
+
+      const currentNotes = loadNotes();
+      currentNotes.unshift(newNote);
+      saveNotes(currentNotes);
+
+      authorInput.value = '';
+      recipientInput.value = '';
+      messageInput.value = '';
+
+      renderNotes();
+      showToast("Twój wpis z wizerunkiem został opublikowany!");
+    }
+
+    function resetToSampleNotes() {
+      saveNotes(initialNotes);
+      renderNotes();
+      showToast("Przywrócono domyślne wpisy.");
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox(null, true);
+      }
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedPhoto = localStorage.getItem(STORAGE_KEY_PHOTO);
+      if (savedPhoto) {
+        applyPortraitEverywhere(savedPhoto, true);
+      } else {
+        applyPortraitEverywhere(DEFAULT_PORTRAIT_SVG, false);
+      }
+
+      renderNotes();
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+</html>
