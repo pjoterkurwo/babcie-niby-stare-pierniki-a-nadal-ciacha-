@@ -114,7 +114,7 @@
         <div>
           <h2 class="text-sm font-bold tracking-wide flex items-center justify-center md:justify-start gap-2">
             <span>Załaduj zdjęcie</span>
-            <span id="photoStatusBadge" class="bg-white/20 text-[10px] px-2 py-0.5 rounded-full font-semibold">Wierna grafika aktywna</span>
+            <span id="photoStatusBadge" class="bg-emerald-500 text-white text-[10px] px-2.5 py-0.5 rounded-full font-bold shadow-sm">Zdjęcie aktywne</span>
           </h2>
           <p class="text-xs text-amberRose-200/90 mt-0.5">
             Przeciągnij i upuść plik tutaj, <strong>wklej ze schowka (Ctrl+V)</strong> lub kliknij przycisk obok.
@@ -135,9 +135,9 @@
           id="btnRevert"
           onclick="resetToDefaultArtwork()" 
           class="hidden bg-black/30 hover:bg-black/50 text-white/90 px-3 py-2 rounded-full text-xs font-medium transition-colors border border-white/10"
-          title="Przywróć domyślny portret wektorowy"
+          title="Przywróć domyślny portret"
         >
-          Przywróć ilustrację
+          Przywróć oryginalne zdjęcie
         </button>
       </div>
     </div>
@@ -148,8 +148,9 @@
       <a href="#" class="flex items-center gap-3.5 group">
         <div class="relative w-12 h-12 rounded-full p-0.5 bg-gradient-to-tr from-softGold via-crimsonAccent to-amberRose-400 shadow-md group-hover:scale-105 transition-transform duration-300">
           <img 
+            src="123045313_813613829425944_810687843214571559_n.jpg"
             data-portrait="true" 
-            alt="Logo - Portret Babci" 
+            alt="Logo - Portret" 
             class="w-full h-full object-cover rounded-full photo-clickable"
             onclick="openLightbox(this.src, 'Główny portret w logo – piękno, godność i odwaga wyboru.')"
           >
@@ -167,15 +168,15 @@
         <a href="#mysli" class="hover:text-crimsonAccent transition-colors">Mądrość na Dziś</a>
         <a href="#ksiega" class="hover:text-crimsonAccent transition-colors">Księga Serc</a>
         
-        <button onclick="openLightboxFromAnywhere('Portret Seniorki – symbol odwagi i autentycznego piękna')" class="flex items-center gap-2 px-4 py-2 rounded-full border border-crimsonAccent/30 bg-crimsonAccent/5 text-crimsonAccent hover:bg-crimsonAccent hover:text-white transition-all text-xs font-semibold shadow-sm">
+        <button onclick="openLightboxFromAnywhere('Portret – symbol odwagi i autentycznego piękna')" class="flex items-center gap-2 px-4 py-2 rounded-full border border-crimsonAccent/30 bg-crimsonAccent/5 text-crimsonAccent hover:bg-crimsonAccent hover:text-white transition-all text-xs font-semibold shadow-sm">
           <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
           <span>Otwórz Portret</span>
         </button>
       </div>
 
       <div class="md:hidden flex items-center gap-2">
-        <button onclick="openLightboxFromAnywhere('Portret Seniorki')" class="p-0.5 rounded-full border border-amberRose-300">
-          <img data-portrait="true" alt="Miniatura" class="w-9 h-9 rounded-full object-cover">
+        <button onclick="openLightboxFromAnywhere('Portret')" class="p-0.5 rounded-full border border-amberRose-300">
+          <img src="123045313_813613829425944_810687843214571559_n.jpg" data-portrait="true" alt="Miniatura" class="w-9 h-9 rounded-full object-cover">
         </button>
         <a href="#ksiega" class="text-xs px-3.5 py-2 rounded-full bg-crimsonAccent text-white font-medium shadow-sm">
           Księga Serc
@@ -238,7 +239,7 @@
 
               <button onclick="document.getElementById('directImageInput').click()" class="px-5 py-3.5 rounded-full bg-amberRose-100 text-amberRose-900 hover:bg-amberRose-200 border border-amberRose-300 transition-all text-xs font-semibold flex items-center gap-1.5">
                 <i data-lucide="camera" class="w-4 h-4 text-crimsonAccent"></i>
-                <span>Załaduj zdjęcie</span>
+                <span>Załaduj inne zdjęcie</span>
               </button>
             </div>
           </div>
@@ -249,8 +250,9 @@
               <div class="relative bg-white p-3.5 rounded-3xl shadow-2xl border-2 border-amberRose-200 glow-card">
                 <div class="relative overflow-hidden rounded-2xl aspect-square bg-amberRose-100 group">
                   <img 
+                    src="123045313_813613829425944_810687843214571559_n.jpg"
                     data-portrait="true"
-                    alt="Portret Babci - Piękno i Siła Seniorów"
+                    alt="Portret - Piękno i Siła Seniorów"
                     class="w-full h-full object-cover photo-clickable group-hover:scale-105 transition-transform duration-500"
                     onclick="openLightbox(this.src, 'Niezwykły portret – uosobienie ciepła, mądrości spojrzenia oraz odwagi walki o lepszy los pokoleń.')"
                   >
@@ -290,6 +292,7 @@
             <div class="relative bg-amberRose-50 p-4 rounded-3xl border border-amberRose-200 shadow-md">
               <div class="flex items-center gap-4 mb-3">
                 <img 
+                  src="123045313_813613829425944_810687843214571559_n.jpg"
                   data-portrait="true" 
                   alt="Miniatura portretu" 
                   class="w-16 h-16 rounded-2xl object-cover photo-clickable shadow-sm border-2 border-white"
@@ -303,6 +306,7 @@
 
               <div class="relative rounded-2xl overflow-hidden aspect-[4/3] border border-amberRose-200">
                 <img 
+                  src="123045313_813613829425944_810687843214571559_n.jpg"
                   data-portrait="true" 
                   alt="Zbliżenie" 
                   class="w-full h-full object-cover photo-clickable hover:scale-105 transition-transform duration-300"
@@ -380,7 +384,7 @@
                 <i data-lucide="eye" class="w-5 h-5"></i>
               </span>
               <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-amberRose-300 shadow-sm photo-clickable" onclick="openLightboxFromAnywhere('Oczy pełne zrozumienia i spokoju')">
-                <img data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
+                <img src="123045313_813613829425944_810687843214571559_n.jpg" data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
               </div>
             </div>
             <div>
@@ -401,7 +405,7 @@
                 <i data-lucide="zap" class="w-5 h-5"></i>
               </span>
               <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-crimsonAccent/40 shadow-sm photo-clickable" onclick="openLightboxFromAnywhere('Odwaga i godność w walce o przyszłość')">
-                <img data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
+                <img src="123045313_813613829425944_810687843214571559_n.jpg" data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
               </div>
             </div>
             <div>
@@ -422,7 +426,7 @@
                 <i data-lucide="sun" class="w-5 h-5"></i>
               </span>
               <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-amber-300 shadow-sm photo-clickable" onclick="openLightboxFromAnywhere('Ciepło, które koi każdy lęk')">
-                <img data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
+                <img src="123045313_813613829425944_810687843214571559_n.jpg" data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
               </div>
             </div>
             <div>
@@ -443,7 +447,7 @@
                 <i data-lucide="feather" class="w-5 h-5"></i>
               </span>
               <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-rose-300 shadow-sm photo-clickable" onclick="openLightboxFromAnywhere('Prawdziwość, wolność od sztuczności i blask autentyzmu')">
-                <img data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
+                <img src="123045313_813613829425944_810687843214571559_n.jpg" data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
               </div>
             </div>
             <div>
@@ -474,6 +478,7 @@
           <div class="flex flex-col sm:flex-row items-center gap-6 mb-6 pb-6 border-b border-amberRose-100">
             <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-4 border-softGold/60 shadow-md shrink-0">
               <img 
+                src="123045313_813613829425944_810687843214571559_n.jpg"
                 data-portrait="true" 
                 alt="Babcia radzi"
                 class="w-full h-full object-cover photo-clickable"
@@ -519,6 +524,7 @@
         <div class="text-center max-w-2xl mx-auto mb-12">
           <div class="flex items-center justify-center gap-2 mb-2">
             <img 
+              src="123045313_813613829425944_810687843214571559_n.jpg"
               data-portrait="true" 
               alt="Znaczek" 
               class="w-7 h-7 rounded-full object-cover border border-crimsonAccent shadow-sm photo-clickable"
@@ -538,6 +544,7 @@
         <div class="max-w-3xl mx-auto bg-white rounded-3xl p-6 sm:p-8 border border-amberRose-200/90 shadow-md mb-14 relative">
           <div class="flex items-center gap-3.5 mb-6 pb-4 border-b border-amberRose-100">
             <img 
+              src="123045313_813613829425944_810687843214571559_n.jpg"
               data-portrait="true" 
               alt="Pieczęć formularza" 
               class="w-12 h-12 rounded-xl object-cover border border-amberRose-300 shadow-sm photo-clickable"
@@ -628,6 +635,7 @@
       <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
         <div class="relative w-16 h-16 mx-auto mb-4 rounded-full p-1 bg-gradient-to-tr from-softGold to-white shadow-xl">
           <img 
+            src="123045313_813613829425944_810687843214571559_n.jpg"
             data-portrait="true" 
             alt="Portret Akcent" 
             class="w-full h-full object-cover rounded-full photo-clickable"
@@ -659,7 +667,7 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-sm">
       <div class="flex items-center gap-3.5">
         <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-softGold photo-clickable" onclick="openLightboxFromAnywhere('Pamiątkowy medalion stopki')">
-          <img data-portrait="true" alt="Medalion Stopki" class="w-full h-full object-cover">
+          <img src="123045313_813613829425944_810687843214571559_n.jpg" data-portrait="true" alt="Medalion Stopki" class="w-full h-full object-cover">
         </div>
         <div>
           <p class="font-serif-title font-bold text-lg text-white">Piękno Dojrzałości</p>
@@ -698,7 +706,7 @@
 
       <div class="p-4 sm:p-6 bg-gradient-to-b from-[#FAF6F0] to-amberRose-50 flex flex-col items-center">
         <div class="relative rounded-2xl overflow-hidden shadow-xl border-4 border-white max-h-[60vh] max-w-md">
-          <img id="lightboxImage" src="" alt="Powiększenie portretu" class="w-full h-auto object-contain">
+          <img id="lightboxImage" src="123045313_813613829425944_810687843214571559_n.jpg" alt="Powiększenie portretu" class="w-full h-auto object-contain">
         </div>
 
         <p id="lightboxCaption" class="mt-4 text-center font-serif-title italic text-amberRose-950 text-base sm:text-lg max-w-lg">
@@ -724,115 +732,9 @@
   </div>
 
   <script>
-    const DEFAULT_PORTRAIT_SVG = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(`
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700" width="100%" height="100%">
-        <defs>
-          <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#EED5D9"/>
-            <stop offset="50%" stop-color="#F6E7E4"/>
-            <stop offset="100%" stop-color="#DDC8D3"/>
-          </linearGradient>
-          <linearGradient id="hairGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#803D2E"/>
-            <stop offset="45%" stop-color="#A1563F"/>
-            <stop offset="100%" stop-color="#672F22"/>
-          </linearGradient>
-          <linearGradient id="faceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#FCEAE2"/>
-            <stop offset="60%" stop-color="#F7DACF"/>
-            <stop offset="100%" stop-color="#EBC6B6"/>
-          </linearGradient>
-          <linearGradient id="glassGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#2D3748" stop-opacity="0.85"/>
-            <stop offset="100%" stop-color="#1A202C" stop-opacity="0.95"/>
-          </linearGradient>
-          <linearGradient id="boltGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stop-color="#FF1A1A"/>
-            <stop offset="100%" stop-color="#CC0000"/>
-          </linearGradient>
-        </defs>
-
-        <rect width="700" height="700" fill="url(#bgGrad)"/>
-        <path d="M 40,0 Q 80,300 45,700 L 0,700 L 0,0 Z" fill="#E8B7C5" opacity="0.45"/>
-        
-        <g stroke="#C5A059" stroke-width="3" fill="none" opacity="0.75">
-          <line x1="350" y1="0" x2="350" y2="100" stroke-width="4"/>
-          <path d="M 280,100 Q 350,140 420,100"/>
-          <path d="M 250,90 Q 350,150 450,90"/>
-          <circle cx="280" cy="85" r="4" fill="#F6E05E"/>
-          <circle cx="350" cy="70" r="5" fill="#F6E05E"/>
-          <circle cx="420" cy="85" r="4" fill="#F6E05E"/>
-        </g>
-
-        <g fill="#FFF" opacity="0.8">
-          <path d="M 80,240 Q 80,260 60,260 Q 80,260 80,280 Q 80,260 100,260 Q 80,260 80,240" fill="#FFE2EC"/>
-          <path d="M 620,170 Q 620,190 600,190 Q 620,190 620,210 Q 620,190 640,190 Q 620,190 620,170" fill="#FFE2EC"/>
-          <path d="M 640,430 Q 640,445 625,445 Q 640,445 640,460 Q 640,445 655,445 Q 640,445 640,430" fill="#FFE2EC"/>
-        </g>
-
-        <path d="M 160,700 C 180,590 240,540 350,540 C 460,540 520,590 540,700 Z" fill="#4B3338"/>
-        <path d="M 305,430 L 305,550 C 330,565 370,565 395,550 L 395,430 Z" fill="#E8BFAF"/>
-
-        <path d="M 180,300 C 160,420 170,590 250,680 C 210,540 220,380 230,300 Z" fill="url(#hairGrad)"/>
-        <path d="M 520,300 C 540,420 530,590 450,680 C 490,540 480,380 470,300 Z" fill="url(#hairGrad)"/>
-        <path d="M 235,320 C 230,440 260,530 350,530 C 440,530 470,440 465,320 C 460,210 240,210 235,320 Z" fill="url(#faceGrad)"/>
-
-        <ellipse cx="232" cy="360" rx="14" ry="24" fill="#E8BFAF"/>
-        <ellipse cx="468" cy="360" rx="14" ry="24" fill="#E8BFAF"/>
-        <circle cx="232" cy="384" r="5" fill="#E2E8F0" opacity="0.9"/>
-        <circle cx="468" cy="384" r="5" fill="#E2E8F0" opacity="0.9"/>
-
-        <path d="M 220,280 C 250,190 450,190 480,280 C 490,360 480,480 450,520 C 440,410 440,320 420,290 C 370,270 290,260 250,340 C 235,370 230,440 220,520 C 200,450 200,340 220,280 Z" fill="url(#hairGrad)"/>
-
-        <g id="sunglasses" filter="drop-shadow(0px 6px 8px rgba(0,0,0,0.25))">
-          <rect x="250" y="150" width="85" height="52" rx="14" fill="url(#glassGrad)" stroke="#A0AEC0" stroke-width="3.5"/>
-          <rect x="365" y="150" width="85" height="52" rx="14" fill="url(#glassGrad)" stroke="#A0AEC0" stroke-width="3.5"/>
-          <path d="M 335,172 Q 350,166 365,172" stroke="#CBD5E0" stroke-width="4" fill="none"/>
-          <path d="M 250,165 L 220,185" stroke="#A0AEC0" stroke-width="3" fill="none"/>
-          <path d="M 450,165 L 480,185" stroke="#A0AEC0" stroke-width="3" fill="none"/>
-          <path d="M 260,160 L 290,160 L 270,195 L 255,195 Z" fill="#FFF" opacity="0.35"/>
-          <path d="M 375,160 L 405,160 L 385,195 L 370,195 Z" fill="#FFF" opacity="0.35"/>
-        </g>
-
-        <path d="M 280,315 Q 310,305 335,316" stroke="#7B3A2C" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-        <path d="M 365,316 Q 390,305 420,315" stroke="#7B3A2C" stroke-width="4.5" stroke-linecap="round" fill="none"/>
-
-        <g>
-          <path d="M 280,345 Q 310,325 340,345 Q 310,365 280,345 Z" fill="#FFF"/>
-          <circle cx="310" cy="345" r="13" fill="#6B7C96"/>
-          <circle cx="310" cy="345" r="6" fill="#1A202C"/>
-          <circle cx="314" cy="341" r="3" fill="#FFF"/>
-          <path d="M 276,343 Q 310,320 344,343" stroke="#3D2018" stroke-width="3" fill="none"/>
-        </g>
-        
-        <g>
-          <path d="M 360,345 Q 390,325 420,345 Q 390,365 360,345 Z" fill="#FFF"/>
-          <circle cx="390" cy="345" r="13" fill="#6B7C96"/>
-          <circle cx="390" cy="345" r="6" fill="#1A202C"/>
-          <circle cx="394" cy="341" r="3" fill="#FFF"/>
-          <path d="M 356,343 Q 390,320 424,343" stroke="#3D2018" stroke-width="3" fill="none"/>
-        </g>
-
-        <path d="M 270,342 Q 262,347 268,354" stroke="#DDA899" stroke-width="2" fill="none"/>
-        <path d="M 430,342 Q 438,347 432,354" stroke="#DDA899" stroke-width="2" fill="none"/>
-        <path d="M 348,345 L 344,405 Q 350,414 360,405" stroke="#D39886" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-        <path d="M 315,445 Q 350,470 385,445" stroke="#B85853" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-        <path d="M 320,446 Q 350,460 380,446" fill="#C96864" opacity="0.35"/>
-
-        <g id="protestEmblem" filter="drop-shadow(0px 8px 12px rgba(0,0,0,0.35))">
-          <polygon points="360,380 435,380 345,510 405,510 325,650 355,525 295,525" fill="url(#boltGrad)"/>
-          <text x="180" y="475" font-family="'Impact', 'Arial Black', sans-serif" font-size="56" font-weight="900" fill="#000000" letter-spacing="1">
-            WYBÓR
-          </text>
-          <text x="215" y="525" font-family="'Impact', 'Arial Black', sans-serif" font-size="46" font-weight="900" fill="#E50914" letter-spacing="1">
-            NIE ZAKAZ
-          </text>
-        </g>
-      </svg>
-    `);
-
+    const DEFAULT_PORTRAIT_SRC = "123045313_813613829425944_810687843214571559_n.jpg";
     const STORAGE_KEY_PHOTO = "piekno_seniorow_custom_portrait_v3";
-    let currentActivePortrait = DEFAULT_PORTRAIT_SVG;
+    let currentActivePortrait = DEFAULT_PORTRAIT_SRC;
 
     function applyPortraitEverywhere(src, isCustomUserPhoto = false) {
       currentActivePortrait = src;
@@ -841,7 +743,7 @@
       targetImages.forEach(img => {
         img.src = src;
         img.onerror = () => {
-          img.src = DEFAULT_PORTRAIT_SVG;
+          img.src = DEFAULT_PORTRAIT_SRC;
         };
       });
 
@@ -853,13 +755,13 @@
 
       if (isCustomUserPhoto) {
         if (badge) {
-          badge.textContent = "Twoje oryginalne zdjęcie jest aktywne!";
+          badge.textContent = "Twoje załadowane zdjęcie jest aktywne!";
           badge.className = "bg-emerald-500 text-white text-[10px] px-2.5 py-0.5 rounded-full font-bold shadow-sm";
         }
         if (btnRevert) btnRevert.classList.remove('hidden');
       } else {
         if (badge) {
-          badge.textContent = "Wierna grafika aktywna";
+          badge.textContent = "Zdjęcie aktywne";
           badge.className = "bg-white/20 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold";
         }
         if (btnRevert) btnRevert.classList.add('hidden');
@@ -885,15 +787,15 @@
           console.warn("Storage quota exceeded; image kept in session.");
         }
         applyPortraitEverywhere(base64Data, true);
-        showToast("Dokładnie Twoje zdjęcie pojawiło się wszędzie na stronie!");
+        showToast("Nowe zdjęcie pojawiło się wszędzie na stronie!");
       };
       reader.readAsDataURL(file);
     }
 
     function resetToDefaultArtwork() {
       localStorage.removeItem(STORAGE_KEY_PHOTO);
-      applyPortraitEverywhere(DEFAULT_PORTRAIT_SVG, false);
-      showToast("Przywrócono domyślną ilustrację.");
+      applyPortraitEverywhere(DEFAULT_PORTRAIT_SRC, false);
+      showToast("Przywrócono domyślne zdjęcie.");
     }
 
     window.addEventListener('paste', (e) => {
@@ -1196,7 +1098,7 @@
       if (savedPhoto) {
         applyPortraitEverywhere(savedPhoto, true);
       } else {
-        applyPortraitEverywhere(DEFAULT_PORTRAIT_SVG, false);
+        applyPortraitEverywhere(DEFAULT_PORTRAIT_SRC, false);
       }
 
       renderNotes();
