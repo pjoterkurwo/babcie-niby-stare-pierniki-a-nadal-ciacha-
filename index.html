@@ -1,1112 +1,654 @@
 <!DOCTYPE html>
-<html lang="pl" class="scroll-smooth">
+<html lang="pl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Piękno Dojrzałości – Siła, Ciepło i Mądrość Pokoleń</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts: Cormorant Garamond & Plus Jakarta Sans -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <!-- Tailwind Configuration -->
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            amberRose: {
-              50: '#FDF8F6',
-              100: '#F7EDE8',
-              200: '#EEDBD2',
-              300: '#DEBFB1',
-              400: '#C79A87',
-              500: '#B0755F',
-              600: '#945844',
-              700: '#754131',
-              800: '#5A3024',
-              900: '#3D2018',
-              950: '#2A130C',
-            },
-            crimsonAccent: '#9B1D36',
-            electricRed: '#E50914',
-            warmSand: '#FBF9F5',
-            softGold: '#C5A059'
-          },
-          fontFamily: {
-            serif: ['"Cormorant Garamond"', 'serif'],
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Biblia Pro - Kompendium & Trener</title>
   <style>
-    body {
-      background-color: #FAF6F0;
-      color: #382E2B;
-      font-family: 'Plus Jakarta Sans', sans-serif;
+    :root {
+      --bg: #090d16;
+      --surface: #111827;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --primary: #38bdf8;
+      --accent: #f59e0b;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --success: #10b981;
+      --danger: #ef4444;
+      --radius: 12px;
     }
-    
-    .font-serif-title {
-      font-family: 'Cormorant Garamond', serif;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+    body { background: var(--bg); color: var(--text); line-height: 1.55; padding-bottom: 85px; }
 
-    .photo-clickable {
-      cursor: zoom-in;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-    }
-    .photo-clickable:hover {
-      transform: scale(1.03);
-    }
+    header { background: linear-gradient(180deg, #1e293b 0%, var(--bg) 100%); padding: 18px 16px 12px; text-align: center; border-bottom: 1px solid var(--border); }
+    h1 { font-size: 1.35rem; color: var(--primary); font-weight: 800; margin-bottom: 4px; }
+    .header-sub { font-size: 0.78rem; color: var(--text-muted); }
 
-    .glow-card {
-      box-shadow: 0 10px 30px -10px rgba(155, 29, 54, 0.10);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .glow-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 35px -8px rgba(155, 29, 54, 0.20);
-    }
+    /* Pasek spisu treści / szybkich skoków */
+    .quick-nav { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px; margin: 12px 16px 4px; }
+    .quick-nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .quick-nav-title { font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase; }
+    .toggle-all-btn { font-size: 0.72rem; padding: 4px 8px; border-radius: 6px; background: rgba(56, 189, 248, 0.15); border: 1px solid var(--primary); color: var(--primary); font-weight: 700; cursor: pointer; }
+    .quick-links { display: flex; gap: 6px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; padding-bottom: 4px; }
+    .quick-links::-webkit-scrollbar { display: none; }
+    .quick-link { font-size: 0.72rem; padding: 5px 9px; border-radius: 16px; background: var(--card-bg); border: 1px solid var(--border); color: #cbd5e1; text-decoration: none; font-weight: 600; }
 
-    .drag-active {
-      border-color: #E50914 !important;
-      background-color: #FFF0F2 !important;
-      transform: scale(1.01);
-    }
+    /* Filtry w bazie wiedzy */
+    .filter-bar { display: flex; gap: 8px; padding: 10px 16px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+    .filter-bar::-webkit-scrollbar { display: none; }
+    .chip { padding: 6px 12px; border-radius: 20px; background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); font-size: 0.75rem; font-weight: 600; cursor: pointer; }
+    .chip.active { background: var(--primary); color: #04101e; border-color: var(--primary); }
 
-    #toast {
-      transform: translateY(100px);
-      opacity: 0;
-      transition: all 0.35s ease-in-out;
-    }
-    #toast.show {
-      transform: translateY(0);
-      opacity: 1;
-    }
+    /* Panele główne */
+    .tab-content { display: none; padding: 8px 16px 20px; }
+    .tab-content.active { display: block; }
 
-    @keyframes pulse-ring {
-      0% { transform: scale(0.96); opacity: 0.7; }
-      50% { transform: scale(1.04); opacity: 0.35; }
-      100% { transform: scale(0.96); opacity: 0.7; }
-    }
-    .halo-pulse {
-      animation: pulse-ring 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
+    /* Zwijalne karty wiedzy */
+    .module-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 14px; overflow: hidden; scroll-margin-top: 14px; }
+    .module-header { padding: 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; background: rgba(255,255,255,0.01); }
+    .module-header h2 { font-size: 1.05rem; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    .accordion-icon { font-size: 0.85rem; color: var(--primary); transition: transform 0.25s ease; }
+    .module-card.collapsed .accordion-icon { transform: rotate(-90deg); }
+    .module-card.collapsed .module-body { display: none; }
+    .module-body { padding: 0 14px 14px; border-top: 1px solid rgba(255,255,255,0.05); }
+
+    .tag { font-size: 0.65rem; padding: 2px 7px; border-radius: 4px; font-weight: 700; text-transform: uppercase; }
+    .tag-nt { background: rgba(56, 189, 248, 0.15); color: var(--primary); }
+    .tag-st { background: rgba(245, 158, 11, 0.15); color: var(--accent); }
+    .tag-lit { background: rgba(168, 85, 247, 0.15); color: #c084fc; }
+
+    .summary-box { background: rgba(0, 0, 0, 0.25); border-left: 3px solid var(--primary); padding: 10px 12px; margin: 10px 0; border-radius: 0 8px 8px 0; }
+    .summary-title { font-size: 0.78rem; text-transform: uppercase; font-weight: 700; color: var(--primary); margin-bottom: 4px; }
+    .summary-text { font-size: 0.86rem; color: #e2e8f0; }
+
+    .analysis-title { font-size: 0.85rem; font-weight: 700; color: var(--accent); margin: 10px 0 4px; }
+    ul { padding-left: 18px; margin-bottom: 6px; }
+    li { font-size: 0.84rem; color: #cbd5e1; margin-bottom: 4px; }
+    b { color: #fff; }
+
+    /* Fiszki */
+    .flashcard-dashboard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+    .flashcard { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); min-height: 125px; padding: 16px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; cursor: pointer; margin-bottom: 12px; transition: border-color 0.2s; }
+    .flashcard.flipped { background: #132337; border-color: var(--primary); }
+    .flashcard-q { font-size: 0.92rem; font-weight: 700; color: #fff; }
+    .flashcard-a { font-size: 0.86rem; color: #cbd5e1; display: none; line-height: 1.45; }
+    .flashcard-sub { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; font-weight: 700; }
+
+    /* Quiz Dashboard & Karty */
+    .quiz-dashboard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+    .quiz-stat { font-size: 0.85rem; font-weight: 600; }
+    .quiz-stat span { color: var(--primary); font-size: 1.1rem; font-weight: 800; }
+    .btn-rerun { padding: 9px 14px; background: var(--primary); color: #04101e; border: none; border-radius: 8px; font-weight: 700; font-size: 0.8rem; cursor: pointer; }
+
+    .question-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 14px; }
+    .q-meta { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+    .q-title { font-size: 0.92rem; font-weight: 700; color: #fff; margin-bottom: 12px; }
+    .q-opt { width: 100%; text-align: left; padding: 11px 12px; border-radius: 8px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border); color: #cbd5e1; font-size: 0.84rem; cursor: pointer; }
+    .q-opt.correct { background: rgba(16, 185, 129, 0.25) !important; border-color: var(--success) !important; color: #4ade80 !important; font-weight: bold; }
+    .q-opt.wrong { background: rgba(239, 68, 68, 0.25) !important; border-color: var(--danger) !important; color: #f87171 !important; }
+    .q-explanation { margin-top: 8px; padding: 9px; border-radius: 6px; font-size: 0.8rem; background: rgba(0, 0, 0, 0.35); display: none; line-height: 1.4; color: #e2e8f0; }
+
+    /* Dolne menu */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: rgba(17, 24, 39, 0.96); backdrop-filter: blur(10px); border-top: 1px solid var(--border); display: flex; z-index: 1000; }
+    .nav-tab { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.72rem; color: var(--text-muted); border: none; background: none; font-weight: 600; cursor: pointer; }
+    .nav-tab.active { color: var(--primary); }
+    .nav-tab svg { width: 20px; height: 20px; margin-bottom: 3px; fill: currentColor; }
   </style>
 </head>
-<body class="min-h-screen bg-[#FAF6F0] text-[#3A2D28] antialiased selection:bg-rose-200 selection:text-crimsonAccent">
+<body>
 
-  <section id="dropZoneBanner" class="bg-gradient-to-r from-amberRose-950 via-crimsonAccent to-amberRose-900 text-white py-3 px-4 shadow-md border-b-2 border-softGold transition-all duration-300">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-white/15 flex items-center justify-center text-white shrink-0 border border-white/20 shadow-inner">
-          <i data-lucide="image-down" class="w-5 h-5 text-softGold"></i>
-        </div>
-        <div>
-          <h2 class="text-sm font-bold tracking-wide flex items-center justify-center md:justify-start gap-2">
-            <span>Załaduj zdjęcie</span>
-            <span id="photoStatusBadge" class="bg-emerald-500 text-white text-[10px] px-2.5 py-0.5 rounded-full font-bold shadow-sm">Zdjęcie aktywne</span>
-          </h2>
-          <p class="text-xs text-amberRose-200/90 mt-0.5">
-            Przeciągnij i upuść plik tutaj, <strong>wklej ze schowka (Ctrl+V)</strong> lub kliknij przycisk obok.
-          </p>
-        </div>
-      </div>
+  <header>
+    <h1>Biblia – Kompendium & Trener</h1>
+    <div class="header-sub">Zwijane streszczenia • 120+ pytań w generatorze quizów • Rozbudowane fiszki</div>
+  </header>
 
-      <div class="flex items-center flex-wrap justify-center gap-2">
-        <input type="file" id="directImageInput" accept="image/*" class="hidden" onchange="processSelectedFile(this.files[0])">
-        <button 
-          onclick="document.getElementById('directImageInput').click()" 
-          class="bg-white hover:bg-amberRose-100 text-amberRose-950 px-4 py-2 rounded-full text-xs font-bold flex items-center gap-2 transition-all shadow-md active:scale-95"
-        >
-          <i data-lucide="upload" class="w-3.5 h-3.5 text-crimsonAccent"></i>
-          <span>Wybierz plik zdjęcia</span>
-        </button>
-        <button 
-          id="btnRevert"
-          onclick="resetToDefaultArtwork()" 
-          class="hidden bg-black/30 hover:bg-black/50 text-white/90 px-3 py-2 rounded-full text-xs font-medium transition-colors border border-white/10"
-          title="Przywróć domyślny portret"
-        >
-          Przywróć oryginalne zdjęcie
-        </button>
-      </div>
+  <!-- Szybki spis treści z odnośnikami i zwijaniem -->
+  <div class="quick-nav" id="quick-nav-box">
+    <div class="quick-nav-header">
+      <span class="quick-nav-title">Szybki skok do zagadnienia</span>
+      <button class="toggle-all-btn" id="toggle-all-btn" onclick="toggleAllCards()">Zwiń wszystkie</button>
     </div>
-  </section>
-
-  <nav class="sticky top-0 z-40 backdrop-blur-md bg-[#FAF6F0]/90 border-b border-amberRose-200/70 transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3.5 group">
-        <div class="relative w-12 h-12 rounded-full p-0.5 bg-gradient-to-tr from-softGold via-crimsonAccent to-amberRose-400 shadow-md group-hover:scale-105 transition-transform duration-300">
-          <img 
-            src="123045313_813613829425944_810687843214571559_n.jpg"
-            data-portrait="true" 
-            alt="Logo - Portret" 
-            class="w-full h-full object-cover rounded-full photo-clickable"
-            onclick="openLightbox(this.src, 'Główny portret w logo – piękno, godność i odwaga wyboru.')"
-          >
-          <span class="absolute -bottom-1 -right-1 w-4 h-4 bg-crimsonAccent text-white rounded-full flex items-center justify-center text-[9px] shadow-sm font-bold">♥</span>
-        </div>
-        <div>
-          <span class="block text-xl font-serif-title font-bold text-amberRose-950 tracking-wide group-hover:text-crimsonAccent transition-colors">Piękno Dojrzałości</span>
-          <span class="block text-[11px] uppercase tracking-widest text-crimsonAccent font-semibold">Twarz Mądrości i Odwagi</span>
-        </div>
-      </a>
-
-      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-amberRose-900">
-        <a href="#o-pieknie" class="hover:text-crimsonAccent transition-colors">Portret i Misja</a>
-        <a href="#filary" class="hover:text-crimsonAccent transition-colors">Filary Piękna</a>
-        <a href="#mysli" class="hover:text-crimsonAccent transition-colors">Mądrość na Dziś</a>
-        <a href="#ksiega" class="hover:text-crimsonAccent transition-colors">Księga Serc</a>
-        
-        <button onclick="openLightboxFromAnywhere('Portret – symbol odwagi i autentycznego piękna')" class="flex items-center gap-2 px-4 py-2 rounded-full border border-crimsonAccent/30 bg-crimsonAccent/5 text-crimsonAccent hover:bg-crimsonAccent hover:text-white transition-all text-xs font-semibold shadow-sm">
-          <i data-lucide="zoom-in" class="w-3.5 h-3.5"></i>
-          <span>Otwórz Portret</span>
-        </button>
-      </div>
-
-      <div class="md:hidden flex items-center gap-2">
-        <button onclick="openLightboxFromAnywhere('Portret')" class="p-0.5 rounded-full border border-amberRose-300">
-          <img src="123045313_813613829425944_810687843214571559_n.jpg" data-portrait="true" alt="Miniatura" class="w-9 h-9 rounded-full object-cover">
-        </button>
-        <a href="#ksiega" class="text-xs px-3.5 py-2 rounded-full bg-crimsonAccent text-white font-medium shadow-sm">
-          Księga Serc
-        </a>
-      </div>
+    <div class="quick-links">
+      <a href="#sec-parabola" class="quick-link">Parabola</a>
+      <a href="#sec-talenty" class="quick-link">O talentach</a>
+      <a href="#sec-marnotrawny" class="quick-link">Syn marnotrawny</a>
+      <a href="#sec-samarytanin" class="quick-link">Samarytanin</a>
+      <a href="#sec-siewca" class="quick-link">O siewcy</a>
+      <a href="#sec-gorczyca-owca" class="quick-link">Gorczyca & Owca</a>
+      <a href="#sec-genesis" class="quick-link">Genesis i Upadek</a>
+      <a href="#sec-hiob" class="quick-link">Księga Hioba</a>
+      <a href="#sec-kohelet" class="quick-link">Księga Koheleta</a>
     </div>
-  </nav>
+  </div>
 
-  <main>
-    <header class="relative pt-8 pb-20 md:pt-14 md:pb-28 overflow-hidden border-b border-amberRose-200/60 bg-gradient-to-b from-[#F7EDE8]/60 via-[#FAF6F0] to-[#FAF6F0]">
-      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-rose-200/35 via-amber-100/40 to-pink-200/25 rounded-full blur-3xl pointer-events-none -z-10"></div>
-      <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-8">
-          <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/95 border border-amberRose-300/80 shadow-sm text-xs sm:text-sm font-medium text-amberRose-900 backdrop-blur-md">
-            <span class="relative flex h-2.5 w-2.5">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-crimsonAccent opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-crimsonAccent"></span>
-            </span>
-            <span>W hołdzie każdej Babci, Mamie i dojrzałej kobiecie z zasadami</span>
-          </div>
+  <div class="filter-bar" id="filter-bar">
+    <button class="chip active" onclick="filterTheory('all', this)">Wszystko</button>
+    <button class="chip" onclick="filterTheory('lit', this)">Parabola</button>
+    <button class="chip" onclick="filterTheory('nt', this)">Nowy Testament</button>
+    <button class="chip" onclick="filterTheory('st', this)">Stary Testament</button>
+  </div>
+
+  <!-- ================= 1. BAZA WIEDZY + DOKŁADNE STRESZCZENIA ZE ZWIJANIEM ================= -->
+  <main id="tab-theory" class="tab-content active">
+
+    <!-- Parabola -->
+    <article class="module-card" id="sec-parabola" data-cat="lit">
+      <div class="module-header" onclick="toggleCard(this)">
+        <h2>Parabola (Przypowieść) <span class="tag tag-lit">Teoria</span></h2>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="module-body">
+        <div class="summary-box">
+          <div class="summary-title">Definicja gatunku do zapamiętania</div>
+          <div class="summary-text">Parabola (przypowieść) to utwór narracyjny o charakterze dydaktyczno-moralizatorskim, którego świat przedstawiony jest całkowicie podporządkowany ukrytemu, przenośnemu (alegorycznemu lub symbolicznemu) sensowi[cite: 1].</div>
         </div>
+        <div class="analysis-title">Cechy konstrukcyjne:</div>
+        <ul>
+          <li><b>Dwupoziomowość znaczeń:</b> Poziom dosłowny (przebieg fabuły) oraz poziom naddany/głębszy (uniwersalna prawda moralna, religijna lub filozoficzna)[cite: 1].</li>
+          <li><b>Schematyzm postaci:</b> Bohaterowie są bezimienni, typowi (np. siewca, ojciec, samarytanin), pozbawieni indywidualnego rysu psychologicznego i wyglądu[cite: 1].</li>
+          <li><b>Uniwersalizm czasoprzestrzenny:</b> Brak sprecyzowanych dat i szczegółowych realiów historyczno-geograficznych[cite: 1].</li>
+        </ul>
+      </div>
+    </article>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-          <div class="lg:col-span-7 text-center lg:text-left space-y-6">
-            <h1 class="font-serif-title text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-amberRose-950 leading-[1.12]">
-              Dojrzałość to nie wiek.<br/>
-              <span class="italic font-normal text-crimsonAccent">To czyste piękno i siła wyboru.</span>
-            </h1>
+    <!-- O talentach -->
+    <article class="module-card" id="sec-talenty" data-cat="nt">
+      <div class="module-header" onclick="toggleCard(this)">
+        <h2>O talentach <span class="tag tag-nt">Nowy Testament</span></h2>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="module-body">
+        <div class="summary-box">
+          <div class="summary-title">Dokładne streszczenie fabuły</div>
+          <div class="summary-text">Pan, wybierając się w daleką podróż, rozdał trzem sługom swój majątek według ich zdolności: jednemu pięć talentów (jednostek kruszcu), drugiemu dwa, a trzeciemu jeden[cite: 1]. Pierwszy i drugi sługa puścili pieniądze w obrót handlowy i podwoili powierzony kapitał[cite: 1]. Trzeci ze strachu przed surowym panem poszedł i zakopał swój talent w ziemi[cite: 1]. Po powrocie pan nagrodził pierwszych dwóch, zapraszając ich do wspólnej radości[cite: 1]. Leniwemu słudze odebrał talent, przekazał go pierwszemu i rozkazał wyrzucić sługę w ciemności za bierność[cite: 1].</div>
+        </div>
+        <div class="analysis-title">Znaczenie metaforyczne:</div>
+        <ul>
+          <li><b>Talent:</b> Dary, zdolności, łaska wiary oraz życie powierzone przez Stwórcę[cite: 1].</li>
+          <li><b>Morał:</b> Bóg wymaga aktywnego pomnażania powierzonych darów[cite: 1]; lęk, gnuśność i bierność są potępiane jako grzech zaniedbania.</li>
+        </ul>
+      </div>
+    </article>
 
-            <p class="text-base sm:text-lg md:text-xl text-amberRose-900/90 leading-relaxed font-light">
-              Prawdziwe piękno seniorów nie przemija wraz z upływem lat. Ono rozkwita w mądrym, ciepłym spojrzeniu, odwadze do mówienia prawdy i sercu, które potrafi przytulić cały świat.
-            </p>
+    <!-- O synu marnotrawnym -->
+    <article class="module-card" id="sec-marnotrawny" data-cat="nt">
+      <div class="module-header" onclick="toggleCard(this)">
+        <h2>O synu marnotrawnym <span class="tag tag-nt">Nowy Testament</span></h2>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="module-body">
+        <div class="summary-box">
+          <div class="summary-title">Dokładne streszczenie fabuły</div>
+          <div class="summary-text">Ojciec miał dwóch synów[cite: 1]. Młodszy zażądał swojej części majątku, opuścił dom i roztrwonił wszystko na hulaszcze życie w dalekiej krainie[cite: 1]. Kiedy nastał głód, znalazł się na dnie upadku przy wypasie świń i pragnął nasycić się ich karmą[cite: 1]. Opamiętawszy się, postanowił wrócić do ojca, żałując za grzechy i prosząc o status zwykłego najemnika[cite: 1]. Ojciec ujrzał go z daleka, wybiegł mu naprzeciw, objął go, podarował najlepszą szatę, pierścień i wyprawił wielką ucztę z utuczonym cielęciem[cite: 1]. Starszy brat powracający z pola oburzył się na tę łaskę, lecz ojciec wyjaśnił: „Trzeba się weselić, bo ten brat twój był umarły, a znów ożył; zaginął, a odnalazł się”.</div>
+        </div>
+        <div class="analysis-title">Znaczenie postaci:</div>
+        <ul>
+          <li><b>Ojciec:</b> Bezwarunkowe miłosierdzie Boga, który raduje się z nawrócenia każdego człowieka[cite: 1].</li>
+          <li><b>Młodszy syn:</b> Błądzący grzesznik zdolny do szczerej skruchy i przemiany serca (<i>metanoi</i>)[cite: 1].</li>
+          <li><b>Starszy brat:</b> Faryzejski legalizm, zawiść i brak prawdziwej miłości do bliźniego.</li>
+        </ul>
+      </div>
+    </article>
 
-            <div class="p-5 rounded-2xl bg-white/95 border-l-4 border-crimsonAccent border-amberRose-200 shadow-sm backdrop-blur-sm">
-              <div class="flex items-start gap-3.5">
-                <div class="w-8 h-8 rounded-full bg-red-100 text-crimsonAccent flex items-center justify-center shrink-0 mt-0.5">
-                  <i data-lucide="zap" class="w-4 h-4 fill-crimsonAccent"></i>
-                </div>
-                <div class="text-left">
-                  <h4 class="font-serif-title font-bold text-lg text-amberRose-950 flex items-center gap-2">
-                    <span>Głos Pokoleń: „Wybór, nie zakaz”</span>
-                  </h4>
-                  <p class="text-xs sm:text-sm text-amberRose-800 mt-1 leading-snug">
-                    Dojrzała kobieta to nie tylko strażniczka domowego ciepła, ale niezłomna obrończyni wolności, autonomii i godności swoich córek i wnuczek.
-                  </p>
-                </div>
-              </div>
-            </div>
+    <!-- O miłosiernym Samarytaninie -->
+    <article class="module-card" id="sec-samarytanin" data-cat="nt">
+      <div class="module-header" onclick="toggleCard(this)">
+        <h2>O miłosiernym Samarytaninie <span class="tag tag-nt">Nowy Testament</span></h2>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="module-body">
+        <div class="summary-box">
+          <div class="summary-title">Dokładne streszczenie fabuły</div>
+          <div class="summary-text">Podróżny idący z Jerozolimy do Jerycha został napadnięty przez zbójców, ograbiony, pobity i porzucony półżywy przy drodze[cite: 1]. Drogą szedł żydowski kapłan, lecz ominął rannego; podobnie postąpił lewita (sługa świątynny)[cite: 1]. Ulitował się nad nim dopiero przejeżdżający Samarytanin (członek ludu pogardzanego przez Żydów)[cite: 1]. Opatrzył rany winem i oliwą, zawiózł na swoim zwierzęciu do gospody, doglądał go, a nazajutrz zostawił gospodarzowi dwa denary, obiecując pokryć wszelkie dodatkowe koszty w drodze powrotnej.</div>
+        </div>
+        <div class="analysis-title">Przesłanie moralne:</div>
+        <ul>
+          <li><b>Wymowa:</b> Bliźnim jest każdy człowiek potrzebujący ratunku, bez względu na pochodzenie czy wyznanie[cite: 1].</li>
+          <li><b>Krytyka formalizmu:</b> Sama wiedza religijna bez czynów miłości bliźniego jest bezwartościowa[cite: 1].</li>
+        </ul>
+      </div>
+    </article>
 
-            <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
-              <a href="#filary" class="px-7 py-3.5 rounded-full bg-crimsonAccent text-white font-medium hover:bg-amberRose-800 transition-all shadow-md hover:shadow-lg flex items-center gap-2 text-sm">
-                <span>Poznaj filary piękna</span>
-                <i data-lucide="arrow-down" class="w-4 h-4"></i>
-              </a>
+    <!-- O siewcy -->
+    <article class="module-card" id="sec-siewca" data-cat="nt">
+      <div class="module-header" onclick="toggleCard(this)">
+        <h2>O siewcy <span class="tag tag-nt">Nowy Testament</span></h2>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="module-body">
+        <div class="summary-box">
+          <div class="summary-title">Dokładne streszczenie fabuły</div>
+          <div class="summary-text">Siewca wyszedł siać ziarno[cite: 1]. Część nasion upadła przy drodze i została wydziobana przez ptaki[cite: 1]. Inne padły na grunt skalisty, szybko wzeszły, lecz uschły w słońcu z braku korzeni[cite: 1]. Część wpadła między ciernie, które wyrosły i zagłuszyły plon[cite: 1]. Pozostałe ziarna padły na ziemię żyzną i wydały obfity plon: trzydziestokrotny, sześćdziesięciokrotny i stokrotny[cite: 1].</div>
+        </div>
+        <div class="analysis-title">Symbolika czterech podłoży[cite: 1]:</div>
+        <ul>
+          <li><b>Ziarno / Siewca:</b> Słowo Boże / Jezus Chrystus[cite: 1].</li>
+          <li><b>Przy drodze:</b> Słowo usłyszane powierzchownie, które szatan natychmiast wyrywa z obojętnego serca[cite: 1].</li>
+          <li><b>Grunt skalisty:</b> Słomiany zapał – wiara płytka, która obumiera przy pierwszej próbie lub cierpieniu[cite: 1].</li>
+          <li><b>Między cierniami:</b> Wiara zagłuszona przez doczesne troski, pokusy i pogoń za bogactwem[cite: 1].</li>
+          <li><b>Ziemia żyzna:</b> Człowiek rozumiejący naukę, trwający w niej i wydający owoce dobrych czynów[cite: 1].</li>
+        </ul>
+      </div>
+    </article>
 
-              <button onclick="drawWarmWord()" class="px-6 py-3.5 rounded-full bg-white text-amberRose-950 font-medium hover:bg-amberRose-50 border border-amberRose-300 transition-all shadow-sm flex items-center gap-2 text-sm">
-                <i data-lucide="heart" class="w-4 h-4 text-crimsonAccent fill-crimsonAccent"></i>
-                <span>Wylosuj dobre słowo</span>
-              </button>
-
-              <button onclick="document.getElementById('directImageInput').click()" class="px-5 py-3.5 rounded-full bg-amberRose-100 text-amberRose-900 hover:bg-amberRose-200 border border-amberRose-300 transition-all text-xs font-semibold flex items-center gap-1.5">
-                <i data-lucide="camera" class="w-4 h-4 text-crimsonAccent"></i>
-                <span>Załaduj inne zdjęcie</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="lg:col-span-5 flex justify-center">
-            <div class="relative w-full max-w-sm sm:max-w-md">
-              <div class="absolute -inset-3 rounded-3xl bg-gradient-to-tr from-softGold via-crimsonAccent/40 to-pink-300 halo-pulse blur-xl -z-10"></div>
-              <div class="relative bg-white p-3.5 rounded-3xl shadow-2xl border-2 border-amberRose-200 glow-card">
-                <div class="relative overflow-hidden rounded-2xl aspect-square bg-amberRose-100 group">
-                  <img 
-                    src="123045313_813613829425944_810687843214571559_n.jpg"
-                    data-portrait="true"
-                    alt="Portret - Piękno i Siła Seniorów"
-                    class="w-full h-full object-cover photo-clickable group-hover:scale-105 transition-transform duration-500"
-                    onclick="openLightbox(this.src, 'Niezwykły portret – uosobienie ciepła, mądrości spojrzenia oraz odwagi walki o lepszy los pokoleń.')"
-                  >
-                  <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent opacity-85 group-hover:opacity-95 transition-opacity flex flex-col justify-end p-5 text-white pointer-events-none">
-                    <span class="inline-flex items-center gap-1.5 text-[11px] text-amber-200 font-semibold uppercase tracking-wider mb-1">
-                      <i data-lucide="sparkle" class="w-3.5 h-3.5"></i> Kliknij, aby powiększyć
-                    </span>
-                    <p class="font-serif-title text-2xl font-bold leading-tight drop-shadow-sm">Portret Pełen Życia</p>
-                    <p class="text-xs text-amberRose-100 font-light mt-0.5">Spokój, determinacja i serce na dłoni</p>
-                  </div>
-                </div>
-
-                <div class="mt-3.5 pt-3 border-t border-amberRose-100 flex items-center justify-between text-xs text-amberRose-700">
-                  <span class="font-medium flex items-center gap-1.5">
-                    <i data-lucide="camera" class="w-3.5 h-3.5 text-softGold"></i>
-                    Archiwum Serca &bull; 100% Autentyczności
-                  </span>
-                  <button 
-                    onclick="openLightboxFromAnywhere('Główny portret – kliknij, aby podziwiać w pełnym rozmiarze')"
-                    class="text-crimsonAccent font-semibold hover:underline flex items-center gap-1"
-                  >
-                    <span>Zobacz</span>
-                    <i data-lucide="external-link" class="w-3 h-3"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+    <!-- Ziarnko gorczycy i Zagubiona owca -->
+    <article class="module-card" id="sec-gorczyca-owca" data-cat="nt">
+      <div class="module-header" onclick="toggleCard(this)">
+        <h2>Ziarnko gorczycy & Zagubiona owca <span class="tag tag-nt">Nowy Testament</span></h2>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="module-body">
+        <div class="summary-box">
+          <div class="summary-title">Streszczenie i sens</div>
+          <div class="summary-text"><b>Ziarnko gorczycy:</b> Z najmniejszego nasionka wyrasta potężny krzew dający schronienie ptakom[cite: 1]. Obrazuje to rozwój Królestwa Bożego z niepozornych początków[cite: 1].<br>
+          <b>Zagubiona owca:</b> Pasterz zostawia 99 owiec, by na pustkowiu odszukać jedną zabłąkaną[cite: 1]. Po znalezieniu kładzie ją na ramiona i świętuje[cite: 1]. Bóg troszczy się o każdego pojedynczego grzesznika i raduje z jego powrotu[cite: 1].</div>
         </div>
       </div>
-    </header>
+    </article>
 
-    <section id="o-pieknie" class="py-16 md:py-24 bg-white/70 border-b border-amberRose-200/50">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div class="lg:col-span-5 space-y-4">
-            <div class="relative bg-amberRose-50 p-4 rounded-3xl border border-amberRose-200 shadow-md">
-              <div class="flex items-center gap-4 mb-3">
-                <img 
-                  src="123045313_813613829425944_810687843214571559_n.jpg"
-                  data-portrait="true" 
-                  alt="Miniatura portretu" 
-                  class="w-16 h-16 rounded-2xl object-cover photo-clickable shadow-sm border-2 border-white"
-                  onclick="openLightbox(this.src, 'Ujęcie portretowe z bliska – spojrzenie niosące zrozumienie i spokój.')"
-                >
-                <div>
-                  <h4 class="font-serif-title font-bold text-lg text-amberRose-950">Światło w Oczach</h4>
-                  <p class="text-xs text-amberRose-700">Świadectwo godności i miłości</p>
-                </div>
-              </div>
-
-              <div class="relative rounded-2xl overflow-hidden aspect-[4/3] border border-amberRose-200">
-                <img 
-                  src="123045313_813613829425944_810687843214571559_n.jpg"
-                  data-portrait="true" 
-                  alt="Zbliżenie" 
-                  class="w-full h-full object-cover photo-clickable hover:scale-105 transition-transform duration-300"
-                  onclick="openLightbox(this.src, 'Portret: Niezłomność i delikatność w jednym kadrze.')"
-                >
-                <div class="absolute bottom-2 right-2 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full text-[10px] font-semibold text-crimsonAccent shadow">
-                  Dotknij, aby powiększyć
-                </div>
-              </div>
-
-              <p class="font-serif-title italic text-sm text-amberRose-800 mt-3 text-center">
-                „Kiedy kobieta dojrzewa, jej siła staje się tarczą dla całej rodziny.”
-              </p>
-            </div>
-          </div>
-
-          <div class="lg:col-span-7 space-y-6">
-            <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-crimsonAccent/10 text-crimsonAccent text-xs font-bold tracking-wider uppercase">
-              <i data-lucide="heart-handshake" class="w-3.5 h-3.5"></i>
-              Oda do Naszych Seniorek
-            </div>
-
-            <h2 class="font-serif-title text-3xl sm:text-5xl font-bold text-amberRose-950 leading-tight">
-              To nie zmarszczki.<br/>
-              <span class="text-crimsonAccent font-normal italic">To promienie przeżytych chwil i walki o wolność.</span>
-            </h2>
-
-            <p class="text-amberRose-900 text-base sm:text-lg leading-relaxed">
-              Patrząc na to zdjęcie, widzimy coś znacznie głębszego niż tylko kadr: widzimy kobietę, która ma swoje przekonania, nie pozwala się uciszyć i ma odwagę nosić hasła wolnościowe z podniesionym czołem. To współczesna babcia – nie zamknięta w stereotypach, lecz zaangażowana, żywa, wrażliwa i pełna charyzmy.
-            </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div class="p-4 rounded-2xl bg-amberRose-50/80 border border-amberRose-200/80 flex items-start gap-3">
-                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-crimsonAccent shrink-0 shadow-sm border border-amberRose-200">
-                  <i data-lucide="shield-heart" class="w-5 h-5"></i>
-                </div>
-                <div>
-                  <h4 class="font-bold text-sm text-amberRose-950">Głos i Świadomość</h4>
-                  <p class="text-xs text-amberRose-800 mt-0.5">Nauczyła nas, że wolność wyboru to prawo każdego człowieka, bez względu na wiek.</p>
-                </div>
-              </div>
-
-              <div class="p-4 rounded-2xl bg-amberRose-50/80 border border-amberRose-200/80 flex items-start gap-3">
-                <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center text-softGold shrink-0 shadow-sm border border-amberRose-200">
-                  <i data-lucide="sparkles" class="w-5 h-5"></i>
-                </div>
-                <div>
-                  <h4 class="font-bold text-sm text-amberRose-950">Uśmiech i Nadzieja</h4>
-                  <p class="text-xs text-amberRose-800 mt-0.5">W każdym jej spojrzeniu tli się wiara, że jutro może być lepsze, mądrzejsze i bezpieczniejsze.</p>
-                </div>
-              </div>
-            </div>
-          </div>
+    <!-- Genesis -->
+    <article class="module-card" id="sec-genesis" data-cat="st">
+      <div class="module-header" onclick="toggleCard(this)">
+        <h2>Stworzenie świata i upadek pierwszych ludzi <span class="tag tag-st">Księga Rodzaju</span></h2>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="module-body">
+        <div class="summary-box">
+          <div class="summary-title">Dokładne streszczenie wydarzeń</div>
+          <div class="summary-text">Bóg stworzył świat z niczego (<i>creatio ex nihilo</i>) samym Słowem w ciągu sześciu dni, a siódmego odpoczął (ustanowienie szabatu)[cite: 2]. Człowiek (Adam i Ewa) został powołany do bytu jako korona stworzenia na obraz i podobieństwo Boże[cite: 2]. Ludzie żyli w Edenie w stanie harmonii, mając jeden zakaz: nie spożywać owocu z Drzewa Poznania Dobra i Zła[cite: 1, 2]. Pod wpływem pokusy węża obiecującego, że „będą jako bogowie”, pierwsi ludzie złamali zakaz[cite: 2]. Zauważyli swoją nagość, spletli przepaski z liści i ukryli się przed Bogiem. Skutkiem upadku było wygnanie z raju, utrata nieśmiertelności, trud pracy, ból i śmierć cielesna (<i>„Prochem jesteś i w proch się obrócisz”</i>)[cite: 1, 2].</div>
         </div>
       </div>
-    </section>
+    </article>
 
-    <section id="filary" class="py-16 md:py-24">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto mb-14">
-          <span class="text-xs uppercase tracking-widest text-crimsonAccent font-bold">W czym kryje się ten blask</span>
-          <h2 class="font-serif-title text-3xl sm:text-5xl font-bold text-amberRose-950 mt-2">
-            Cztery Oblicza Piękna Seniorów
-          </h2>
-          <div class="w-20 h-1 bg-softGold mx-auto mt-4 rounded-full"></div>
-          <p class="text-amberRose-800 text-sm sm:text-base mt-4">
-            Każdy detal na tym portrecie opowiada historię wartości, które czynią naszych seniorów fundamentem naszego życia.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div class="bg-white p-6 rounded-3xl border border-amberRose-200 glow-card flex flex-col justify-between relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-4">
-              <span class="w-10 h-10 rounded-xl bg-amberRose-100 flex items-center justify-center text-amberRose-800">
-                <i data-lucide="eye" class="w-5 h-5"></i>
-              </span>
-              <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-amberRose-300 shadow-sm photo-clickable" onclick="openLightboxFromAnywhere('Oczy pełne zrozumienia i spokoju')">
-                <img src="123045313_813613829425944_810687843214571559_n.jpg" data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
-              </div>
-            </div>
-            <div>
-              <h3 class="font-serif-title text-2xl font-bold text-amberRose-950 mb-2">Mądre Spojrzenie</h3>
-              <p class="text-sm text-amberRose-800 leading-relaxed">
-                Spojrzenie, które nie ocenia powierzchownie. Przebija przez nie życiowe doświadczenie, wyrozumiałość dla cudzych błędów i cicha gotowość do pomocy.
-              </p>
-            </div>
-            <div class="mt-6 pt-4 border-t border-amberRose-100 flex items-center justify-between text-xs text-amberRose-600">
-              <span class="font-semibold uppercase tracking-wider text-[10px]">Czyste zaufanie</span>
-              <i data-lucide="check" class="w-3.5 h-3.5 text-crimsonAccent"></i>
-            </div>
-          </div>
-
-          <div class="bg-white p-6 rounded-3xl border border-amberRose-200 glow-card flex flex-col justify-between relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-4">
-              <span class="w-10 h-10 rounded-xl bg-pink-100 flex items-center justify-center text-crimsonAccent">
-                <i data-lucide="zap" class="w-5 h-5"></i>
-              </span>
-              <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-crimsonAccent/40 shadow-sm photo-clickable" onclick="openLightboxFromAnywhere('Odwaga i godność w walce o przyszłość')">
-                <img src="123045313_813613829425944_810687843214571559_n.jpg" data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
-              </div>
-            </div>
-            <div>
-              <h3 class="font-serif-title text-2xl font-bold text-amberRose-950 mb-2">Niezłomny Wybór</h3>
-              <p class="text-sm text-amberRose-800 leading-relaxed">
-                Prawdziwe piękno nie jest bierne. To odwaga, by nosić hasła wolności, mieć własne zdanie i bronić prawa młodszego pokolenia do samostanowienia.
-              </p>
-            </div>
-            <div class="mt-6 pt-4 border-t border-amberRose-100 flex items-center justify-between text-xs text-crimsonAccent">
-              <span class="font-semibold uppercase tracking-wider text-[10px]">Siła charakteru</span>
-              <i data-lucide="check" class="w-3.5 h-3.5 text-crimsonAccent"></i>
-            </div>
-          </div>
-
-          <div class="bg-white p-6 rounded-3xl border border-amberRose-200 glow-card flex flex-col justify-between relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-4">
-              <span class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-amber-800">
-                <i data-lucide="sun" class="w-5 h-5"></i>
-              </span>
-              <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-amber-300 shadow-sm photo-clickable" onclick="openLightboxFromAnywhere('Ciepło, które koi każdy lęk')">
-                <img src="123045313_813613829425944_810687843214571559_n.jpg" data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
-              </div>
-            </div>
-            <div>
-              <h3 class="font-serif-title text-2xl font-bold text-amberRose-950 mb-2">Ciepło i Ostoja</h3>
-              <p class="text-sm text-amberRose-800 leading-relaxed">
-                Niezastąpiony uścisk, dom wypełniony spokojem i kubek herbaty podany wtedy, gdy świat na zewnątrz wydaje się zbyt głośny i nieprzyjazny.
-              </p>
-            </div>
-            <div class="mt-6 pt-4 border-t border-amberRose-100 flex items-center justify-between text-xs text-amber-700">
-              <span class="font-semibold uppercase tracking-wider text-[10px]">Czułość bez granic</span>
-              <i data-lucide="check" class="w-3.5 h-3.5 text-crimsonAccent"></i>
-            </div>
-          </div>
-
-          <div class="bg-white p-6 rounded-3xl border border-amberRose-200 glow-card flex flex-col justify-between relative overflow-hidden group">
-            <div class="flex items-center justify-between mb-4">
-              <span class="w-10 h-10 rounded-xl bg-rose-100 flex items-center justify-center text-rose-800">
-                <i data-lucide="feather" class="w-5 h-5"></i>
-              </span>
-              <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-rose-300 shadow-sm photo-clickable" onclick="openLightboxFromAnywhere('Prawdziwość, wolność od sztuczności i blask autentyzmu')">
-                <img src="123045313_813613829425944_810687843214571559_n.jpg" data-portrait="true" alt="Miniatura" class="w-full h-full object-cover">
-              </div>
-            </div>
-            <div>
-              <h3 class="font-serif-title text-2xl font-bold text-amberRose-950 mb-2">Żywa Autentyczność</h3>
-              <p class="text-sm text-amberRose-800 leading-relaxed">
-                Okulary na głowie, szczery uśmiech, brak sztucznych masek. Seniorzy uczą nas, że najpiękniejszy człowiek to ten, który żyje w pełnej prawdzie ze sobą.
-              </p>
-            </div>
-            <div class="mt-6 pt-4 border-t border-amberRose-100 flex items-center justify-between text-xs text-rose-700">
-              <span class="font-semibold uppercase tracking-wider text-[10px]">Prawdziwy wdzięk</span>
-              <i data-lucide="check" class="w-3.5 h-3.5 text-crimsonAccent"></i>
-            </div>
-          </div>
-        </div>
+    <!-- Księga Hioba -->
+    <article class="module-card" id="sec-hiob" data-cat="st">
+      <div class="module-header" onclick="toggleCard(this)">
+        <h2>Księga Hioba <span class="tag tag-st">Księga Mądrościowa</span></h2>
+        <span class="accordion-icon">▼</span>
       </div>
-    </section>
-
-    <section id="mysli" class="py-16 md:py-24 bg-amberRose-100/50 border-y border-amberRose-200">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6">
-        <div class="text-center mb-8">
-          <span class="text-xs uppercase tracking-widest text-crimsonAccent font-bold">Złote Myśli i Rada Życiowa</span>
-          <h2 class="font-serif-title text-3xl sm:text-4xl font-bold text-amberRose-950 mt-1">
-            Mądrość Prosto z Serca Naszej Seniorki
-          </h2>
+      <div class="module-body">
+        <div class="summary-box">
+          <div class="summary-title">Dokładne streszczenie fabuły</div>
+          <div class="summary-text">Prawy i bogobojny Hiob z krainy Us zostaje poddany próbie wiary za pozwoleniem Boga przez szatana[cite: 2]. Traci majątek, dzieci i zostaje dotknięty trądem[cite: 2]. Mimo namów żony („Złorzecz Bogu i umieraj”) nie przeklina Stwórcy (<i>„Pan dał, Pan wziął...”</i>)[cite: 2]. Przyjaciele wmawiają mu ukryte winy, lecz Hiob uparcie broni swojej niewinności[cite: 2]. Bóg przemawia z wichru, ukazując niepojętą wielkość wszechświata[cite: 2]. Hiob w pokorze uznaje tajemnicę Bożych wyroków, a Stwórca przywraca mu zdrowie i podwaja majątek[cite: 2].</div>
         </div>
-
-        <div class="bg-white rounded-3xl p-6 sm:p-10 border border-amberRose-200/90 shadow-xl relative overflow-hidden">
-          <div class="flex flex-col sm:flex-row items-center gap-6 mb-6 pb-6 border-b border-amberRose-100">
-            <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full overflow-hidden border-4 border-softGold/60 shadow-md shrink-0">
-              <img 
-                src="123045313_813613829425944_810687843214571559_n.jpg"
-                data-portrait="true" 
-                alt="Babcia radzi"
-                class="w-full h-full object-cover photo-clickable"
-                onclick="openLightboxFromAnywhere('Głos mądrości – słowa pełne ciepła i troski o Ciebie.')"
-              >
-            </div>
-
-            <div class="text-center sm:text-left">
-              <div class="inline-flex items-center gap-1.5 text-xs text-crimsonAccent font-bold uppercase tracking-wider">
-                <i data-lucide="quote" class="w-4 h-4"></i>
-                <span>Głos Doświadczenia</span>
-              </div>
-              <h3 class="font-serif-title text-xl sm:text-2xl font-bold text-amberRose-950">Rada na każdy trudny moment</h3>
-              <p class="text-xs text-amberRose-600">Kliknij poniższy przycisk, aby wylosować kolejne ciepłe słowo</p>
-            </div>
-          </div>
-
-          <div class="min-h-[120px] flex flex-col justify-center items-center text-center px-2">
-            <p id="quoteText" class="font-serif-title italic text-2xl sm:text-3xl text-amberRose-950 leading-snug transition-opacity duration-300">
-              „Pamiętaj kochanie: cokolwiek się dzieje, twoja wartość nie zależy od opinii świata. Bądź wierna swojemu sercu i walcz o swój wolny wybór.”
-            </p>
-            <p id="quoteAuthor" class="text-xs sm:text-sm uppercase tracking-widest font-semibold text-crimsonAccent mt-4 transition-opacity duration-300">
-              – Dojrzała Mądrość z Fotografii
-            </p>
-          </div>
-
-          <div class="mt-8 flex flex-wrap items-center justify-center gap-3 pt-4 border-t border-amberRose-100">
-            <button onclick="drawWarmWord()" class="px-6 py-3 rounded-full bg-crimsonAccent text-white font-medium hover:bg-amberRose-800 transition-all shadow-md flex items-center gap-2 text-sm">
-              <i data-lucide="sparkles" class="w-4 h-4"></i>
-              <span>Wylosuj inne słowo serca</span>
-            </button>
-            <button onclick="copyCurrentQuote()" class="px-5 py-3 rounded-full bg-amberRose-50 text-amberRose-900 font-medium hover:bg-amberRose-100 border border-amberRose-200 transition-all text-sm flex items-center gap-2">
-              <i data-lucide="copy" class="w-4 h-4"></i>
-              <span>Skopiuj sentencję</span>
-            </button>
-          </div>
-        </div>
+        <div class="analysis-title">Kluczowe pojęcia:</div>
+        <ul>
+          <li><b>Teodycea:</b> Problem pogodzenia dobroci i wszechmocy Boga z obecnością zła i cierpienia na świecie[cite: 2].</li>
+          <li><b>Cierpienie niezawinione:</b> Nieszczęście nie zawsze jest karą za grzechy – bywa próbą lub tajemnicą[cite: 2].</li>
+          <li><b>Postawa hiobowa:</b> Cierpliwość, zaufanie i pokora w obliczu nieszczęścia[cite: 2].</li>
+          <li><b>Hiobowa wieść:</b> Złowroga, tragiczna wiadomość spadająca nagle[cite: 2].</li>
+        </ul>
       </div>
-    </section>
+    </article>
 
-    <section id="ksiega" class="py-16 md:py-24">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto mb-12">
-          <div class="flex items-center justify-center gap-2 mb-2">
-            <img 
-              src="123045313_813613829425944_810687843214571559_n.jpg"
-              data-portrait="true" 
-              alt="Znaczek" 
-              class="w-7 h-7 rounded-full object-cover border border-crimsonAccent shadow-sm photo-clickable"
-              onclick="openLightboxFromAnywhere('Księga Wdzięczności – wizerunek pamięci i miłości')"
-            >
-            <span class="text-xs uppercase tracking-widest text-crimsonAccent font-bold">Księga Wdzięczności</span>
-          </div>
-          <h2 class="font-serif-title text-3xl sm:text-5xl font-bold text-amberRose-950">
-            Podziękuj Swojej Babci lub Mamie
-          </h2>
-          <div class="w-20 h-1 bg-crimsonAccent mx-auto mt-4 rounded-full"></div>
-          <p class="text-amberRose-800 text-sm sm:text-base mt-4">
-            Zostaw dedykację. Każde słowo wdzięczności wzbogaci tę tablicę i zostanie opatrzone pamiątkową pieczęcią z portretem.
-          </p>
-        </div>
-
-        <div class="max-w-3xl mx-auto bg-white rounded-3xl p-6 sm:p-8 border border-amberRose-200/90 shadow-md mb-14 relative">
-          <div class="flex items-center gap-3.5 mb-6 pb-4 border-b border-amberRose-100">
-            <img 
-              src="123045313_813613829425944_810687843214571559_n.jpg"
-              data-portrait="true" 
-              alt="Pieczęć formularza" 
-              class="w-12 h-12 rounded-xl object-cover border border-amberRose-300 shadow-sm photo-clickable"
-              onclick="openLightboxFromAnywhere('Pamiątkowa pieczęć formularza wdzięczności')"
-            >
-            <div>
-              <h4 class="font-serif-title font-bold text-lg text-amberRose-950">Dodaj swoje podziękowanie</h4>
-              <p class="text-xs text-amberRose-600">Napisz kilka ciepłych słów dla osoby, która jest Twoją ostoją</p>
-            </div>
-          </div>
-
-          <form id="gratitudeForm" onsubmit="handleGratitudeSubmit(event)" class="space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label for="authorName" class="block text-xs font-semibold uppercase tracking-wider text-amberRose-800 mb-1">
-                  Kto pisze (Twoje Imię):
-                </label>
-                <input 
-                  type="text" 
-                  id="authorName" 
-                  required 
-                  placeholder="np. Wnuczka Ola, Kasia"
-                  class="w-full px-4 py-2.5 rounded-xl border border-amberRose-200 bg-amberRose-50/40 text-amberRose-950 placeholder-amberRose-400 focus:outline-none focus:ring-2 focus:ring-crimsonAccent focus:bg-white text-sm"
-                >
-              </div>
-
-              <div>
-                <label for="recipientName" class="block text-xs font-semibold uppercase tracking-wider text-amberRose-800 mb-1">
-                  Dla kogo (Dedykacja):
-                </label>
-                <input 
-                  type="text" 
-                  id="recipientName" 
-                  required 
-                  placeholder="np. Dla Najwspanialszej Babci"
-                  class="w-full px-4 py-2.5 rounded-xl border border-amberRose-200 bg-amberRose-50/40 text-amberRose-950 placeholder-amberRose-400 focus:outline-none focus:ring-2 focus:ring-crimsonAccent focus:bg-white text-sm"
-                >
-              </div>
-            </div>
-
-            <div>
-              <label for="messageText" class="block text-xs font-semibold uppercase tracking-wider text-amberRose-800 mb-1">
-                Twoja wiadomość lub wspomnienie:
-              </label>
-              <textarea 
-                id="messageText" 
-                rows="3" 
-                required 
-                placeholder="Dziękuję Ci za Twoją odwagę, za to że zawsze stoisz po stronie wolności i za najcieplejsze uściski na świecie..."
-                class="w-full px-4 py-2.5 rounded-xl border border-amberRose-200 bg-amberRose-50/40 text-amberRose-950 placeholder-amberRose-400 focus:outline-none focus:ring-2 focus:ring-crimsonAccent focus:bg-white text-sm"
-              ></textarea>
-            </div>
-
-            <div class="flex items-center justify-between flex-wrap gap-4 pt-2">
-              <span class="text-xs text-amberRose-600 flex items-center gap-1.5">
-                <i data-lucide="shield-check" class="w-4 h-4 text-crimsonAccent"></i>
-                Wpis jest trwale zapisywany w pamięci Twojej przeglądarki
-              </span>
-
-              <button 
-                type="submit" 
-                class="px-6 py-2.5 rounded-full bg-crimsonAccent text-white font-medium hover:bg-amberRose-800 transition-colors shadow-sm flex items-center gap-2 text-sm"
-              >
-                <i data-lucide="send" class="w-4 h-4"></i>
-                <span>Opublikuj na tablicy</span>
-              </button>
-            </div>
-          </form>
-        </div>
-
-        <div>
-          <div class="flex items-center justify-between mb-6">
-            <h3 class="font-serif-title text-2xl font-bold text-amberRose-950 flex items-center gap-2">
-              <i data-lucide="heart" class="w-5 h-5 text-crimsonAccent fill-crimsonAccent"></i>
-              Głosy Pokoleń
-            </h3>
-            <button onclick="resetToSampleNotes()" class="text-xs text-amberRose-600 hover:text-crimsonAccent underline">
-              Przywróć wpisy domyślne
-            </button>
-          </div>
-
-          <div id="gratitudeCardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
-        </div>
+    <!-- Księga Koheleta -->
+    <article class="module-card" id="sec-kohelet" data-cat="st">
+      <div class="module-header" onclick="toggleCard(this)">
+        <h2>Księga Koheleta (Ekklezjastes) <span class="tag tag-st">Księga Mądrościowa</span></h2>
+        <span class="accordion-icon">▼</span>
       </div>
-    </section>
-
-    <section class="py-14 bg-gradient-to-r from-amberRose-950 via-crimsonAccent to-amberRose-900 text-white relative overflow-hidden">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center relative z-10">
-        <div class="relative w-16 h-16 mx-auto mb-4 rounded-full p-1 bg-gradient-to-tr from-softGold to-white shadow-xl">
-          <img 
-            src="123045313_813613829425944_810687843214571559_n.jpg"
-            data-portrait="true" 
-            alt="Portret Akcent" 
-            class="w-full h-full object-cover rounded-full photo-clickable"
-            onclick="openLightboxFromAnywhere('Zadzwoń dziś do swojej Babci!')"
-          >
+      <div class="module-body">
+        <div class="summary-box">
+          <div class="summary-title">Dokładne streszczenie myśli</div>
+          <div class="summary-text">Mędrzec Kohelet rozważa wartość ludzkich dokonań pod słońcem[cite: 2]. Dochodzi do wniosku, że bogactwo, władza, zaszczyty, uroda, a nawet nauka są ulotne wobec nieuchronnej śmierci, która zrównuje każdego[cite: 2]. Świat podlega odwiecznym cyklom (<i>„Wszystko ma swój czas...”</i>)[cite: 2]. Ostateczną radą mędrca jest zachowanie umiaru, docenianie prostych darów dnia powszedniego (pracy, chleba, wina) oraz trwanie w bojaźni Bożej i posłuszeństwie przykazaniom[cite: 2].</div>
         </div>
-
-        <h2 class="font-serif-title text-3xl sm:text-4xl font-bold mb-3">
-          Zadzwoń dziś do swojej Babci lub Mamy
-        </h2>
-        <p class="text-amberRose-100 max-w-xl mx-auto text-sm sm:text-base mb-6 leading-relaxed">
-          Niezłomne kobiety z zasadami, które dały nam życie i wychowanie, zasługują na to, by każdego dnia czuć, jak bardzo są podziwiane i potrzebne.
-        </p>
-        <div class="flex flex-wrap justify-center gap-3">
-          <a href="#ksiega" class="inline-flex items-center gap-2 px-6 py-3 bg-white text-amberRose-950 rounded-full font-semibold text-sm hover:bg-amberRose-100 transition-colors shadow-lg">
-            <i data-lucide="message-square-heart" class="w-4 h-4 text-crimsonAccent"></i>
-            <span>Napisz dedykację</span>
-          </a>
-          <button onclick="openLightboxFromAnywhere('Uroczysty portret seniorki w pełnym kadrze')" class="inline-flex items-center gap-2 px-6 py-3 bg-crimsonAccent/60 text-white border border-white/30 rounded-full font-semibold text-sm hover:bg-crimsonAccent transition-colors">
-            <i data-lucide="maximize-2" class="w-4 h-4"></i>
-            <span>Powiększ zdjęcie</span>
-          </button>
-        </div>
+        <div class="analysis-title">Kluczowe pojęcia:</div>
+        <ul>
+          <li><b>Motyw vanitas:</b> <i>„Vanitas vanitatum et omnia vanitas”</i> – marność nad marnościami i wszystko marność[cite: 2].</li>
+          <li><b>Nihil novi sub sole:</b> Nic nowego pod słońcem – odwieczna powtarzalność praw natury i ludzkiego losu.</li>
+        </ul>
       </div>
-    </section>
+    </article>
+
   </main>
 
-  <footer class="bg-[#241A17] text-[#D8C9C1] py-12 border-t border-amberRose-900/40">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6 text-sm">
-      <div class="flex items-center gap-3.5">
-        <div class="relative w-12 h-12 rounded-full overflow-hidden border-2 border-softGold photo-clickable" onclick="openLightboxFromAnywhere('Pamiątkowy medalion stopki')">
-          <img src="123045313_813613829425944_810687843214571559_n.jpg" data-portrait="true" alt="Medalion Stopki" class="w-full h-full object-cover">
-        </div>
-        <div>
-          <p class="font-serif-title font-bold text-lg text-white">Piękno Dojrzałości</p>
-          <p class="text-xs text-amberRose-300">W hołdzie seniorom, odwadze wyboru i wielkiemu sercu</p>
-        </div>
-      </div>
-
-      <div class="text-center text-xs text-amberRose-400 max-w-md">
-        <p>„Kobieta o pięknej duszy nie starzeje się nigdy – z wiekiem staje się tylko bardziej wyrazista.”</p>
-        <p class="mt-1 text-[11px] text-amberRose-500">Wklej dowolne zdjęcie (Ctrl+V) w dowolnym momencie przeglądania</p>
-      </div>
-
-      <div>
-        <button 
-          onclick="openLightboxFromAnywhere('W pełnej krasie: uśmiech, okulary i odwaga wyboru.')"
-          class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 text-xs text-white transition-all flex items-center gap-2"
-        >
-          <i data-lucide="eye" class="w-3.5 h-3.5"></i>
-          <span>Podziwiaj fotografię</span>
-        </button>
-      </div>
+  <!-- ================= 2. FISZKI (GENERATOR FISZEK) ================= -->
+  <main id="tab-flashcards" class="tab-content">
+    <div class="flashcard-dashboard">
+      <div style="font-size:0.8rem; font-weight:700; color:var(--text-muted);">Aktywny zestaw: <b style="color:var(--primary);">8 fiszek</b></div>
+      <button class="btn-rerun" onclick="renderFlashcards()">Losuj nowe fiszki</button>
     </div>
-  </footer>
 
-  <div id="lightboxModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4 transition-opacity duration-300 opacity-0" onclick="closeLightbox(event)">
-    <div class="relative max-w-2xl w-full bg-[#FAF6F0] rounded-3xl overflow-hidden shadow-2xl border border-amberRose-300" onclick="event.stopPropagation()">
-      <div class="px-5 py-3.5 bg-amberRose-100/70 border-b border-amberRose-200 flex items-center justify-between">
-        <div class="flex items-center gap-2 text-amberRose-950 font-serif-title font-bold text-lg">
-          <i data-lucide="sparkles" class="w-4 h-4 text-crimsonAccent"></i>
-          <span>Wizerunek Piękna i Odwagi</span>
-        </div>
-        <button onclick="closeLightbox(null, true)" class="w-8 h-8 rounded-full bg-white flex items-center justify-center text-amberRose-800 hover:text-crimsonAccent hover:bg-rose-50 transition-colors">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
+    <div id="flashcards-mount"></div>
 
-      <div class="p-4 sm:p-6 bg-gradient-to-b from-[#FAF6F0] to-amberRose-50 flex flex-col items-center">
-        <div class="relative rounded-2xl overflow-hidden shadow-xl border-4 border-white max-h-[60vh] max-w-md">
-          <img id="lightboxImage" src="123045313_813613829425944_810687843214571559_n.jpg" alt="Powiększenie portretu" class="w-full h-auto object-contain">
-        </div>
+    <button class="btn-rerun" style="width: 100%; padding: 13px; margin-top: 10px;" onclick="renderFlashcards()">Wylosuj kolejną partię fiszek</button>
+  </main>
 
-        <p id="lightboxCaption" class="mt-4 text-center font-serif-title italic text-amberRose-950 text-base sm:text-lg max-w-lg">
-          Dojrzałe piękno, odwaga oraz mądrość pokoleń.
-        </p>
-
-        <div class="mt-5 flex flex-wrap items-center justify-center gap-3">
-          <button onclick="closeLightbox(null, true)" class="px-5 py-2.5 rounded-full bg-amberRose-800 text-white font-medium hover:bg-crimsonAccent transition-all text-xs">
-            Zamknij podgląd
-          </button>
-          <button onclick="document.getElementById('directImageInput').click(); closeLightbox(null, true);" class="px-4 py-2.5 rounded-full bg-crimsonAccent text-white font-medium hover:bg-amberRose-900 transition-all text-xs flex items-center gap-1.5 shadow-sm">
-            <i data-lucide="upload" class="w-3.5 h-3.5"></i>
-            <span>Zmień zdjęcie na inne</span>
-          </button>
-        </div>
-      </div>
+  <!-- ================= 3. GENERATOR QUIZÓW (Baza 120+ pytań) ================= -->
+  <main id="tab-quiz" class="tab-content">
+    <div class="quiz-dashboard">
+      <div class="quiz-stat">Pula: <b>120+</b> | Runda: <span>10 pytań</span></div>
+      <button class="btn-rerun" onclick="generateNewQuiz()">Losuj następny quiz</button>
     </div>
-  </div>
 
-  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-amberRose-950 text-white px-5 py-3 rounded-2xl shadow-2xl border border-softGold/60 flex items-center gap-3 text-sm">
-    <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
-    <span id="toastMsg">Gotowe!</span>
-  </div>
+    <div id="quiz-container-mount"></div>
+
+    <div style="text-align: center; margin-top: 15px;">
+      <button class="btn-rerun" style="width: 100%; padding: 13px;" onclick="generateNewQuiz()">Losuj kolejny zestaw 10 pytań</button>
+    </div>
+  </main>
+
+  <!-- DOLNA NAWIGACJA -->
+  <nav class="bottom-nav">
+    <button class="nav-tab active" onclick="switchTab('tab-theory', this)">
+      <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
+      Baza Wiedzy
+    </button>
+    <button class="nav-tab" onclick="switchTab('tab-flashcards', this)">
+      <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h10v2H7zm0-3h10v2H7zm0 6h7v2H7z"/></svg>
+      Fiszki
+    </button>
+    <button class="nav-tab" onclick="switchTab('tab-quiz', this)">
+      <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+      Trener (Quizy)
+    </button>
+  </nav>
 
   <script>
-    const DEFAULT_PORTRAIT_SRC = "123045313_813613829425944_810687843214571559_n.jpg";
-    const STORAGE_KEY_PHOTO = "piekno_seniorow_custom_portrait_v3";
-    let currentActivePortrait = DEFAULT_PORTRAIT_SRC;
+    // Zwinięcie / rozwinięcie pojedynczej karty
+    function toggleCard(headerElem) {
+      const card = headerElem.closest('.module-card');
+      card.classList.toggle('collapsed');
+    }
 
-    function applyPortraitEverywhere(src, isCustomUserPhoto = false) {
-      currentActivePortrait = src;
-
-      const targetImages = document.querySelectorAll('img[data-portrait="true"]');
-      targetImages.forEach(img => {
-        img.src = src;
-        img.onerror = () => {
-          img.src = DEFAULT_PORTRAIT_SRC;
-        };
+    // Suwak / przycisk do zwijania wszystkich tematów naraz
+    let allCollapsed = false;
+    function toggleAllCards() {
+      allCollapsed = !allCollapsed;
+      const cards = document.querySelectorAll('.module-card');
+      const btn = document.getElementById('toggle-all-btn');
+      cards.forEach(card => {
+        if (allCollapsed) {
+          card.classList.add('collapsed');
+        } else {
+          card.classList.remove('collapsed');
+        }
       });
+      btn.innerText = allCollapsed ? 'Rozwiń wszystkie' : 'Zwiń wszystkie';
+    }
 
-      const lightboxImg = document.getElementById('lightboxImage');
-      if (lightboxImg) lightboxImg.src = src;
+    // Nawigacja główna
+    function switchTab(id, btn) {
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      btn.classList.add('active');
+      
+      const isTheory = (id === 'tab-theory');
+      document.getElementById('filter-bar').style.display = isTheory ? 'flex' : 'none';
+      document.getElementById('quick-nav-box').style.display = isTheory ? 'block' : 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-      const badge = document.getElementById('photoStatusBadge');
-      const btnRevert = document.getElementById('btnRevert');
+    function filterTheory(category, btn) {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.module-card').forEach(card => {
+        card.style.display = (category === 'all' || card.dataset.cat === category) ? 'block' : 'none';
+      });
+    }
 
-      if (isCustomUserPhoto) {
-        if (badge) {
-          badge.textContent = "Twoje załadowane zdjęcie jest aktywne!";
-          badge.className = "bg-emerald-500 text-white text-[10px] px-2.5 py-0.5 rounded-full font-bold shadow-sm";
-        }
-        if (btnRevert) btnRevert.classList.remove('hidden');
-      } else {
-        if (badge) {
-          badge.textContent = "Zdjęcie aktywne";
-          badge.className = "bg-white/20 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold";
-        }
-        if (btnRevert) btnRevert.classList.add('hidden');
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
       }
-
-      renderNotes();
+      return a;
     }
 
-    function processSelectedFile(file) {
-      if (!file) return;
+    // ================= MEGA BAZA FISZEK =================
+    const flashcardsPool = [
+      { cat: "Teoria Literatury", q: "Co to jest parabola (przypowieść)?", a: "Gatunek dydaktyczny; utwór narracyjny o prostej fabule, którego świat przedstawiony służy przekazaniu głębszej prawdy moralnej lub filozoficznej." },
+      { cat: "Teoria Literatury", q: "Wymień dwie warstwy znaczeniowe paraboli.", a: "Warstwa dosłowna (przebieg fabuły) oraz warstwa przenośna / alegoryczna (głęboki sens moralny, filozoficzny lub religijny)." },
+      { cat: "Teoria Literatury", q: "Dlaczego postaci w przypowieści są bezimienne?", a: "Aby nadać opowieści uniwersalny charakter i ułatwić każdemu odbiorcy odniesienie przesłania do własnego życia." },
+      { cat: "O talentach", q: "Czym dosłownie był talent?", a: "W starożytności była to jednostka wagi i moneta kruszcowa o bardzo dużej wartości." },
+      { cat: "O talentach", q: "Co w przypowieści symbolizują talenty?", a: "Dary Boże, łaski, zdolności, predyspozycje, dar wiary oraz samo życie." },
+      { cat: "O talentach", q: "Za co pan ukarał trzeciego sługę?", a: "Za lenistwo, strach i bierność – zakopał dar w ziemi, zamiast go rozwinąć i pomnożyć." },
+      { cat: "Syn marnotrawny", q: "Co w kontekście tej paraboli oznacza 'metanoia'?", a: "Głęboką wewnętrzną przemianę, żal za grzechy i decyzję o powrocie do Boga." },
+      { cat: "Syn marnotrawny", q: "Kogo w przypowieści symbolizuje ojciec?", a: "Boga pełnego bezgranicznego miłosierdzia, który bez wahania wybacza nawróconemu grzesznikowi." },
+      { cat: "Syn marnotrawny", q: "Jaką postawę reprezentuje starszy brat?", a: "Faryzejską zawiść, brak empatii, pychę oraz traktowanie relacji z ojcem jak czystego kontraktu prawnego." },
+      { cat: "Samarytanin", q: "Kim byli Samarytanie dla Żydów?", a: "Uchodzili za religijnych odszczepieńców, zdrajców wiary i byli głęboko pogardzani." },
+      { cat: "Samarytanin", q: "Kto przeszedł obok rannego człowieka, nie udzielając mu pomocy?", a: "Żydowski kapłan oraz lewita (sługa świątynny) – elita religijna narodu." },
+      { cat: "Samarytanin", q: "Jaka jest główna definicja 'bliźniego' z tej paraboli?", a: "Bliźnim jest każdy człowiek znajdujący się w potrzebie, bez względu na pochodzenie czy wyznanie." },
+      { cat: "O siewcy", q: "Co oznacza ziarno, które padło na drogę?", a: "Słowo Boże usłyszane przez człowieka obojętnego, które szatan od razu wyrywa z serca." },
+      { cat: "O siewcy", q: "Co symbolizuje grunt skalisty?", a: "Płytki, słomiany entuzjazm – człowiek cieszy się wiarą, lecz pod wpływem prób szybko odpada." },
+      { cat: "O siewcy", q: "Co symbolizują ciernie duszące ziarno?", a: "Doczesne troski, pokusy, pogoń za bogactwem i konsumpcjonizm." },
+      { cat: "Ziarnko gorczycy", q: "Jaki jest sens przypowieści o ziarnku gorczycy?", a: "Królestwo Boże rozwija się z małych, niepozornych początków w potężną siłę dającą schronienie." },
+      { cat: "Zagubiona owca", q: "O czym poucza Przypowieść o zagubionej owcy?", a: "O indywidualnej trosce Boga o każdego zagubionego człowieka oraz radości w niebie z nawrócenia grzesznika." },
+      { cat: "Genesis", q: "Co oznacza 'creatio ex nihilo'?", a: "Stworzenie z niczego – Bóg powołuje świat do bytu samym Słowem, bez uprzedniej materii." },
+      { cat: "Genesis", q: "Co oznaczało zerwanie owocu z Drzewa Poznania Dobra i Zła?", a: "Pychę i nieposłuszeństwo – próbę uniezależnienia się od Boga i decydowania samemu o moralności." },
+      { cat: "Genesis", q: "Wymień skutki grzechu pierworodnego dla człowieka.", a: "Utrata raju, nieśmiertelności i harmonii, poczucie wstydu, trud pracy, ból i śmierć cielesna." },
+      { cat: "Księga Hioba", q: "Czym jest problem TEODYCEI?", a: "Zagadnieniem pogodzenia dobroci, mądrości i wszechmocy Boga z istnieniem niezawinionego cierpienia i zła." },
+      { cat: "Księga Hioba", q: "Co głosiła tradycyjna teologia odpłaty odrzucana przez Hioba?", a: "Że każde cierpienie i choroba są bezpośrednią karą za popełnione grzechy." },
+      { cat: "Księga Hioba", q: "Na czym polega 'postawa hiobowa'?", a: "Na bezwzględnej pokorze, ufności i wierności Bogu pomimo utraty wszystkiego i dotknięcia nieszczęściem." },
+      { cat: "Księga Hioba", q: "Co w języku polskim oznacza 'hiobowa wieść'?", a: "Złowrogą, porażającą wiadomość o nagłej i wielkiej tragedii." },
+      { cat: "Księga Koheleta", q: "Co oznacza sentencja: 'Vanitas vanitatum et omnia vanitas'?", a: "'Marność nad marnościami i wszystko marność' – nicość i ulotność spraw doczesnych wobec śmierci." },
+      { cat: "Księga Koheleta", q: "Dlaczego Kohelet uważa ludzkie dążenia za marność?", a: "Ponieważ śmierć spotyka jednakowo mędrca i głupca, a dobra materialne i sława przemijają." },
+      { cat: "Księga Koheleta", q: "Jaka jest ostateczna rada Koheleta na przemijanie?", a: "Cieszyć się prostymi darami dnia (pracą, jedzeniem), zachowywać umiar i trwać w bojaźni Bożej." }
+    ];
 
-      if (!file.type.startsWith('image/')) {
-        showToast("Wybrany plik nie jest obrazem (JPG, PNG, WEBP itp.)");
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        const base64Data = e.target.result;
-        try {
-          localStorage.setItem(STORAGE_KEY_PHOTO, base64Data);
-        } catch (err) {
-          console.warn("Storage quota exceeded; image kept in session.");
-        }
-        applyPortraitEverywhere(base64Data, true);
-        showToast("Nowe zdjęcie pojawiło się wszędzie na stronie!");
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function resetToDefaultArtwork() {
-      localStorage.removeItem(STORAGE_KEY_PHOTO);
-      applyPortraitEverywhere(DEFAULT_PORTRAIT_SRC, false);
-      showToast("Przywrócono domyślne zdjęcie.");
-    }
-
-    window.addEventListener('paste', (e) => {
-      const clipboardItems = e.clipboardData && e.clipboardData.items;
-      if (!clipboardItems) return;
-
-      for (let i = 0; i < clipboardItems.length; i++) {
-        if (clipboardItems[i].type.indexOf('image') !== -1) {
-          const file = clipboardItems[i].getAsFile();
-          if (file) {
-            processSelectedFile(file);
-            showToast("Wklejono zdjęcie ze schowka!");
-            break;
+    function renderFlashcards() {
+      const mount = document.getElementById('flashcards-mount');
+      mount.innerHTML = '';
+      const chosen = shuffle(flashcardsPool).slice(0, 8);
+      chosen.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'flashcard';
+        div.innerHTML = `
+          <div class="flashcard-sub">${item.cat}</div>
+          <div class="flashcard-q">${item.q}</div>
+          <div class="flashcard-a">${item.a}</div>
+        `;
+        div.onclick = () => {
+          const q = div.querySelector('.flashcard-q');
+          const a = div.querySelector('.flashcard-a');
+          if (div.classList.contains('flipped')) {
+            div.classList.remove('flipped');
+            q.style.display = 'block';
+            a.style.display = 'none';
+          } else {
+            div.classList.add('flipped');
+            q.style.display = 'none';
+            a.style.display = 'block';
           }
-        }
-      }
-    });
-
-    const dropZone = document.getElementById('dropZoneBanner');
-    if (dropZone) {
-      ['dragenter', 'dragover'].forEach(eventName => {
-        dropZone.addEventListener(eventName, (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          dropZone.classList.add('drag-active');
-        }, false);
+        };
+        mount.appendChild(div);
       });
-
-      ['dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          dropZone.classList.remove('drag-active');
-        }, false);
-      });
-
-      dropZone.addEventListener('drop', (e) => {
-        const dt = e.dataTransfer;
-        const files = dt.files;
-        if (files && files.length > 0) {
-          processSelectedFile(files[0]);
-        }
-      }, false);
     }
 
-    function openLightboxFromAnywhere(caption) {
-      openLightbox(currentActivePortrait, caption);
-    }
+    // ================= ROZSZERZONA BAZA 120+ PYTAŃ =================
+    const masterQuestions = [
+      { t: "Parabola", q: "Jaka jest nadrzędna funkcja przypowieści biblijnej?", o: ["Dydaktyczno-moralizatorska", "Czysto rozrywkowa", "Kronikarsko-historyczna"], c: 0, tip: "Przypowieść ma uczyć, pouczać i nawracać sumienia czytelników." },
+      { t: "Parabola", q: "Bohaterowie w przypowieści są zazwyczaj:", o: ["Schematyczni, bezimienni i typowi", "Precyzyjnie opisani pod kątem wyglądu i psychologii", "Autentycznymi postaciami z rodowodem królów"], c: 0, tip: "Brak cech jednostkowych ułatwia każdemu utożsamienie się z sytuacją." },
+      { t: "Parabola", q: "Dwupoziomowość paraboli oznacza obecność znaczenia:", o: ["Dosłownego oraz głębszego (alegorycznego)", "Politycznego oraz wojennego", "Historycznego oraz mitologicznego"], c: 0, tip: "Warstwa dosłowna to prosta fabuła; warstwa ukryta to przesłanie moralne." },
+      { t: "Parabola", q: "Czas i przestrzeń w paraboli są:", o: ["Zuniwersalizowane i pozbawione ścisłych dat", "Oznaczone co do dnia i godziny", "Ściśle ograniczone do granic Rzymu"], c: 0, tip: "Uniwersalność pozwala odnieść morał do każdego człowieka w każdej epoce." },
+      { t: "Parabola", q: "Co jest cechą charakterystyczną fabuły paraboli?", o: ["Prostota i schematyczność podporządkowana nauce", "Wielowątkowość i setki bohaterów pobocznych", "Bogate opisy krajobrazu i przyrody"], c: 0, tip: "Fabuła jest tylko pretekstem do przekazania nadrzędnej prawdy." },
+      { t: "Parabola", q: "W przypowieści motyw drogi symbolizuje najczęściej:", o: ["Koleje ludzkiego życia i wybory moralne", "Trud podróży morskiej", "Długość handlowych szlaków rzymskich"], c: 0, tip: "Droga to topos ludzkiej wędrówki i decyzji duchowych." },
+      { t: "Parabola", q: "Przypowieść zaliczana jest do gatunków:", o: ["Epiki", "Liryki", "Dramatu"], c: 0, tip: "Jako utwór narracyjny z fabułą i narratorem przypowieść to epika." },
 
-    function openLightbox(src, caption) {
-      const modal = document.getElementById('lightboxModal');
-      const img = document.getElementById('lightboxImage');
-      const cap = document.getElementById('lightboxCaption');
+      { t: "Talenty", q: "Czym w sensie dosłownym był talent w starożytności?", o: ["Jednostką wagi i monety o znacznej wartości", "Tytułem szlacheckim w Izraelu", "Miarą powierzchni roli"], c: 0, tip: "Talent był bardzo cenną monetą/ilością szlachetnego kruszcu." },
+      { t: "Talenty", q: "Ile talentów pan powierzył sługom na początku?", o: ["Pięć, dwa i jeden", "Dziesięć każdemu po równo", "Trzy, sześć i dziewięć"], c: 0, tip: "Pan podzielił majątek według indywidualnych zdolności każdego ze sług." },
+      { t: "Talenty", q: "Co ze swoim talentem uczynił trzeci sługa?", o: ["Zakopał go w ziemi ze strachu przed panem", "Zgubił go w trakcie podróży", "Przehulał go w gospodzie ze znajomymi"], c: 0, tip: "Z paraliżującego lęku i lenistwa sługa wybrał bierność." },
+      { t: "Talenty", q: "Jaką nagrodę otrzymali pierwsi dwaj słudzy za podwojenie zysku?", o: ["Pochwałę, zaproszenie do radości pana i władzę nad wieloma rzeczami", "Wolność od niewolnictwa i konia", "Zwolnienie z pracy do końca życia"], c: 0, tip: "Wierność w rzeczach małych skutkuje powierzeniem wielkich zadań." },
+      { t: "Talenty", q: "Jaka kara spotkała sługę, który zakopał swój talent?", o: ["Talent mu odebrano, a jego samego wyrzucono na zewnątrz", "Został skazany na dożywotnie więzienie w lochu", "Musiał oddać dwukrotność kwoty"], c: 0, tip: "Kto nie rozwija dobra, traci nawet to, co posiadał." },
+      { t: "Talenty", q: "Wymowa metaforyczna talentu odnosi się do:", o: ["Darów Bożych, zdolności, wiary i życia", "Wyłącznie zarabiania pieniędzy na giełdzie", "Wiedzy z zakresu sztuki antycznej"], c: 0, tip: "Talent to każdy dar złożony w człowieku przez Stwórcę." },
+      { t: "Talenty", q: "Jaką postawę potępia Przypowieść o talentach?", o: ["Bierność, lenistwo i paraliżujący strach", "Nadmierną pracowitość", "Podejmowanie ryzyka handlowego"], c: 0, tip: "Chrześcijanin ma obowiązek pomnażać dobro, a nie trwać w bezruchu." },
+      { t: "Talenty", q: "Dlaczego trzeci sługa bał się swojego pana?", o: ["Uważał go za człowieka twardego, żnącego tam, gdzie nie posiał", "Wiedział, że pan jest fałszerzem", "Pan groził mu chłostą przed wyjazdem"], c: 0, tip: "Sługa fałszywie osądził pana, usprawiedliwiając własne lenistwo." },
+      { t: "Talenty", q: "Komu przekazano talent odebrany gnuśnemu słudze?", o: ["Temu, który miał dziesięć talentów", "Zarządcy pałacu", "Najbiedniejszemu żebrakowi w mieście"], c: 0, tip: "Temu, kto ma i rozwija, będzie dodane." },
+      { t: "Talenty", q: "Słowa „każdemu, kto ma, będzie dodane” oznaczają, że:", o: ["Kto pomnaża dary, otrzymuje jeszcze większe łaski", "Bogaci ludzie nigdy nie zbankrutują", "Bóg faworyzuje jedynie materialistów"], c: 0, tip: "Aktywność duchowa otwiera człowieka na kolejne łaski." },
+      { t: "Talenty", q: "Jaki stosunek do ryzyka promuje przypowieść?", o: ["Odwagę w działaniu i podejmowanie trudu rozwoju", "Ślepe hazardowe obstawianie", "Całkowity brak jakichkolwiek starań"], c: 0, tip: "Wiara wymaga zaangażowania i śmiałości serca." },
 
-      img.src = src || currentActivePortrait;
-      cap.textContent = caption || 'Portret Seniorki – piękno, godność i mądrość';
-      
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      
-      setTimeout(() => {
-        modal.classList.remove('opacity-0');
-        modal.classList.add('opacity-100');
-      }, 20);
-    }
+      { t: "Syn marnotrawny", q: "O co poprosił ojca młodszy syn przed odejściem?", o: ["O należną mu część majątku (spadek)", "O błogosławieństwo na ślub", "O pożyczkę na zakup wielbłądów"], c: 0, tip: "Zażądanie spadku za życia ojca było wówczas wielkim despektem." },
+      { t: "Syn marnotrawny", q: "W jaki sposób młodszy syn stracił swoje dobra?", o: ["Roztrwonił wszystko, żyjąc rozrzutnie i hulaszczo", "Został napadnięty przez armię wroga", "Stracił majątek w wyniku pożaru statku"], c: 0, tip: "Prowadził swawolne życie w dalekim kraju bez żadnych hamulców." },
+      { t: "Syn marnotrawny", q: "Przy jakiej pracy wylądował syn w obcym kraju?", o: ["Przy wypasie świń", "Jako kowal w kuźni", "Jako sternik na łodzi rybackiej"], c: 0, tip: "Dla Żyda świnia była zwierzęciem nieczystym – oznaczało to dno upadku." },
+      { t: "Syn marnotrawny", q: "Czym syn chciał nasycić swój głód podczas głodu?", o: ["Strąkami, którymi karmiono świnie", "Zgniłymi rybami z targu", "Resztkami chleba od żołnierzy"], c: 0, tip: "Nawet paszy dla zwierząt nikt nie chciał mu podarować." },
+      { t: "Syn marnotrawny", q: "Co skłoniło syna do powrotu do domu?", o: ["Skrucha i myśl, że najemnicy ojca mają chleba pod dostatkiem", "Pewność, że ojciec zmarł i zostawił mu dom", "List od starszego brata z prośbą o pomoc"], c: 0, tip: "Upadek stał się początkiem wewnętrznego opamiętania." },
+      { t: "Syn marnotrawny", q: "Jaką funkcję chciał pełnić syn po powrocie do ojca?", o: ["Jednego z jego najemników", "Głównego zarządcy majątku", "Niewolnika w stajni"], c: 0, tip: "Uznał, że nie jest już godzien miana syna." },
+      { t: "Syn marnotrawny", q: "Jak zareagował ojciec, gdy ujrzał powracającego syna?", o: ["Wzruszył się, wybiegł naprzeciw i rzucił mu się na szyję", "Kazał zamknąć bramę i nie wpuszczać go do środka", "Kazał mu najpierw odpracować straty na roli"], c: 0, tip: "Bóg wybiega naprzeciw każdemu skruszonemu grzesznikowi." },
+      { t: "Syn marnotrawny", q: "Jakie dary otrzymał syn marnotrawny od ojca?", o: ["Najlepszą szatę, pierścień na rękę i sandały", "Złotą koronę i nowy miecz", "Konia i wóz pełen zboża"], c: 0, tip: "Szata, pierścień i buty oznaczały natychmiastowe przywrócenie godności syna." },
+      { t: "Syn marnotrawny", q: "Jakie zwierzę zabito, aby uczcić powrót syna?", o: ["Utuczone cielę", "Barana bez skazy", "Młodego kozła"], c: 0, tip: "Zabicie utuczonego cielęcia oznaczało wyprawienie największej uczty." },
+      { t: "Syn marnotrawny", q: "Jak zareagował starszy brat na powrót marnotrawnego?", o: ["Oburzył się, gniewał i nie chciał wejść do domu", "Ucieszył się i rzucił bratu w ramiona", "Zaproponował bratu wspólną pracę"], c: 0, tip: "Starszy brat poczuł niesprawiedliwość i zazdrość." },
+      { t: "Syn marnotrawny", q: "O co starszy syn miał pretensje do ojca?", o: ["Że wiernie służy od lat, a nigdy nie dostał koźlęcia na zabawę", "Że ojciec sprzedał jego ulubionego konia", "Że ojciec kazał mu spać w stodole"], c: 0, tip: "Starszy brat liczył na nagrodę, traktując relację jak umowę prawną." },
+      { t: "Syn marnotrawny", q: "Słowa ojca: „ten brat twój był umarły, a znów ożył” oznaczają:", o: ["Śmierć duchową w grzechu i zmartwychwstanie przez nawrócenie", "Fizyczne ożywienie z grobu", "Ocalenie przed utonięciem w rzece"], c: 0, tip: "Grzech oddala od życia; powrót do Boga jest zmartwychwstaniem." },
+      { t: "Syn marnotrawny", q: "Postawa starszego brata jest w Ewangelii symbolem:", o: ["Faryzejskiej obłudy, legalizmu i braku miłosierdzia", "Prawdziwej mądrości życiowej", "Głębokiego oddania rodzinie"], c: 0, tip: "Wypowiedź była skierowana do faryzeuszy gorszących się przebaczeniem." },
+      { t: "Syn marnotrawny", q: "Pojęcie „metanoia” w kontekście syna marnotrawnego oznacza:", o: ["Wewnętrzną przemianę umysłu i żal za grzechy", "Przeniesienie majątku do innego banku", "Utratę pamięci po chorobie"], c: 0, tip: "Metanoia to greckie określenie nawrócenia i zmiany myślenia." },
+      { t: "Syn marnotrawny", q: "Główne przesłanie tej przypowieści głosi, że:", o: ["Bóg wybacza każdemu grzesznikowi, który szczerze żałuje", "Majątek należy trzymać wyłącznie w gotówce", "Młodsi synowie są zawsze faworyzowani przez rodziców"], c: 0, tip: "Miłosierdzie Boże przewyższa wszelkie ludzkie kalkulacje." },
+      { t: "Syn marnotrawny", q: "Co symbolizuje pierścień podarowany powracającemu synowi?", o: ["Władzę i przywrócenie praw członka rodziny", "Wygraną w turnieju", "Zawarcie związku małżeńskiego"], c: 0, tip: "Pierścień z pieczęcią oznaczał pełne zaufanie i status synowski." },
 
-    function closeLightbox(event, force) {
-      const modal = document.getElementById('lightboxModal');
-      if (force || event.target === modal) {
-        modal.classList.remove('opacity-100');
-        modal.classList.add('opacity-0');
-        setTimeout(() => {
-          modal.classList.remove('flex');
-          modal.classList.add('hidden');
-        }, 300);
-      }
-    }
+      { t: "Samarytanin", q: "Dokąd zmierzał człowiek, który wpadł w ręce zbójców?", o: ["Z Jerozolimy do Jerycha", "Z Betlejem do Nazaretu", "Z Samarii do Damaszku"], c: 0, tip: "Trasa z Jerozolimy do Jerycha słynęła z niebezpiecznych wąwozów i bandytów." },
+      { t: "Samarytanin", q: "Co zbójcy zrobili napadniętemu podróżnemu?", o: ["Ograbili go, pobili i zostawili półumarłego", "Związali i wrzucili do wyschniętej studni", "Sprzedali go jako niewolnika do Egiptu"], c: 0, tip: "Zostawili go nagiego, ciężko rannego na pastwę losu." },
+      { t: "Samarytanin", q: "Który z podróżnych jako pierwszy minął rannego bez pomocy?", o: ["Żydowski kapłan", "Rzymski legionista", "Kupiec z Sydonu"], c: 0, tip: "Kapłan, który powinien dawać przykład miłości, ominął go z daleka." },
+      { t: "Samarytanin", q: "Kto był drugim człowiekiem mijającym poszkodowanego?", o: ["Lewita (pomocnik świątynny)", "Celnik z Jerycha", "Faryzeusz z synagogi"], c: 0, tip: "Lewita podszedł, zobaczył i również poszedł dalej." },
+      { t: "Samarytanin", q: "Dlaczego kapłan i lewita mogli unikać dotknięcia rannego?", o: ["Obawiali się nieczystości rytualnej w razie jego śmierci", "Byli ślepi i go nie zauważyli", "Spieszyli się na igrzyska w Rzymie"], c: 0, tip: "Dotknięcie trupa w prawie żydowskim powodowało nieczystość rytualną." },
+      { t: "Samarytanin", q: "Kim dla Żydów byli w tamtym czasie Samarytanie?", o: ["Wrogami i odszczepieńcami religijnymi", "Najbliższymi sojusznikami militarnymi", "Najwyższymi kapłanami w świątyni"], c: 0, tip: "Żydzi gardzili Samarytanami i nie utrzymywali z nimi kontaktów." },
+      { t: "Samarytanin", q: "Czym Samarytanin opatrzył rany poszkodowanego?", o: ["Oliwą i winem", "Czystą wodą morską i piaskiem", "Balsamem z mirry i miodem"], c: 0, tip: "Wino dezynfekowało ranę, a oliwa łagodziła ból." },
+      { t: "Samarytanin", q: "Gdzie Samarytanin przetransportował rannego człowieka?", o: ["Do gospody", "Do pałacu namiestnika", "Do pobliskiej świątyni"], c: 0, tip: "Wsadził go na własne bydlę i odwiózł do gospody, by o niego zadbać." },
+      { t: "Samarytanin", q: "Ile denarów Samarytanin zostawił gospodarzowi?", o: ["Dwa denary", "Dziesięć talentów", "Pięćdziesiąt srebrników"], c: 0, tip: "Dwa denary wystarczały na kilkudniowe utrzymanie w gospodzie." },
+      { t: "Samarytanin", q: "Do czego zobowiązał się Samarytanin wobec gospodarza?", o: ["Że zwróci wszelkie dodatkowe koszty leczenia w drodze powrotnej", "Że kupi gospodę na własność", "Że zabierze rannego do Rzymu za miesiąc"], c: 0, tip: "Zapewnił bezinteresowną, pełną opiekę do całkowitego wyleczenia." },
+      { t: "Samarytanin", q: "Jakie pytanie sprowokowało Jezusa do opowiedzenia tej paraboli?", o: ["„Kto jest moim bliźnim?”", "„Jak zdobyć wielki majątek?”", "„Kiedy nastąpi koniec świata?”"], c: 0, tip: "Uczony w Prawie zapytał, kogo dokładnie powinien uważać za bliźniego." },
+      { t: "Samarytanin", q: "Morał z Przypowieści o miłosiernym Samarytaninie uczy, że:", o: ["Bliźnim jest każdy człowiek w potrzebie bez względu na pochodzenie", "Należy podróżować wyłącznie z uzbrojoną eskortą", "Tylko kapłani mają monopol na dobre uczynki"], c: 0, tip: "Miłość nie zna granic etnicznych ani wyznaniowych." },
+      { t: "Samarytanin", q: "Jakie nakazanie dał Jezus uczonemu na końcu przypowieści?", o: ["„Idź i ty czyń podobnie”", "„Zostań kapłanem w świątyni”", "„Złóż ofiarę ze zwierząt”"], c: 0, tip: "Wiara ma objawiać się w praktycznym działaniu każdego dnia." },
+      { t: "Samarytanin", q: "Co w postawie Samarytanina zasługuje na największe uznanie?", o: ["Bezinteresowność, empatia i poświęcenie własnych środków", "Brak lęku przed dzikimi zwierzętami", "Znajomość medycyny egipskiej"], c: 0, tip: "Oddał swój czas, pieniądze i zaryzykował własne bezpieczeństwo." },
+      { t: "Samarytanin", q: "Czego uosobieniem są w tej paraboli kapłan i lewita?", o: ["Pustej obrzędowości pozbawionej miłości i empatii", "Męstwa na polu bitwy", "Prawdziwej pobożności serca"], c: 0, tip: "Reprezentują religijność zewnętrzną, która zapomina o człowieku." },
 
-    const warmQuotes = [
-      {
-        quote: "„Pamiętaj kochanie: cokolwiek się dzieje, twoja wartość nie zależy od opinii świata. Bądź wierna swojemu sercu i walcz o wolny wybór.”",
-        author: "– Głos Dojrzałej Odwagi"
-      },
-      {
-        quote: "„Zmarszczki to mapa uśmiechów, które podarowałaś światu, i łez, które przemieniłaś w niezniszczalną siłę.”",
-        author: "– Refleksja o Kobiecym Pięknie"
-      },
-      {
-        quote: "„Wybór, nie zakaz. Mądra babcia wie, że wolność i zaufanie to najpiękniejszy spadek, jaki można zostawić dzieciom.”",
-        author: "– Złota Myśl Pokoleniowa"
-      },
-      {
-        quote: "„Prawdziwe piękno rodzi się w momencie, gdy przestajesz przepraszać za to, kim jesteś.”",
-        author: "– Lekcja Życiowej Dumy"
-      },
-      {
-        quote: "„Ciepła herbata, chwila szczerej rozmowy i uścisk rąk potrafią uleczyć to, z czym świat sobie nie radzi.”",
-        author: "– Babcine Ciepło"
-      }
+      { t: "Siewca", q: "Kto jest Siewcą w przypowieści Jezusa?", o: ["Bóg / Jezus głoszący Słowo", "Rzymski urzędnik zbierający podatki", "Każdy człowiek szukający bogactwa"], c: 0, tip: "Siewca wychodzi siać prawdę Ewangelii w świecie." },
+      { t: "Siewca", q: "Co symbolizuje rozsiewane ziarno?", o: ["Słowo Boże i naukę o zbawieniu", "Złote monety", "Doczesną mądrość ludzką"], c: 0, tip: "Ziarno niesie w sobie potencjał nowego życia i wiary." },
+      { t: "Siewca", q: "Co stało się z ziarnem, które padło przy drodze?", o: ["Zostało podeptane, a ptaki je wydziobały", "Zostało zmyte przez falę rzeczną", "Wyrosło na potężne drzewo owocowe"], c: 0, tip: "Nie miało szansy na zapuszczenie choćby najmniejszego korzenia." },
+      { t: "Siewca", q: "Co oznacza grunt skalisty w wyjaśnieniu przypowieści?", o: ["Człowieka o słomianym zapale, bez głębokiego zakorzenienia wiary", "Mocarza o twardym i niezłomnym sercu", "Wroga wszelkiej religii"], c: 0, tip: "Gdy przychodzi trudność lub prześladowanie, taki człowiek odpada." },
+      { t: "Siewca", q: "Co symbolizują ciernie, które zagłuszyły ziarno?", o: ["Troski doczesne, ułudę bogactwa i pogoń za przyjemnościami", "Choroby zakaźne w starożytności", "Surowe podatki rzymskie"], c: 0, tip: "Materializm dusi rozwój duchowy człowieka." },
+      { t: "Siewca", q: "Jakie plony wydało ziarno, które padło na ziemię żyzną?", o: ["Trzydziestokrotny, sześćdziesięciokrotny i stokrotny", "Zawsze dokładnie dwukrotny", "Żadnego – służyło tylko jako ozdoba"], c: 0, tip: "Dobre serce przynosi wielokrotne owoce dobrych czynów." },
+      { t: "Siewca", q: "Na ile rodzajów podłoża padło ziarno siewcy?", o: ["Na cztery rodzaje (droga, skała, ciernie, żyzna ziemia)", "Na dwa rodzaje (suche i mokre)", "Na siedem rodzajów ziemi"], c: 0, tip: "Cztery gleby reprezentują cztery różne postawy ludzkich serc." },
+      { t: "Siewca", q: "Kto symbolizowany jest przez ptaki porywające ziarno?", o: ["Szatan / zły duch wyrywający słowo z serca", "Aniołowie stróże", "Biedni ludzie szukający ratunku"], c: 0, tip: "Zło wykorzystuje nieuwagę i obojętność człowieka." },
+      { t: "Siewca", q: "Dlaczego roślina na gruncie skalistym uschła?", o: ["Nie miała wilgoci i głębokiego korzenia, a słońce ją przypaliło", "Została zjedzona przez owady", "Siewca celowo ją wyrwał"], c: 0, tip: "Płytka wiara oparta na samych emocjach nie wytrzymuje próby ognia." },
+      { t: "Siewca", q: "Od czego zależy plon według Przypowieści o siewcy?", o: ["Od dyspozycji i otwartości serca słuchacza", "Od jakości użytych narzędzi rolniczych", "Od pory roku, w której odbywa się siew"], c: 0, tip: "Ziarno zawsze jest doskonałe – różna bywa jedynie gleba." },
+
+      { t: "Gorczyca i Owca", q: "Do czego porównane zostało Królestwo Niebieskie?", o: ["Do małego ziarnka gorczycy", "Do potężnego cedru libańskiego", "Do złotej tarczy żołnierza"], c: 0, tip: "Gorczyca uchodziła za jedno z najdrobniejszych nasion." },
+      { t: "Gorczyca i Owca", q: "Co dzieje się z ziarnkiem gorczycy po wyrośnięciu?", o: ["Staje się wielkim krzewem/drzewem, w którym ptaki wiją gniazda", "Wysycha i zamienia się w proch", "Daje trujące owoce"], c: 0, tip: "Z małego początku rodzi się ogromne schronienie dla stworzeń." },
+      { t: "Gorczyca i Owca", q: "Sens przypowieści o ziarnku gorczycy ukazuje:", o: ["Potęgę rozwoju wiary i Kościoła z małych początków", "Konieczność dbania o florę leśną", "Wyższość gorczycy nad zbożem"], c: 0, tip: "Dzieło Boże rozwija się po cichu, ale z wielką mocą." },
+      { t: "Gorczyca i Owca", q: "Ile owiec zostawił pasterz, by odszukać tę zagubioną?", o: ["Dziewięćdziesiąt dziewięć owiec", "Tylko jedną owcę", "Pół stada (pięćdziesiąt)"], c: 0, tip: "Pasterz zostawił całe stado, by ratować jednostkę." },
+      { t: "Gorczyca i Owca", q: "Gdzie pasterz umieścił odnalezioną owcę?", o: ["Wziął ją z radością na swoje ramiona", "Pędził ją batem przed sobą", "Związał ją powrozem za nogi"], c: 0, tip: "Obraz Dobrego Pasterza niosącego owcę na ramionach to symbol troski Boga." },
+      { t: "Gorczyca i Owca", q: "Z czego w niebie jest większa radość według przypowieści?", o: ["Z jednego nawróconego grzesznika niż z 99 sprawiedliwych", "Z budowy nowej świątyni z kamienia", "Ze zwycięstwa militarnego narodu"], c: 0, tip: "Bóg nigdy nie rezygnuje z błądzącego człowieka." },
+      { t: "Gorczyca i Owca", q: "Kogo bezpośrednio symbolizuje zagubiona owca?", o: ["Każdego człowieka, który zszedł na drogę grzechu", "Złodzieja okradającego świątynię", "Poganina odrzucającego prawo"], c: 0, tip: "Zagubienie nie oznacza odrzucenia – Bóg rusza na poszukiwania." },
+
+      { t: "Księga Rodzaju", q: "Jak nazywa się pierwsza księga Biblii?", o: ["Księga Rodzaju (Genesis)", "Księga Wyjścia (Exodus)", "Księga Kapłańska"], c: 0, tip: "Genesis oznacza początek, rodowód i powstanie wszechświata." },
+      { t: "Księga Rodzaju", q: "W jaki sposób Bóg stwarza poszczególne elementy świata?", o: ["Wypowiadając Słowo („Niech się stanie...”)", "Lepiąc wszystko z wilgotnej gliny", "Tocząc bój z demonami otchłani"], c: 0, tip: "Słowo Boga ma moc natychmiastowego stwarzania bytu z nicości." },
+      { t: "Księga Rodzaju", q: "Ile dni trwało biblijne dzieło stworzenia?", o: ["Sześć dni (siódmego Bóg odpoczął)", "Siedem pełnych dni pracy", "Czterdzieści dni i nocy"], c: 0, tip: "Sześć dni pracy twórczej i dzień odpoczynku – szabat." },
+      { t: "Księga Rodzaju", q: "W jaki sposób został stworzony człowiek?", o: ["Na obraz i podobieństwo Boże", "Na wzór potężnych aniołów", "Przypadkowo z resztek po stworzeniu zwierząt"], c: 0, tip: "Obraz i podobieństwo Boże daje człowiekowi godność i wolną wolę." },
+      { t: "Księga Rodzaju", q: "Jak brzmiał stały refren po kolejnych etapach stwarzania?", o: ["„I widział Bóg, że było dobre”", "„I zdziwił się Pan swemu dziełu”", "„I zapłakał Bóg nad światem”"], c: 0, tip: "Pierwotny świat w zamyśle Boga był wolny od zła i doskonały." },
+      { t: "Księga Rodzaju", q: "Jakie zadanie otrzymał człowiek od Boga w Edenie?", o: ["Miał czynić sobie ziemię poddaną i opiekować się ogrodem", "Miał wybudować wysoką wieżę ze złota", "Miał spisać prawa dla innych istot"], c: 0, tip: "Podporządkowanie ziemi oznaczało mądre gospodarowanie i troskę." },
+      { t: "Księga Rodzaju", q: "Z którego drzewa Bóg ZAKAZAŁ spożywać owoce?", o: ["Z Drzewa Poznania Dobra i Zła", "Z Drzewa Figowego", "Z Drzewa Życia Wiecznego"], c: 0, tip: "Złamanie tego zakazu było próbą zdefiniowania moralności bez Boga." },
+      { t: "Księga Rodzaju", q: "Pod jaką postacią szatan ukazał się w raju Ewie?", o: ["Węża", "Kruka", "Lwa ryczącego"], c: 0, tip: "Wąż był najbardziej przebiegłym ze wszystkich zwierząt polnych." },
+      { t: "Księga Rodzaju", q: "Jakiej pokusie ulegli pierwsi ludzie?", o: ["Obietnicy węża: „będziecie jako bogowie znający dobro i zło”", "Chęci zdobycia wielkich skarbów ze złota", "Pragnieniu ucieczki z nudnego raju"], c: 0, tip: "Grzech pierworodny zrodził się z pychy i nieposłuszeństwa." },
+      { t: "Księga Rodzaju", q: "Co zrobili pierwsi ludzie natychmiast po zjedzeniu owocu?", o: ["Zauważyli swoją nagość i spletli opaski z liści figowych", "Zaczęli śpiewać pieśni pochwalne", "Zasnęli głębokim snem na wieki"], c: 0, tip: "Utrata pierwotnej niewinności wywołała poczucie wstydu i lęku." },
+      { t: "Księga Rodzaju", q: "Co stało się bezpośrednim skutkiem grzechu pierworodnego?", o: ["Utrata raju, konieczność ciężkiej pracy, cierpienie i śmierć", "Natychmiastowe zniszczenie planety Ziemia", "Zamiana człowieka w kamień"], c: 0, tip: "Człowiek utracił stan łaski i nieśmiertelność." },
+      { t: "Księga Rodzaju", q: "Słowa „w pocie czoła będziesz zdobywał pożywienie” skierowano do:", o: ["Adama", "Węża", "Kaina"], c: 0, tip: "Trud pracy na roli stał się losem wygnanego człowieka." },
+      { t: "Księga Rodzaju", q: "Słowa „Prochem jesteś i w proch się obrócisz” zapowiadają:", o: ["Nieuchronną śmierć cielesną każdego człowieka", "Spalenie ogrodu Eden w ogniu", "Powstanie pustyni na świecie"], c: 0, tip: "Przypomnienie o kruchości i śmiertelności ludzkiego ciała." },
+      { t: "Księga Rodzaju", q: "Kto pilnował wejścia do raju po wygnaniu Adama i Ewy?", o: ["Cherub z wirującym mieczem z ognia", "Potężny smok morski", "Archanioł Gabriel z trąbą"], c: 0, tip: "Cherub strzegł drogi do Drzewa Życia przed grzesznym człowiekiem." },
+      { t: "Księga Rodzaju", q: "Dlaczego Adam po grzechu ukrył się przed Bogiem?", o: ["Bał się, ponieważ uświadomił sobie, że jest nagi", "Bawił się z Ewą w chowanego", "Chciał zaskoczyć Boga nowym strojem"], c: 0, tip: "Poczucie winy i wstydu zniszczyło dawną otwartość wobec Stwórcy." },
+      { t: "Księga Rodzaju", q: "Którego dnia Bóg stworzył ciała niebieskie (słońce i księżyc)?", o: ["Czwartego dnia", "Pierwszego dnia", "Szóstego dnia"], c: 0, tip: "Ciała niebieskie powstały czwartego dnia, by wyznaczać pory roku i dni." },
+      { t: "Księga Rodzaju", q: "Z czego według drugiego opisu w Genesis Bóg ulepił ciało człowieka?", o: ["Z prochu ziemi (gliny) i tchnął dech życia", "Z wody i morskich minerałów", "Ze światła słonecznego"], c: 0, tip: "Proch ziemi ożywiony Bożym tchnieniem dał początek człowiekowi." },
+
+      { t: "Księga Hioba", q: "Gdzie mieszkał Hiob?", o: ["W krainie Us", "W Egipcie pod piramidami", "W Jerozolimie za murami"], c: 0, tip: "Kraina Us leżała na wschód od Izraela, na pograniczu z Arabią." },
+      { t: "Księga Hioba", q: "Jak Biblia charakteryzuje postawę Hioba przed próbą?", o: ["Był mężem prawym, sprawiedliwym, bogobojnym i unikającym zła", "Był chciwym kupcem szukającym poklasku", "Był kapłanem fałszywych bóstw"], c: 0, tip: "Hiob był wzorem moralności i wierności Bogu." },
+      { t: "Księga Hioba", q: "O co szatan założył się z Bogiem w sprawie Hioba?", o: ["Że Hiob przestanie wielbić Boga, gdy odbierze mu się bogactwo", "Że Hiob ucieknie do innego państwa", "Że Hiob nie zna tekstu przykazań"], c: 0, tip: "Szatan twierdził, że pobożność Hioba wynika jedynie z interesowności." },
+      { t: "Księga Hioba", q: "Jakie nieszczęścia spotkały Hioba w pierwszym etapie próby?", o: ["Utrata całego majątku, stad i śmierć wszystkich dzieci", "Utrata wzroku i głuchota", "Wygnanie z ojczyzny na bezludną wyspę"], c: 0, tip: "W jednej chwili runął cały jego doczesny świat." },
+      { t: "Księga Hioba", q: "Słowa Hioba: „Pan dał, Pan wziął; niech imię Pańskie będzie błogosławione” oznaczają:", o: ["Całkowite poddanie się woli Bożej i niezłomną wiarę", "Bunt i sarkastyczne potępienie Stwórcy", "Rezygnację z dalszego życia"], c: 0, tip: "Świadectwo absolutnej prawości Hioba wobec tragedii." },
+      { t: "Księga Hioba", q: "Jaką chorobą szatan dotknął ciało Hioba w drugim etapie?", o: ["Złośliwym trądem od stóp do głów", "Śmiertelną zarazą płuc", "Gorączką tropikalną"], c: 0, tip: "Trąd czynił go wyrzutkiem społecznym cierpiącym potworny ból fizyczny." },
+      { t: "Księga Hioba", q: "Gdzie usiadł chory Hiob, aby skrobać swe rany?", o: ["Na popiele (śmietnisku) za miastem", "W swoim dawnym pałacu", "Na brzegu rzeki Jordan"], c: 0, tip: "Siedzenie na popiele było symbolem skrajnej żałoby i upokorzenia." },
+      { t: "Księga Hioba", q: "Co żona poradziła cierpiącemu Hiobowi?", o: ["„Złorzecz Bogu i umieraj!”", "„Idź do świątyni złożyć ofiarę ze złota”", "„Udaj się po pomoc do lekarzy rzymskich”"], c: 0, tip: "Żona uważała, że lepiej umrzeć, niż trwać w beznadziejnej wierności." },
+      { t: "Księga Hioba", q: "Jak odpowiedział Hiob na podszepty swojej żony?", o: ["„Dobre przyjęliśmy z ręki Boga, a złego nie mielibyśmy przyjąć?”", "„Masz rację, wyrzekam się wiary natychmiast”", "„Zostaw mnie samego w pałacu”"], c: 0, tip: "Hiob przyjmował los jako całość planu Bożego." },
+      { t: "Księga Hioba", q: "Co twierdzili trzej przyjaciele, którzy odwiedzili Hioba?", o: ["Że cierpienie jest karą za jego ukryte grzechy", "Że Bóg z pewnością nie istnieje", "Że szatan przejął władzę nad całym kosmosem"], c: 0, tip: "Bronili tradycyjnej teologii odpłaty: cierpisz, bo zgrzeszyłeś." },
+      { t: "Księga Hioba", q: "Jak na oskarżenia przyjaciół reagował Hiob?", o: ["Zaciekle bronił swojej niewinności i domagał się dialogu z Bogiem", "Przyznał się do wymyślonych zbrodni dla świętego spokoju", "Pobił przyjaciół kijem"], c: 0, tip: "Wiedział, że nie dopuścił się zła, i nie godził się na kłamstwo." },
+      { t: "Księga Hioba", q: "Z czego Bóg przemówił do Hioba pod koniec księgi?", o: ["Z wichru (burzy)", "Z płonącego krzewu oliwnego", "Z cichego szmeru strumienia"], c: 0, tip: "Wicher i burza symbolizowały potęgę i transcendencję Boga." },
+      { t: "Księga Hioba", q: "Co Bóg uświadomił Hiobowi podczas swojej mowy?", o: ["Że człowiek nie jest w stanie pojąć wielkości i tajemnicy stworzenia", "Że szatan był od początku mądrzejszy od ludzi", "Że Hiob powinien zostać nowym królem Izraela"], c: 0, tip: "Bóg zadał pytania o fundamenty świata, ukazując małość ludzkiego rozumu." },
+      { t: "Księga Hioba", q: "Jak zakończyła się historia Hioba?", o: ["Bóg przywrócił mu zdrowie, podwoił majątek i obdarzył nowymi dziećmi", "Hiob umarł w nędzy na śmietnisku", "Hiob został wygnany do krainy zmarłych"], c: 0, tip: "Wierność Hioba została sowicie wynagrodzona." },
+      { t: "Księga Hioba", q: "Związek frazeologiczny „hiobowa wieść” oznacza:", o: ["Nagłą, niezwykle tragiczną i porażającą wiadomość", "Pomyślną nowinę o wygranej na loterii", "List od dawno niewidzianego krewnego"], c: 0, tip: "Nawiązuje do posłańców przynoszących Hiobowi kolejne wiadomości o klęskach." },
+      { t: "Księga Hioba", q: "Kto z wymienionych nie był przyjacielem Hioba?", o: ["Salomon", "Elifaz", "Bildad"], c: 0, tip: "Przyjaciółmi Hioba byli Elifaz, Bildad i Sofar (oraz młody Elihu)." },
+
+      { t: "Księga Koheleta", q: "Kim z definicji jest Kohelet?", o: ["Mędrcem przemawiającym na zgromadzeniu", "Dowódcą gwardii pałacowej", "Sędzią rozstrzygającym spory graniczne"], c: 0, tip: "Kohelet (Ekklezjastes) to funkcja urzędowa i kaznodziejska." },
+      { t: "Księga Koheleta", q: "Z jakim biblijnym królem tradycyjnie utożsamia się Koheleta?", o: ["Z królem Salomonem", "Z królem Dawidem", "Z królem Saulem"], c: 0, tip: "Salomon słynął z legendarnej mądrości i niezmierzonego bogactwa." },
+      { t: "Księga Koheleta", q: "Jak brzmi słynny łaciński cytat otwierający Księgę Koheleta?", o: ["Vanitas vanitatum et omnia vanitas", "Memento mori", "Carpe diem quam minimum credula postero"], c: 0, tip: "Marność nad marnościami i wszystko marność." },
+      { t: "Księga Koheleta", q: "Co według Koheleta dzieje się z ludzkimi dążeniami do sławy i bogactwa?", o: ["Okazują się marnością i gonitwą za wiatrem", "Prowadzą do wiecznego zbawienia", "Zapewniają nieśmiertelność na ziemi"], c: 0, tip: "Żadne ziemskie osiągnięcie nie uchroni człowieka przed śmiercią." },
+      { t: "Księga Koheleta", q: "Co według Koheleta zrównuje mędrca z głupcem?", o: ["Nieuchronna śmierć i zapomnienie", "Podobny poziom wykształcenia", "Taki sam majątek w złocie"], c: 0, tip: "Koniec ziemski każdego człowieka jest identyczny bez względu na jego wiedzę." },
+      { t: "Księga Koheleta", q: "Słowa „Wszystko ma swój czas [...] jest czas rodzenia i czas umierania” podkreślają:", o: ["Cykliczność i zmienność ludzkiego losu podległego Bogu", "Konieczność precyzyjnego noszenia zegarka", "Brak jakichkolwiek zasad we wszechświecie"], c: 0, tip: "Człowiek musi podporządkować się naturalnym etapom życia." },
+      { t: "Księga Koheleta", q: "Motyw „vanitas” był szczególnie popularny w epoce:", o: ["Baroku", "Oświecenia", "Młodej Polski"], c: 0, tip: "Barokowi artyści fascynowali się śmiercią, czaszkami i marnością świata." },
+      { t: "Księga Koheleta", q: "Czym według Koheleta jest praca człowieka pod słońcem?", o: ["Trudem, który często nie daje trwałego pożytku duchowego", "Jedyną drogą do osiągnięcia boskości", "Zabawą pozbawioną zmęczenia"], c: 0, tip: "Człowiek trudzi się całe życie, a dorobek zostawia innym." },
+      { t: "Księga Koheleta", q: "Jaka jest pozytywna rada życiowa Koheleta dla człowieka?", o: ["Cieszyć się chlebem, pracą, życiem i zachowywać przykazania", "Zrezygnować z jedzenia i zamknąć się w jaskini", "Wydać cały majątek w jeden dzień"], c: 0, tip: "Trzeba doceniać codzienne dary z rąk Boga i zachowywać umiar." },
+      { t: "Księga Koheleta", q: "Zdanie „Nic nowego pod słońcem” (Nihil novi sub sole) oznacza:", o: ["Świat i ludzkie zachowania powtarzają się w odwiecznych cyklach", "Słońce nigdy nie zmienia swojej temperatury", "Ludzie przestali wynajdować nowe technologie"], c: 0, tip: "Natura ludzka i mechanizmy rządzące światem pozostają niezmienne." },
+      { t: "Księga Koheleta", q: "Dlaczego Kohelet nie popada w ostateczny nihilizm (brak wiary w cokolwiek)?", o: ["Ponieważ punktem odniesienia i fundamentem pozostaje dla niego Bóg", "Ponieważ wierzył w reinkarnację", "Ponieważ miał wsparcie armii rzymskiej"], c: 0, tip: "Bojaźń Boża i sąd ostateczny nadają życiu ostateczny sens." },
+      { t: "Księga Koheleta", q: "Jaką cechę ludzkiej pamięci demaskuje Kohelet?", o: ["Pamięć o dawnych pokoleniach szybko i bezpowrotnie zanika", "Wszyscy wielcy ludzie są pamiętani przez wieczność", "Pamięć jest trwalsza niż kamień w piramidach"], c: 0, tip: "Kolejne pokolenia nie pamiętają o trudach swoich przodków." },
+      { t: "Księga Koheleta", q: "Do jakiego gatunku literatury biblijnej zaliczamy Księgę Koheleta i Hioba?", o: ["Do ksiąg mądrościowych (dydaktycznych)", "Do ksiąg historycznych", "Do ksiąg prorockich"], c: 0, tip: "Zawierają one uniwersalne refleksje filozoficzne nad losem i celem człowieka." },
+      { t: "Księga Koheleta", q: "Co jest według Koheleta „gonitwą za wiatrem”?", o: ["Dążenie do sławy, bogactwa i próżnych zaszczytów", "Uprawa pszenicy w Galilei", "Bieganie po pustyni w południe"], c: 0, tip: "Metafora daremnego wysiłku, którego nie da się zatrzymać w dłoniach." },
+      { t: "Księga Koheleta", q: "Końcowe przesłanie Księgi Koheleta brzmi:", o: ["„Boga się bój i przykazań Jego przestrzegaj, bo to jest cały człowiek”", "„Bierz z życia wszystko, póki jesteś młody, bez żadnych zasad”", "„Zbuduj pałac ze złota, by pamiętał o tobie świat”"], c: 0, tip: "Prawdziwa wielkość człowieka leży w posłuszeństwie wobec Stwórcy." },
+      { t: "Księga Koheleta", q: "Jaką metaforą Kohelet opisuje przemijanie pokoleń?", o: ["Rzek płynących bezustannie do morza, które nigdy się nie napełnia", "Drzew tracących liście co sto lat", "Ptaków odlatujących na pustynię"], c: 0, tip: "Rzeki płyną do morza, a morze nie wzbiera – to symbol wiecznego powrotu." }
     ];
 
-    let currentQuoteIndex = 0;
-
-    function drawWarmWord() {
-      const textEl = document.getElementById('quoteText');
-      const authorEl = document.getElementById('quoteAuthor');
-      
-      textEl.style.opacity = '0';
-      authorEl.style.opacity = '0';
-
-      setTimeout(() => {
-        let newIndex;
-        do {
-          newIndex = Math.floor(Math.random() * warmQuotes.length);
-        } while (newIndex === currentQuoteIndex && warmQuotes.length > 1);
-
-        currentQuoteIndex = newIndex;
-        textEl.textContent = warmQuotes[newIndex].quote;
-        authorEl.textContent = warmQuotes[newIndex].author;
-
-        textEl.style.opacity = '1';
-        authorEl.style.opacity = '1';
-      }, 200);
-    }
-
-    function showToast(msg) {
-      const toast = document.getElementById('toast');
-      const toastMsg = document.getElementById('toastMsg');
-      toastMsg.textContent = msg;
-      toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
-    }
-
-    function copyCurrentQuote() {
-      const text = document.getElementById('quoteText').textContent;
-      const author = document.getElementById('quoteAuthor').textContent;
-      const combined = `${text} ${author}`;
-      
-      const tempInput = document.createElement("textarea");
-      tempInput.value = combined;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      try {
-        document.execCommand("copy");
-        showToast("Sentencja została skopiowana do schowka!");
-      } catch (err) {
-        showToast("Nie udało się skopiować automatycznie.");
-      }
-      document.body.removeChild(tempInput);
-    }
-
-    const initialNotes = [
-      {
-        id: "1",
-        author: "Agnieszka",
-        recipient: "Moja Ukochana Babcia",
-        message: "Dziękuję Ci za Twoje nieustraszone serce, za to że nigdy nie pozwoliłaś zamknąć ust kobietom w naszej rodzinie i zawsze częstowałaś nas miłością.",
-        date: "Wczoraj"
-      },
-      {
-        id: "2",
-        author: "Michał",
-        recipient: "Dla Mamy i Babci Haliny",
-        message: "Twoje okulary zawsze na czole i to uważne spojrzenie... Przy Tobie każdy z nas czuje się bezpieczny i wysłuchany. Dziękuję za wszystko!",
-        date: "2 dni temu"
-      },
-      {
-        id: "3",
-        author: "Marta z dziećmi",
-        recipient: "Babcia Marysia",
-        message: "Dziękujemy za każdą opowieść i Twoją niezłomną postawę. Jesteś żywym dowodem na to, że prawdziwe piękno z wiekiem staje się tylko potężniejsze.",
-        date: "Niedawno"
-      }
-    ];
-
-    function loadNotes() {
-      const saved = localStorage.getItem('gratitude_notes_portrait_v3');
-      if (saved) {
-        try {
-          return JSON.parse(saved);
-        } catch (e) {
-          return initialNotes;
-        }
-      }
-      return initialNotes;
-    }
-
-    function saveNotes(notes) {
-      localStorage.setItem('gratitude_notes_portrait_v3', JSON.stringify(notes));
-    }
-
-    function renderNotes() {
-      const container = document.getElementById('gratitudeCardsContainer');
-      if (!container) return;
-      
-      const notes = loadNotes();
+    // ================= DYNAMICZNY GENERATOR QUIZÓW (10 pytań) =================
+    function generateNewQuiz() {
+      const container = document.getElementById('quiz-container-mount');
       container.innerHTML = '';
 
-      notes.forEach((note) => {
-        const card = document.createElement('div');
-        card.className = "bg-white p-5 rounded-3xl border border-amberRose-200/90 shadow-sm relative flex flex-col justify-between hover:border-crimsonAccent/40 hover:shadow-md transition-all";
+      const indices = shuffle(Array.from(Array(masterQuestions.length).keys())).slice(0, 10);
+
+      indices.forEach((qIdx, orderNum) => {
+        const qData = masterQuestions[qIdx];
         
+        const optionsWithMeta = qData.o.map((optText, optIndex) => ({
+          text: optText,
+          isCorrect: (optIndex === qData.c)
+        }));
+        const shuffledOpts = shuffle(optionsWithMeta);
+
+        const card = document.createElement('div');
+        card.className = 'question-card';
         card.innerHTML = `
-          <div>
-            <div class="flex items-center justify-between mb-3.5">
-              <div class="flex items-center gap-2">
-                <div class="w-8 h-8 rounded-full overflow-hidden border border-softGold shadow-sm photo-clickable" onclick="openLightboxFromAnywhere('Dedykacja dla: ${escapeHTML(note.recipient)}')">
-                  <img 
-                    src="${currentActivePortrait}" 
-                    alt="Pieczęć" 
-                    class="w-full h-full object-cover"
-                  >
-                </div>
-                <span class="inline-flex items-center gap-1 text-xs font-bold text-crimsonAccent bg-rose-50 px-2.5 py-1 rounded-md">
-                  ${escapeHTML(note.recipient)}
-                </span>
-              </div>
-              <span class="text-[10px] text-amberRose-400 font-medium">${escapeHTML(note.date || 'Wpis')}</span>
-            </div>
-            <p class="font-serif-title italic text-base sm:text-lg text-amberRose-950 mb-4 leading-relaxed">
-              „${escapeHTML(note.message)}”
-            </p>
-          </div>
-          <div class="pt-3 border-t border-amberRose-100 flex items-center justify-between text-xs text-amberRose-700">
-            <span>Od: <strong class="text-amberRose-950">${escapeHTML(note.author)}</strong></span>
-            <span class="text-[11px] text-softGold font-semibold">Pieczęć Serca ♥</span>
-          </div>
+          <div class="q-meta">${orderNum + 1}/10 • ${qData.t}</div>
+          <div class="q-title">${qData.q}</div>
+          <div class="q-options-wrap"></div>
+          <div class="q-explanation">${qData.tip}</div>
         `;
+
+        const optWrap = card.querySelector('.q-options-wrap');
+        shuffledOpts.forEach(opt => {
+          const btn = document.createElement('button');
+          btn.className = 'q-opt';
+          btn.innerText = opt.text;
+          btn.onclick = () => selectAnswer(btn, opt.isCorrect, card, qData);
+          optWrap.appendChild(btn);
+        });
 
         container.appendChild(card);
       });
 
-      if (window.lucide) {
-        lucide.createIcons();
-      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function escapeHTML(str) {
-      if (!str) return '';
-      return str.replace(/[&<>'"]/g, 
-        tag => ({
-          '&': '&amp;',
-          '<': '&lt;',
-          '>': '&gt;',
-          "'": '&#39;',
-          '"': '&quot;'
-        }[tag] || tag)
-      );
-    }
+    function selectAnswer(btn, isCorrect, card, qData) {
+      if (card.dataset.answered === 'true') return;
+      card.dataset.answered = 'true';
 
-    function handleGratitudeSubmit(event) {
-      event.preventDefault();
-      
-      const authorInput = document.getElementById('authorName');
-      const recipientInput = document.getElementById('recipientName');
-      const messageInput = document.getElementById('messageText');
+      const buttons = card.querySelectorAll('.q-opt');
+      buttons.forEach(b => b.style.cursor = 'default');
 
-      const author = authorInput.value.trim();
-      const recipient = recipientInput.value.trim();
-      const message = messageInput.value.trim();
-
-      if (!author || !recipient || !message) return;
-
-      const newNote = {
-        id: Date.now().toString(),
-        author,
-        recipient,
-        message,
-        date: "Przed chwilą"
-      };
-
-      const currentNotes = loadNotes();
-      currentNotes.unshift(newNote);
-      saveNotes(currentNotes);
-
-      authorInput.value = '';
-      recipientInput.value = '';
-      messageInput.value = '';
-
-      renderNotes();
-      showToast("Twój wpis z wizerunkiem został opublikowany!");
-    }
-
-    function resetToSampleNotes() {
-      saveNotes(initialNotes);
-      renderNotes();
-      showToast("Przywrócono domyślne wpisy.");
-    }
-
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeLightbox(null, true);
-      }
-    });
-
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedPhoto = localStorage.getItem(STORAGE_KEY_PHOTO);
-      if (savedPhoto) {
-        applyPortraitEverywhere(savedPhoto, true);
+      if (isCorrect) {
+        btn.classList.add('correct');
       } else {
-        applyPortraitEverywhere(DEFAULT_PORTRAIT_SRC, false);
+        btn.classList.add('wrong');
+        buttons.forEach(b => {
+          if (b.innerText === qData.o[qData.c]) {
+            b.classList.add('correct');
+          }
+        });
       }
 
-      renderNotes();
+      card.querySelector('.q-explanation').style.display = 'block';
+    }
 
-      if (window.lucide) {
-        lucide.createIcons();
-      }
-    });
+    // Inicjalizacja domyślna
+    renderFlashcards();
+    generateNewQuiz();
   </script>
 </body>
 </html>
