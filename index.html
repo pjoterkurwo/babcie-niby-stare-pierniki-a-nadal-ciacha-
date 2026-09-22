@@ -25,7 +25,6 @@
     h1 { font-size: 1.35rem; color: var(--primary); font-weight: 800; margin-bottom: 4px; }
     .header-sub { font-size: 0.78rem; color: var(--text-muted); }
 
-    /* Filtry wielokrotnego wyboru */
     .filter-panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; margin: 12px 16px; }
     .filter-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
     .filter-title { font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase; }
@@ -36,7 +35,6 @@
     .filter-tag { padding: 6px 10px; border-radius: 18px; background: var(--card-bg); border: 1px solid var(--border); color: var(--text-muted); font-size: 0.72rem; font-weight: 600; cursor: pointer; user-select: none; transition: 0.15s ease; }
     .filter-tag.active { background: var(--primary); color: #04101e; border-color: var(--primary); font-weight: 700; }
 
-    /* Spis treści bazy wiedzy */
     .quick-nav { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px; margin: 12px 16px 4px; }
     .quick-nav-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .quick-nav-title { font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase; }
@@ -45,11 +43,9 @@
     .quick-links::-webkit-scrollbar { display: none; }
     .quick-link { font-size: 0.72rem; padding: 5px 9px; border-radius: 16px; background: var(--card-bg); border: 1px solid var(--border); color: #cbd5e1; text-decoration: none; font-weight: 600; }
 
-    /* Panele główne */
     .tab-content { display: none; padding: 8px 16px 20px; }
     .tab-content.active { display: block; }
 
-    /* Karty wiedzy */
     .module-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 14px; overflow: hidden; scroll-margin-top: 14px; }
     .module-header { padding: 14px; display: flex; justify-content: space-between; align-items: center; cursor: pointer; user-select: none; background: rgba(255,255,255,0.01); }
     .module-header h2 { font-size: 1.05rem; color: #fff; font-weight: 700; display: flex; align-items: center; gap: 8px; }
@@ -72,7 +68,6 @@
     li { font-size: 0.84rem; color: #cbd5e1; margin-bottom: 4px; }
     b { color: #fff; }
 
-    /* Fiszki */
     .flashcard-dashboard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
     .flashcard { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); min-height: 125px; padding: 16px; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; cursor: pointer; margin-bottom: 12px; transition: border-color 0.2s; }
     .flashcard.flipped { background: #132337; border-color: var(--primary); }
@@ -80,7 +75,6 @@
     .flashcard-a { font-size: 0.86rem; color: #cbd5e1; display: none; line-height: 1.45; }
     .flashcard-sub { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px; font-weight: 700; }
 
-    /* Quiz Dashboard & Karty */
     .quiz-dashboard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
     .quiz-stat { font-size: 0.82rem; font-weight: 600; }
     .quiz-stat span { color: var(--primary); font-size: 1.05rem; font-weight: 800; }
@@ -94,7 +88,6 @@
     .q-opt.wrong { background: rgba(239, 68, 68, 0.25) !important; border-color: var(--danger) !important; color: #f87171 !important; }
     .q-explanation { margin-top: 8px; padding: 9px; border-radius: 6px; font-size: 0.8rem; background: rgba(0, 0, 0, 0.35); display: none; line-height: 1.4; color: #e2e8f0; }
 
-    /* Dolne menu */
     .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: rgba(17, 24, 39, 0.96); backdrop-filter: blur(10px); border-top: 1px solid var(--border); display: flex; z-index: 1000; }
     .nav-tab { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.72rem; color: var(--text-muted); border: none; background: none; font-weight: 600; cursor: pointer; }
     .nav-tab.active { color: var(--primary); }
@@ -105,10 +98,9 @@
 
   <header>
     <h1>Biblia – Egzaminator & Fiszki</h1>
-    <div class="header-sub">96 fiszek (10-12/temat) • 243 pytania (bez powtórek w puli)</div>
+    <div class="header-sub">96 fiszek • 243 pytania bez powtórek</div>
   </header>
 
-  <!-- Filtry tematów -->
   <div class="filter-panel" id="shared-filter-panel" style="display: none;">
     <div class="filter-header">
       <span class="filter-title">Wybierz tematy (wielokrotny wybór)</span>
@@ -130,7 +122,6 @@
     </div>
   </div>
 
-  <!-- Spis treści bazy wiedzy -->
   <div class="quick-nav" id="quick-nav-box">
     <div class="quick-nav-header">
       <span class="quick-nav-title">Szybki skok do teorii</span>
@@ -149,10 +140,8 @@
     </div>
   </div>
 
-  <!-- ================= 1. BAZA WIEDZY + DOKŁADNE STRESZCZENIA ================= -->
   <main id="tab-theory" class="tab-content active">
 
-    <!-- Parabola -->
     <article class="module-card" id="sec-parabola">
       <div class="module-header" onclick="toggleCard(this)">
         <h2>Parabola (Przypowieść) <span class="tag tag-lit">Teoria</span></h2>
@@ -161,19 +150,18 @@
       <div class="module-body">
         <div class="summary-box">
           <div class="summary-title">Definicja gatunku do zapamiętania</div>
-          <div class="summary-text">Parabola (przypowieść) to utwór narracyjny o charakterze dydaktyczno-moralizatorskim, którego świat przedstawiony jest podporządkowany ukrytemu, przenośnemu (alegorycznemu lub symbolicznemu) sensowi opowiadanej historii[span_4](start_span)[span_4](end_span).</div>
+          <div class="summary-text">Parabola (przypowieść) to utwór narracyjny o charakterze dydaktyczno-moralizatorskim, którego świat przedstawiony jest podporządkowany ukrytemu, przenośnemu (alegorycznemu lub symbolicznemu) sensowi opowiadanej historii.</div>
         </div>
         <div class="analysis-title">Cechy konstrukcyjne:</div>
         <ul>
-          <li><b>Dwupoziomowość znaczeń:</b> Poziom dosłowny (przebieg fabuły) oraz poziom naddany/głębszy (uniwersalna prawda moralna, religijna lub filozoficzna)[span_5](start_span)[span_5](end_span).</li>
-          <li><b>Schematyzm postaci:</b> Bohaterowie są bezimienni, pozbawieni cech indywidualnych i głębi psychologicznej (np. siewca, ojciec, samarytanin)[span_6](start_span)[span_6](end_span).</li>
-          <li><b>Uniwersalizm czasoprzestrzenny:</b> Brak sprecyzowanych dat i konkretnych realiów geograficzno-historycznych[span_7](start_span)[span_7](end_span).</li>
-          <li><b>Funkcja:</b> Dydaktyczno-moralizatorska – ilustruje uniwersalne prawdy egzystencjalne[span_8](start_span)[span_8](end_span).</li>
+          <li><b>Dwupoziomowość znaczeń:</b> Poziom dosłowny (przebieg fabuły) oraz poziom naddany/głębszy (uniwersalna prawda moralna, religijna lub filozoficzna).</li>
+          <li><b>Schematyzm postaci:</b> Bohaterowie są bezimienni, pozbawieni cech indywidualnych i głębi psychologicznej (np. siewca, ojciec, samarytanin).</li>
+          <li><b>Uniwersalizm czasoprzestrzenny:</b> Brak sprecyzowanych dat i konkretnych realiów geograficzno-historycznych.</li>
+          <li><b>Funkcja:</b> Dydaktyczno-moralizatorska – ilustruje uniwersalne prawdy egzystencjalne.</li>
         </ul>
       </div>
     </article>
 
-    <!-- O talentach -->
     <article class="module-card" id="sec-talenty">
       <div class="module-header" onclick="toggleCard(this)">
         <h2>O talentach <span class="tag tag-nt">Nowy Testament</span></h2>
@@ -182,17 +170,16 @@
       <div class="module-body">
         <div class="summary-box">
           <div class="summary-title">Dokładne streszczenie fabuły</div>
-          <div class="summary-text">Pewien pan, udając się w podróż, powierzył trzem sługom swój majątek (talenty – ówczesne pieniądze): jednemu dał pięć, drugiemu dwa, a trzeciemu jeden[span_9](start_span)[span_9](end_span). Słudzy obdarowani pięcioma i dwoma talentami wykorzystali dar do pomnożenia majątku i podwoili go[span_10](start_span)[span_10](end_span). Trzeci zakopał powierzony mu talent w ziemi ze strachu i bierności[span_11](start_span)[span_11](end_span). Pan po powrocie sowicie nagrodził pierwszego i drugiego sługę[span_12](start_span)[span_12](end_span). Trzeciemu odebrał dar, ponieważ nie potrafił zrobić z niego pożytku, i ukarał go za bezużyteczność[span_13](start_span)[span_13](end_span).</div>
+          <div class="summary-text">Pewien pan, udając się w podróż, powierzył trzem sługom swój majątek (talenty – ówczesne pieniądze): jednemu dał pięć, drugiemu dwa, a trzeciemu jeden. Słudzy obdarowani pięcioma i dwoma talentami wykorzystali dar do pomnożenia majątku i podwoili go. Trzeci zakopał powierzony mu talent w ziemi ze strachu i bierności. Pan po powrocie sowicie nagrodził pierwszego i drugiego sługę. Trzeciemu odebrał dar, ponieważ nie potrafił zrobić z niego pożytku, i ukarał go za bezużyteczność.</div>
         </div>
         <div class="analysis-title">Znaczenie metaforyczne:</div>
         <ul>
-          <li><b>Talent:</b> Słowo Boże, łaska wiary, zdolności, predyspozycje oraz samo życie powierzone przez Boga[span_14](start_span)[span_14](end_span).</li>
-          <li><b>Morał:</b> To, czym zostajemy obdarowani, należy stale wzbogacać i aktywnie rozwijać[span_15](start_span)[span_15](end_span). Bierność i lęk są grzechem zaniedbania.</li>
+          <li><b>Talent:</b> Słowo Boże, łaska wiary, zdolności, predyspozycje oraz samo życie powierzone przez Boga.</li>
+          <li><b>Morał:</b> To, czym zostajemy obdarowani, należy stale wzbogacać i aktywnie rozwijać. Bierność i lęk są grzechem zaniedbania.</li>
         </ul>
       </div>
     </article>
 
-    <!-- O synu marnotrawnym -->
     <article class="module-card" id="sec-marnotrawny">
       <div class="module-header" onclick="toggleCard(this)">
         <h2>O synu marnotrawnym <span class="tag tag-nt">Nowy Testament</span></h2>
@@ -201,19 +188,18 @@
       <div class="module-body">
         <div class="summary-box">
           <div class="summary-title">Dokładne streszczenie fabuły</div>
-          <div class="summary-text">Przypowieść opowiada o ojcu i dwóch synach[span_16](start_span)[span_16](end_span). Młodszy zażądał swojej części majątku, opuścił dom i utracił podarowany przez ojca majątek na hulaszcze życie[span_17](start_span)[span_17](end_span). Gdy nastał głód, popadł w nędzę i zatrudnił się przy wypasie świń[span_18](start_span)[span_18](end_span). Zrozumiał swoje błędy, wrócił do domu ojca i skruszony poprosił o przebaczenie, chcąc być choćby najemnikiem[span_19](start_span)[span_19](end_span). Ojciec przyjął go z otwartymi ramionami, podarował najlepsze szaty i z tej okazji wyprawił ucztę z utuczonym cielęciem[span_20](start_span)[span_20](end_span). Starszy syn oburzył się na tę decyzję, lecz ojciec wyjaśnił, że trzeba się cieszyć, bo ten brat był umarły, a znów ożył.</div>
+          <div class="summary-text">Przypowieść opowiada o ojcu i dwóch synach. Młodszy zażądał swojej części majątku, opuścił dom i utracił podarowany przez ojca majątek na hulaszcze życie. Gdy nastał głód, popadł w nędzę i zatrudnił się przy wypasie świń. Zrozumiał swoje błędy, wrócił do domu ojca i skruszony poprosił o przebaczenie, chcąc być choćby najemnikiem. Ojciec przyjął go z otwartymi ramionami, podarował najlepsze szaty i z tej okazji wyprawił ucztę z utuczonym cielęciem. Starszy syn oburzył się na tę decyzję, lecz ojciec wyjaśnił, że trzeba się cieszyć, bo ten brat był umarły, a znów ożył.</div>
         </div>
         <div class="analysis-title">Znaczenie i symbole:</div>
         <ul>
-          <li><b>Ojciec:</b> Obraz nieskończonego Bożego miłosierdzia[span_21](start_span)[span_21](end_span).</li>
-          <li><b>Młodszy syn:</b> Grzesznik okazujący szczerą skruchę i żal za winy[span_22](start_span)[span_22](end_span).</li>
+          <li><b>Ojciec:</b> Obraz nieskończonego Bożego miłosierdzia.</li>
+          <li><b>Młodszy syn:</b> Grzesznik okazujący szczerą skruchę i żal za winy.</li>
           <li><b>Starszy brat:</b> Faryzejska pycha, zawiść i brak prawdziwej miłości do bliźniego.</li>
-          <li><b>Morał:</b> Jeśli grzesznik okaże skruchę i szczerze żałuje win, może liczyć na Boże miłosierdzie[span_23](start_span)[span_23](end_span).</li>
+          <li><b>Morał:</b> Jeśli grzesznik okaże skruchę i szczerze żałuje win, może liczyć na Boże miłosierdzie.</li>
         </ul>
       </div>
     </article>
 
-    <!-- O miłosiernym Samarytaninie -->
     <article class="module-card" id="sec-samarytanin">
       <div class="module-header" onclick="toggleCard(this)">
         <h2>O miłosiernym Samarytaninie <span class="tag tag-nt">Nowy Testament</span></h2>
@@ -222,16 +208,15 @@
       <div class="module-body">
         <div class="summary-box">
           <div class="summary-title">Dokładne streszczenie fabuły</div>
-          <div class="summary-text">Podróżnemu napadniętemu przez zbójców, ograbionemu i rannemu nie pomogli jego współwyznawcy ani kapłan i lewita, którzy minęli go obojętnie[span_24](start_span)[span_24](end_span). Jedynie niewierny Samarytanin (których mieszkańcy Judei uważali za zdrajców i odstępców od wiary) okazał mu miłosierdzie[span_25](start_span)[span_25](end_span). Opatrzył rany oliwą i winem, zawiózł na zwierzęciu do gospody, opłacił leczenie dwoma denarami i zobowiązał się do pokrycia dodatkowych kosztów.</div>
+          <div class="summary-text">Podróżnemu napadniętemu przez zbójców, ograbionemu i rannemu nie pomogli jego współwyznawcy ani kapłan i lewita, którzy minęli go obojętnie. Jedynie niewierny Samarytanin (których mieszkańcy Judei uważali za zdrajców i odstępców od wiary) okazał mu miłosierdzie. Opatrzył rany oliwą i winem, zawiózł na zwierzęciu do gospody, opłacił leczenie dwoma denarami i zobowiązał się do pokrycia dodatkowych kosztów.</div>
         </div>
         <div class="analysis-title">Przesłanie moralne:</div>
         <ul>
-          <li><b>Wymowa:</b> Postąpił zgodnie z Bożym przykazaniem, by miłować bliźniego jak siebie samego[span_26](start_span)[span_26](end_span). Prawdziwa miłość bliźniego polega na konkretnych czynach i empatii ponad podziałami religijnymi[span_27](start_span)[span_27](end_span).</li>
+          <li><b>Wymowa:</b> Postąpił zgodnie z Bożym przykazaniem, by miłować bliźniego jak siebie samego. Prawdziwa miłość bliźniego polega na konkretnych czynach i empatii ponad podziałami religijnymi.</li>
         </ul>
       </div>
     </article>
 
-    <!-- O siewcy -->
     <article class="module-card" id="sec-siewca">
       <div class="module-header" onclick="toggleCard(this)">
         <h2>O siewcy <span class="tag tag-nt">Nowy Testament</span></h2>
@@ -240,16 +225,15 @@
       <div class="module-body">
         <div class="summary-box">
           <div class="summary-title">Dokładne streszczenie fabuły</div>
-          <div class="summary-text">Siewca (Bóg) rozrzuca ziarno (Słowo Boże) w różnych miejscach: na drodze (szybko porywają je ptaki), na grunt skalisty (obumiera, gdyż nie może się zakorzenić), wśród cierni (nie wydaje owoców, bo zostaje zagłuszone) oraz na żyznej ziemi (daje obfity plon)[span_28](start_span)[span_28](end_span).</div>
+          <div class="summary-text">Siewca (Bóg) rozrzuca ziarno (Słowo Boże) w różnych miejscach: na drodze (szybko porywają je ptaki), na grunt skalisty (obumiera, gdyż nie może się zakorzenić), wśród cierni (nie wydaje owoców, bo zostaje zagłuszone) oraz na żyznej ziemi (daje obfity plon).</div>
         </div>
         <div class="analysis-title">Symbolika podłoży:</div>
         <ul>
-          <li>Miejsca, na które pada ziarno, symbolizują różne ludzkie charaktery i serca oraz ich gotowość na przyjęcie nauki Bożej[span_29](start_span)[span_29](end_span).</li>
+          <li>Miejsca, na które pada ziarno, symbolizują różne ludzkie charaktery i serca oraz ich gotowość na przyjęcie nauki Bożej.</li>
         </ul>
       </div>
     </article>
 
-    <!-- Ziarnko gorczycy i Zagubiona owca -->
     <article class="module-card" id="sec-gorczyca-owca">
       <div class="module-header" onclick="toggleCard(this)">
         <h2>Ziarnko gorczycy & Zagubiona owca <span class="tag tag-nt">Nowy Testament</span></h2>
@@ -258,13 +242,12 @@
       <div class="module-body">
         <div class="summary-box">
           <div class="summary-title">Streszczenie i sens</div>
-          <div class="summary-text"><b>O ziarnku gorczycy:</b> Królestwo niebieskie zostaje porównane do ziarnka gorczycy – początkowo małego, niemal niewidocznego, później szybko rozrastającego się do rozmiarów dużej rośliny dającej schronienie ptakom[span_30](start_span)[span_30](end_span).<br>
-          <b>O zagubionej owcy:</b> Faryzeusze oburzali się na Jezusa, który nauczał nieuczciwych celników i grzeszników[span_31](start_span)[span_31](end_span). W odpowiedzi Jezus przywołał obraz dobrego pasterza, wyruszającego na poszukiwania jednej owcy, która odłączyła się od stada[span_32](start_span)[span_32](end_span). Podobnie Bóg troszczy się o wszystkich potrzebujących pomocy i cieszy się z nawrócenia każdego grzesznika[span_33](start_span)[span_33](end_span).</div>
+          <div class="summary-text"><b>O ziarnku gorczycy:</b> Królestwo niebieskie zostaje porównane do ziarnka gorczycy – początkowo małego, niemal niewidocznego, później szybko rozrastającego się do rozmiarów dużej rośliny dającej schronienie ptakom.<br>
+          <b>O zagubionej owcy:</b> Faryzeusze oburzali się na Jezusa, który nauczał nieuczciwych celników i grzeszników. W odpowiedzi Jezus przywołał obraz dobrego pasterza, wyruszającego na poszukiwania jednej owcy, która odłączyła się od stada. Podobnie Bóg troszczy się o wszystkich potrzebujących pomocy i cieszy się z nawrócenia każdego grzesznika.</div>
         </div>
       </div>
     </article>
 
-    <!-- Genesis -->
     <article class="module-card" id="sec-genesis">
       <div class="module-header" onclick="toggleCard(this)">
         <h2>Stworzenie świata i upadek pierwszych ludzi <span class="tag tag-st">Księga Rodzaju</span></h2>
@@ -273,12 +256,11 @@
       <div class="module-body">
         <div class="summary-box">
           <div class="summary-title">Dokładne streszczenie i motywy</div>
-          <div class="summary-text">Bóg stworzył świat z niczego (<i>creatio ex nihilo</i>) samym swoim Słowem w 6 dni, a siódmego dnia odpoczął[span_34](start_span)[span_34](end_span). Człowiek został stworzony na obraz i podobieństwo Boże jako korona stworzenia[span_35](start_span)[span_35](end_span). Pierwsi ludzie żyli w rajskim ogrodzie (Edenie) w stanie niewinności[span_36](start_span)[span_36](end_span). Skuszeni przez węża obietnicą, że będą jako bogowie, złamali jedyny zakaz i spożyli owoc z Drzewa Poznania Dobra i Zła[span_37](start_span)[span_37](end_span)[span_38](start_span)[span_38](end_span). Dostrzegli swą nagość, poczuli wstyd i ukryli się. W następstwie grzechu pierworodnego ludzie zostali wygnani z raju, a ich los naznaczyły trud, cierpienie, bóle rodzenia oraz śmierć cielesna (<i>„Prochem jesteś i w proch się obrócisz”</i>)[span_39](start_span)[span_39](end_span)[span_40](start_span)[span_40](end_span). Wygnanie z raju stanowi w Biblii moment, od którego rozpoczyna się ziemska historia ludzkości, której zwieńczeniem na końcu czasów będzie nowe niebo i nowa ziemia po sądzie ostatecznym[span_41](start_span)[span_41](end_span).</div>
+          <div class="summary-text">Bóg stworzył świat z niczego (creatio ex nihilo) samym swoim Słowem w 6 dni, a siódmego dnia odpoczął. Człowiek został stworzony na obraz i podobieństwo Boże jako korona stworzenia. Pierwsi ludzie żyli w rajskim ogrodzie (Edenie) w stanie niewinności. Skuszeni przez węża obietnicą, że będą jako bogowie, złamali jedyny zakaz i spożyli owoc z Drzewa Poznania Dobra i Zła. Dostrzegli swą nagość, poczuli wstyd i ukryli się. W następstwie grzechu pierworodnego ludzie zostali wygnani z raju, a ich los naznaczyły trud, cierpienie, bóle rodzenia oraz śmierć cielesna („Prochem jesteś i w proch się obrócisz”). Wygnanie z raju stanowi w Biblii moment, od którego rozpoczyna się ziemska historia ludzkości, której zwieńczeniem na końcu czasów będzie nowe niebo i nowa ziemia po sądzie ostatecznym.</div>
         </div>
       </div>
     </article>
 
-    <!-- Księga Hioba -->
     <article class="module-card" id="sec-hiob">
       <div class="module-header" onclick="toggleCard(this)">
         <h2>Księga Hioba <span class="tag tag-st">Księga Mądrościowa</span></h2>
@@ -287,19 +269,18 @@
       <div class="module-body">
         <div class="summary-box">
           <div class="summary-title">Dokładne streszczenie i pojęcia</div>
-          <div class="summary-text">Prawy, sprawiedliwy i bogobojny Hiob z krainy Us zostaje poddany próbie wiary za pozwoleniem Boga przez szatana[span_42](start_span)[span_42](end_span). Traci stada, majątek, dzieci, a na koniec zostaje dotknięty złośliwym trądem[span_43](start_span)[span_43](end_span). Mimo cierpienia nie złorzeczy Bogu (<i>„Pan dał, Pan wziął, niech imię Pańskie będzie błogosławione”</i>)[span_44](start_span)[span_44](end_span). Przyjaciele wmawiają mu ukryte grzechy (tradycyjna teologia odpłaty), lecz Hiob broni swej niewinności[span_45](start_span)[span_45](end_span). Bóg przemawia z wichru, ukazując niepojętą wielkość swego planu[span_46](start_span)[span_46](end_span). Hiob kaja się w pokorze, a Bóg wynagradza jego wierność, przywracając mu zdrowie, podwajając majątek i darząc nowym potomstwem[span_47](start_span)[span_47](end_span).</div>
+          <div class="summary-text">Prawy, sprawiedliwy i bogobojny Hiob z krainy Us zostaje poddany próbie wiary za pozwoleniem Boga przez szatana. Traci stada, majątek, dzieci, a na koniec zostaje dotknięty złośliwym trądem. Mimo cierpienia nie złorzeczy Bogu („Pan dał, Pan wziął, niech imię Pańskie będzie błogosławione”). Przyjaciele wmawiają mu ukryte grzechy (tradycyjna teologia odpłaty), lecz Hiob broni swej niewinności. Bóg przemawia z wichru, ukazując niepojętą wielkość swego planu. Hiob kaja się w pokorze, a Bóg wynagradza jego wierność, przywracając mu zdrowie, podwajając majątek i darząc nowym potomstwem.</div>
         </div>
         <div class="analysis-title">Kluczowe pojęcia:</div>
         <ul>
-          <li><b>Cierpienie niezawinione:</b> Cierpienie nie zawsze jest karą za grzechy – bywa próbą wiary lub tajemnicą Boga[span_48](start_span)[span_48](end_span).</li>
-          <li><b>Teodycea:</b> Zagadnienie obrony sprawiedliwości i dobroci Boga w obliczu istnienia zła i cierpienia na świecie[span_49](start_span)[span_49](end_span).</li>
-          <li><b>Postawa hiobowa:</b> Niezłomna cierpliwość, pokora i bezgraniczne zaufanie Bogu pomimo ciosów losu[span_50](start_span)[span_50](end_span).</li>
-          <li><b>Hiobowa wieść:</b> Złowroga, tragiczna wiadomość zwiastująca nieszczęście[span_51](start_span)[span_51](end_span).</li>
+          <li><b>Cierpienie niezawinione:</b> Cierpienie nie zawsze jest karą za grzechy – bywa próbą wiary lub tajemnicą Boga.</li>
+          <li><b>Teodycea:</b> Zagadnienie obrony sprawiedliwości i dobroci Boga w obliczu istnienia zła i cierpienia na świecie.</li>
+          <li><b>Postawa hiobowa:</b> Niezłomna cierpliwość, pokora i bezgraniczne zaufanie Bogu pomimo ciosów losu.</li>
+          <li><b>Hiobowa wieść:</b> Złowroga, tragiczna wiadomość zwiastująca nieszczęście.</li>
         </ul>
       </div>
     </article>
 
-    <!-- Księga Koheleta -->
     <article class="module-card" id="sec-kohelet">
       <div class="module-header" onclick="toggleCard(this)">
         <h2>Księga Koheleta (Ekklezjastes) <span class="tag tag-st">Księga Mądrościowa</span></h2>
@@ -308,18 +289,17 @@
       <div class="module-body">
         <div class="summary-box">
           <div class="summary-title">Dokładne streszczenie i pojęcia</div>
-          <div class="summary-text">Mędrzec Kohelet rozważa sens ludzkiego życia i doczesnych starań pod słońcem[span_52](start_span)[span_52](end_span). Wskazuje, że dobra ziemskie: bogactwo, władza, sława, uroda, a nawet ludzka mądrość są nietrwałe i nie dają pełnego szczęścia w obliczu nieuchronnej śmierci, która zrównuje każdego[span_53](start_span)[span_53](end_span). Świat podlega odwiecznym, monotonnym cyklom (<i>„Jest czas rodzenia i czas umierania, czas burzenia i czas budowania...”</i>)[span_54](start_span)[span_54](end_span). Receptą mędrca jest umiar, czerpanie radości z prostych darów dnia codziennego (pracy, posiłku) oraz pamięć o Bogu i wypełnianie Jego przykazań[span_55](start_span)[span_55](end_span).</div>
+          <div class="summary-text">Mędrzec Kohelet rozważa sens ludzkiego życia i doczesnych starań pod słońcem. Wskazuje, że dobra ziemskie: bogactwo, władza, sława, uroda, a nawet ludzka mądrość są nietrwałe i nie dają pełnego szczęścia w obliczu nieuchronnej śmierci, która zrównuje każdego. Świat podlega odwiecznym, monotonnym cyklom („Jest czas rodzenia i czas umierania, czas burzenia i czas budowania...”). Receptą mędrca jest umiar, czerpanie radości z prostych darów dnia codziennego (pracy, posiłku) oraz pamięć o Bogu i wypełnianie Jego przykazań.</div>
         </div>
         <div class="analysis-title">Kluczowe pojęcia:</div>
         <ul>
-          <li><b>Motyw vanitas:</b> <i>„Vanitas vanitatum et omnia vanitas”</i> – marność nad marnościami i wszystko marność[span_56](start_span)[span_56](end_span). Motyw znikomości i przemijania doczesności[span_57](start_span)[span_57](end_span).</li>
+          <li><b>Motyw vanitas:</b> „Vanitas vanitatum et omnia vanitas” – marność nad marnościami i wszystko marność. Motyw znikomości i przemijania doczesności.</li>
         </ul>
       </div>
     </article>
 
   </main>
 
-  <!-- ================= 2. FISZKI ================= -->
   <main id="tab-flashcards" class="tab-content">
     <div class="flashcard-dashboard">
       <div style="font-size:0.8rem; font-weight:700; color:var(--text-muted);">
@@ -333,7 +313,6 @@
     <button class="btn-rerun" style="width: 100%; padding: 13px; margin-top: 10px;" onclick="renderFlashcards()">Wylosuj kolejną partię</button>
   </main>
 
-  <!-- ================= 3. GENERATOR QUIZÓW (BEZ POWTÓREK) ================= -->
   <main id="tab-quiz" class="tab-content">
     <div class="quiz-dashboard">
       <div class="quiz-stat">
@@ -349,7 +328,6 @@
     </div>
   </main>
 
-  <!-- DOLNA NAWIGACJA -->
   <nav class="bottom-nav">
     <button class="nav-tab active" onclick="switchTab('tab-theory', this)">
       <svg viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg>
@@ -450,121 +428,111 @@
       return a;
     }
 
-    // ================= DOKŁADNIE 96 FISZEK (10-12 na każde zagadnienie) =================
     const flashcardsMaster = [
-      // 1. Parabola (11)
-      { cat: "lit", sub: "Parabola", q: "Jaka jest definicja paraboli (przypowieści)?", a: "Utwór, którego świat przedstawiony jest podporządkowany ukrytemu, przenośnemu sensowi opowiadanej historii[span_58](start_span)[span_58](end_span)." },
-      { cat: "lit", sub: "Parabola", q: "Czym charakteryzują się bohaterowie paraboli?", a: "Są pozbawieni cech indywidualnych i głębi psychologicznej; reprezentują postawy ogólne[span_59](start_span)[span_59](end_span)." },
-      { cat: "lit", sub: "Parabola", q: "Na czym polega dwupoziomowość znaczeń paraboli?", a: "Na współistnieniu poziomu dosłownego (fabuła) oraz poziomu ukrytego (uniwersalna prawda egzystencjalna)[span_60](start_span)[span_60](end_span)." },
-      { cat: "lit", sub: "Parabola", q: "Jaki jest czas i miejsce akcji w paraboli?", a: "Są zuniwersalizowane, pozbawione szczegółowych realiów historycznych i geograficznych[span_61](start_span)[span_61](end_span)." },
-      { cat: "lit", sub: "Parabola", q: "Jaka jest główna funkcja przypowieści biblijnej?", a: "Funkcja dydaktyczno-moralizatorska – ilustrowanie uniwersalnych prawd egzystencjalnych[span_62](start_span)[span_62](end_span)." },
+      { cat: "lit", sub: "Parabola", q: "Jaka jest definicja paraboli (przypowieści)?", a: "Utwór, którego świat przedstawiony jest podporządkowany ukrytemu, przenośnemu sensowi opowiadanej historii." },
+      { cat: "lit", sub: "Parabola", q: "Czym charakteryzują się bohaterowie paraboli?", a: "Są pozbawieni cech indywidualnych i głębi psychologicznej; reprezentują postawy ogólne." },
+      { cat: "lit", sub: "Parabola", q: "Na czym polega dwupoziomowość znaczeń paraboli?", a: "Na współistnieniu poziomu dosłownego (fabuła) oraz poziomu ukrytego (uniwersalna prawda egzystencjalna)." },
+      { cat: "lit", sub: "Parabola", q: "Jaki jest czas i miejsce akcji w paraboli?", a: "Są zuniwersalizowane, pozbawione szczegółowych realiów historycznych i geograficznych." },
+      { cat: "lit", sub: "Parabola", q: "Jaka jest główna funkcja przypowieści biblijnej?", a: "Funkcja dydaktyczno-moralizatorska – ilustrowanie uniwersalnych prawd egzystencjalnych." },
       { cat: "lit", sub: "Parabola", q: "Do jakiego rodzaju literackiego należy przypowieść?", a: "Do epiki (utwór narracyjny z fabułą i opowiadaczem)." },
-      { cat: "lit", sub: "Parabola", q: "Dlaczego postaci w przypowieściach są zazwyczaj bezimienne?", a: "Aby ułatwić każdemu odbiorcy utożsamienie się z sytuacją i skupić uwagę na morał[span_63](start_span)[span_63](end_span)." },
-      { cat: "lit", sub: "Parabola", q: "Co jest pretekstem w konstrukcji paraboli?", a: "Prosta, codzienna fabuła jest pretekstem do wyłożenia prawd wyższego rzędu[span_64](start_span)[span_64](end_span)." },
-      { cat: "lit", sub: "Parabola", q: "Czym różni się parabola od mitu?", a: "Parabola ma cel czysto pouczający i alegoryczny, a nie wyjaśniający pochodzenie świata czy bóstw[span_65](start_span)[span_65](end_span)." },
-      { cat: "lit", sub: "Parabola", q: "Jaką rolę w paraboli odgrywają szczegóły obyczajowe?", a: "Są zredukowane do niezbędnego minimum, by nie odciągać uwagi od nauki moralnej[span_66](start_span)[span_66](end_span)." },
+      { cat: "lit", sub: "Parabola", q: "Dlaczego postaci w przypowieściach są zazwyczaj bezimienne?", a: "Aby ułatwić każdemu odbiorcy utożsamienie się z sytuacją i skupić uwagę na morał." },
+      { cat: "lit", sub: "Parabola", q: "Co jest pretekstem w konstrukcji paraboli?", a: "Prosta, codzienna fabuła jest pretekstem do wyłożenia prawd wyższego rzędu." },
+      { cat: "lit", sub: "Parabola", q: "Czym różni się parabola od mitu?", a: "Parabola ma cel czysto pouczający i alegoryczny, a nie wyjaśniający pochodzenie świata czy bóstw." },
+      { cat: "lit", sub: "Parabola", q: "Jaką rolę w paraboli odgrywają szczegóły obyczajowe?", a: "Są zredukowane do niezbędnego minimum, by nie odciągać uwagi od nauki moralnej." },
       { cat: "lit", sub: "Parabola", q: "W jakiej formie przekazywano przypowieści w Ewangeliach?", a: "Jako wypowiedzi Jezusa skierowane do uczniów lub tłumu, często jako odpowiedź na pytanie." },
 
-      // 2. Talenty (11)
-      { cat: "talenty", sub: "O talentach", q: "Czym w sensie dosłownym były talenty w przypowieści?", a: "Jednostkami pieniężnymi (pieniędzmi z kruszcu) o bardzo dużej wartości[span_67](start_span)[span_67](end_span)." },
-      { cat: "talenty", sub: "O talentach", q: "Co ze swoim talentem zrobił trzeci sługa?", a: "Zakopał powierzony mu talent w ziemi ze strachu i bierności[span_68](start_span)[span_68](end_span)." },
-      { cat: "talenty", sub: "O talentach", q: "Co spotkało sługę, który zakopał talent?", a: "Pan odebrał mu dar, ponieważ nie potrafił zrobić z niego użytku, i ukarał go[span_69](start_span)[span_69](end_span)." },
-      { cat: "talenty", sub: "O talentach", q: "Co w znaczeniu przenośnym symbolizuje talent?", a: "Słowo Boże, łaskę wiary, zdolności, predyspozycje oraz życie dane od Boga[span_70](start_span)[span_70](end_span)." },
-      { cat: "talenty", sub: "O talentach", q: "Jaki jest morał Przypowieści o talentach?", a: "To, czym zostajemy obdarowani, należy aktywnie wzbogacać i rozwijać, a nie marnować[span_71](start_span)[span_71](end_span)." },
-      { cat: "talenty", sub: "O talentach", q: "Jaką postawę sługi potępił pan?", a: "Bierność, gnuśność i usprawiedliwianie lenistwa lękiem przed wymaganiami[span_72](start_span)[span_72](end_span)." },
-      { cat: "talenty", sub: "O talentach", q: "Ile talentów otrzymali poszczególni słudzy?", a: "Pierwszy pięć, drugi dwa, a trzeci jeden talent[span_73](start_span)[span_73](end_span)." },
-      { cat: "talenty", sub: "O talentach", q: "Ile zyskali pierwsi dwaj słudzy?", a: "Pierwszy zyskał drugie pięć, a drugi podwoił swoje dwa do czterech[span_74](start_span)[span_74](end_span)." },
-      { cat: "talenty", sub: "O talentach", q: "Komu przekazano talent odebrany gnuśnemu słudze?", a: "Temu, który miał dziesięć talentów[span_75](start_span)[span_75](end_span)." },
+      { cat: "talenty", sub: "O talentach", q: "Czym w sensie dosłownym były talenty w przypowieści?", a: "Jednostkami pieniężnymi (pieniędzmi z kruszcu) o bardzo dużej wartości." },
+      { cat: "talenty", sub: "O talentach", q: "Co ze swoim talentem zrobił trzeci sługa?", a: "Zakopał powierzony mu talent w ziemi ze strachu i bierności." },
+      { cat: "talenty", sub: "O talentach", q: "Co spotkało sługę, który zakopał talent?", a: "Pan odebrał mu dar, ponieważ nie potrafił zrobić z niego użytku, i ukarał go." },
+      { cat: "talenty", sub: "O talentach", q: "Co w znaczeniu przenośnym symbolizuje talent?", a: "Słowo Boże, łaskę wiary, zdolności, predyspozycje oraz życie dane od Boga." },
+      { cat: "talenty", sub: "O talentach", q: "Jaki jest morał Przypowieści o talentach?", a: "To, czym zostajemy obdarowani, należy aktywnie wzbogacać i rozwijać, a nie marnować." },
+      { cat: "talenty", sub: "O talentach", q: "Jaką postawę sługi potępił pan?", a: "Bierność, gnuśność i usprawiedliwianie lenistwa lękiem przed wymaganiami." },
+      { cat: "talenty", sub: "O talentach", q: "Ile talentów otrzymali poszczególni słudzy?", a: "Pierwszy pięć, drugi dwa, a trzeci jeden talent." },
+      { cat: "talenty", sub: "O talentach", q: "Ile zyskali pierwsi dwaj słudzy?", a: "Pierwszy zyskał drugie pięć, a drugi podwoił swoje dwa do czterech." },
+      { cat: "talenty", sub: "O talentach", q: "Komu przekazano talent odebrany gnuśnemu słudze?", a: "Temu, który miał dziesięć talentów." },
       { cat: "talenty", sub: "O talentach", q: "Co symbolizuje 'ciemność na zewnątrz', gdzie wyrzucono sługę?", a: "Stan odrzucenia, potępienia i utraty relacji z Bogiem z powodu zmarnowania życia." },
-      { cat: "talenty", sub: "O talentach", q: "Na jakiej podstawie pan podzielił talenty między sługi?", a: "Według ich osobistych zdolności i predyspozycji[span_76](start_span)[span_76](end_span)." },
+      { cat: "talenty", sub: "O talentach", q: "Na jakiej podstawie pan podzielił talenty między sługi?", a: "Według ich osobistych zdolności i predyspozycji." },
 
-      // 3. Syn marnotrawny (11)
-      { cat: "syn", sub: "Syn marnotrawny", q: "Jak młodszy syn postąpił z otrzymanym majątkiem?", a: "Opuścił dom i utracił podarowany majątek na rozrzutne, hulaszcze życie[span_77](start_span)[span_77](end_span)." },
-      { cat: "syn", sub: "Syn marnotrawny", q: "Przy jakiej pracy znalazł się młodszy syn w nędzy?", a: "Przy wypasie świń – pragnął nasycić się ich karmą, której nikt mu nie dawał[span_78](start_span)[span_78](end_span)." },
-      { cat: "syn", sub: "Syn marnotrawny", q: "O co prosił syn po powrocie do ojca?", a: "O przebaczenie i przyjęcie choćby w charakterze jednego z najemników[span_79](start_span)[span_79](end_span)." },
-      { cat: "syn", sub: "Syn marnotrawny", q: "Jak ojciec przyjął powracającego syna?", a: "Przyjął go z otwartymi ramionami, podarował szaty i wyprawił ucztę z utuczonym cielęciem[span_80](start_span)[span_80](end_span)." },
-      { cat: "syn", sub: "Syn marnotrawny", q: "Kogo w przypowieści symbolizuje ojciec?", a: "Boga pełnego nieskończonego miłosierdzia wobec żałującego za błędy człowieka[span_81](start_span)[span_81](end_span)." },
-      { cat: "syn", sub: "Syn marnotrawny", q: "Jaka nauka płynie z Przypowieści o synu marnotrawnym?", a: "Jeśli grzesznik okaże skruchę i szczerze żałuje win, może liczyć na Boże miłosierdzie[span_82](start_span)[span_82](end_span)." },
+      { cat: "syn", sub: "Syn marnotrawny", q: "Jak młodszy syn postąpił z otrzymanym majątkiem?", a: "Opuścił dom i utracił podarowany majątek na rozrzutne, hulaszcze życie." },
+      { cat: "syn", sub: "Syn marnotrawny", q: "Przy jakiej pracy znalazł się młodszy syn w nędzy?", a: "Przy wypasie świń – pragnął nasycić się ich karmą, której nikt mu nie dawał." },
+      { cat: "syn", sub: "Syn marnotrawny", q: "O co prosił syn po powrocie do ojca?", a: "O przebaczenie i przyjęcie choćby w charakterze jednego z najemników." },
+      { cat: "syn", sub: "Syn marnotrawny", q: "Jak ojciec przyjął powracającego syna?", a: "Przyjął go z otwartymi ramionami, podarował szaty i wyprawił ucztę z utuczonym cielęciem." },
+      { cat: "syn", sub: "Syn marnotrawny", q: "Kogo w przypowieści symbolizuje ojciec?", a: "Boga pełnego nieskończonego miłosierdzia wobec żałującego za błędy człowieka." },
+      { cat: "syn", sub: "Syn marnotrawny", q: "Jaka nauka płynie z Przypowieści o synu marnotrawnym?", a: "Jeśli grzesznik okaże skruchę i szczerze żałuje win, może liczyć na Boże miłosierdzie." },
       { cat: "syn", sub: "Syn marnotrawny", q: "Co symbolizuje postawa starszego brata?", a: "Faryzejską zawiść, brak empatii, oburzenie na łaskę i poczucie fałszywej wyższości." },
       { cat: "syn", sub: "Syn marnotrawny", q: "Co oznaczają podarowane szata i pierścień?", a: "Natychmiastowe przywrócenie synowskiej godności i praw w rodzinie." },
       { cat: "syn", sub: "Syn marnotrawny", q: "Jak ojciec tłumaczy starszemu synowi konieczność radości?", a: "„Trzeba się weselić, bo ten brat twój był umarły, a znów ożył; zaginął, a odnalazł się”." },
       { cat: "syn", sub: "Syn marnotrawny", q: "Co w kontekście tej paraboli oznacza 'metanoia'?", a: "Głęboką wewnętrzną przemianę, żal za popełnione winy i powrót do Boga." },
       { cat: "syn", sub: "Syn marnotrawny", q: "O co starszy syn miał największe pretensje do ojca?", a: "Że służy wiernie od lat, a nigdy nie dostał nawet koźlęcia na ucztę z przyjaciółmi." },
 
-      // 4. Samarytanin (11)
-      { cat: "samarytanin", sub: "Samarytanin", q: "Kto przeszedł obojętnie obok rannego podróżnego?", a: "Współwyznawcy rannego, w tym żydowski kapłan oraz lewita[span_83](start_span)[span_83](end_span)." },
-      { cat: "samarytanin", sub: "Samarytanin", q: "Kim byli Samarytanie dla mieszkańców Judei?", a: "Byli uważani za zdrajców, wrogów i odstępców od czystej wiary[span_84](start_span)[span_84](end_span)." },
-      { cat: "samarytanin", sub: "Samarytanin", q: "Czym Samarytanin opatrzył rany pobitego człowieka?", a: "Oliwą i winem, po czym zawiózł go na zwierzęciu do gospody[span_85](start_span)[span_85](end_span)." },
+      { cat: "samarytanin", sub: "Samarytanin", q: "Kto przeszedł obojętnie obok rannego podróżnego?", a: "Współwyznawcy rannego, w tym żydowski kapłan oraz lewita." },
+      { cat: "samarytanin", sub: "Samarytanin", q: "Kim byli Samarytanie dla mieszkańców Judei?", a: "Byli uważani za zdrajców, wrogów i odstępców od czystej wiary." },
+      { cat: "samarytanin", sub: "Samarytanin", q: "Czym Samarytanin opatrzył rany pobitego człowieka?", a: "Oliwą i winem, po czym zawiózł go na zwierzęciu do gospody." },
       { cat: "samarytanin", sub: "Samarytanin", q: "Ile pieniędzy Samarytanin zostawił gospodarzowi?", a: "Dwa denary na leczenie, obiecując pokryć resztę w drodze powrotnej." },
-      { cat: "samarytanin", sub: "Samarytanin", q: "Z jakim przykazaniem Bożym jest zgodny uczynek Samarytanina?", a: "Z przykazaniem: „Będziesz miłował bliźniego swego jak siebie samego[span_86](start_span)”[span_86](end_span)." },
-      { cat: "samarytanin", sub: "Samarytanin", q: "Kto według tej przypowieści jest naszym bliźnim?", a: "Każdy człowiek w potrzebie, bez względu na pochodzenie, rasę czy wyznanie[span_87](start_span)[span_87](end_span)." },
+      { cat: "samarytanin", sub: "Samarytanin", q: "Z jakim przykazaniem Bożym jest zgodny uczynek Samarytanina?", a: "Z przykazaniem: „Będziesz miłował bliźniego swego jak siebie samego”." },
+      { cat: "samarytanin", sub: "Samarytanin", q: "Kto według tej przypowieści jest naszym bliźnim?", a: "Każdy człowiek w potrzebie, bez względu na pochodzenie, rasę czy wyznanie." },
       { cat: "samarytanin", sub: "Samarytanin", q: "Na jakiej trasie rozegrały się wydarzenia przypowieści?", a: "Na niebezpiecznej drodze z Jerozolimy do Jerycha." },
       { cat: "samarytanin", sub: "Samarytanin", q: "Dlaczego kapłan i lewita ominęli rannego z daleka?", a: "Bali się skażenia rytualnego przez dotknięcie zwłok lub brakowało im empatii." },
       { cat: "samarytanin", sub: "Samarytanin", q: "Jakie pytanie sprowokowało Jezusa do opowiedzenia tej paraboli?", a: "Pytanie uczonego w Prawie: „Kto jest moim bliźnim?”." },
       { cat: "samarytanin", sub: "Samarytanin", q: "Jakie polecenie Jezus daje słuchaczowi na końcu?", a: "„Idź, i ty czyń podobnie!” – wezwanie do czynnego miłosierdzia." },
-      { cat: "samarytanin", sub: "Samarytanin", q: "Czym różni się postawa Samarytanina od kapłana?", a: "Kapłan poprzestaje na zewnętrznym kulcie, a Samarytanin realizuje istotę prawa miłości[span_88](start_span)[span_88](end_span)." },
+      { cat: "samarytanin", sub: "Samarytanin", q: "Czym różni się postawa Samarytanina od kapłana?", a: "Kapłan poprzestaje na zewnętrznym kulcie, a Samarytanin realizuje istotę prawa miłości." },
 
-      // 5. Siewca (11)
-      { cat: "siewca", sub: "O siewcy", q: "Kim jest Siewca, a czym rozsiewane Ziarno?", a: "Siewcą jest Bóg (Chrystus), a ziarnem jest Słowo Boże[span_89](start_span)[span_89](end_span)." },
-      { cat: "siewca", sub: "O siewcy", q: "Co symbolizuje ziarno rzucone na drogę?", a: "Słowo usłyszane powierzchownie, które ptaki (złe moce) natychmiast porywają[span_90](start_span)[span_90](end_span)." },
-      { cat: "siewca", sub: "O siewcy", q: "Dlaczego ziarno na gruncie skalistym obumarło?", a: "Szybko wzeszło, lecz obumarło, gdyż nie mogło się głęboko zakorzenić[span_91](start_span)[span_91](end_span)." },
-      { cat: "siewca", sub: "O siewcy", q: "Co stało się z ziarnem rzuconym między ciernie?", a: "Ciernie wyrosły i zagłuszyły je, tak że nie wydało żadnego owocu[span_92](start_span)[span_92](end_span)." },
-      { cat: "siewca", sub: "O siewcy", q: "Co symbolizuje ziemia żyzna w tej paraboli?", a: "Człowieka o otwartym sercu, który przyjmuje Słowo i daje obfity plon[span_93](start_span)[span_93](end_span)." },
-      { cat: "siewca", sub: "O siewcy", q: "Co oznaczają poszczególne miejsca padania ziarna?", a: "Symbolizują różne ludzkie charaktery, serca i ich gotowość na wiarę[span_94](start_span)[span_94](end_span)." },
-      { cat: "siewca", sub: "O siewcy", q: "Co w życiu człowieka oznaczają ciernie duszące wiarę?", a: "Doczesne troski, pokusy, pogoń za bogactwem i przyjemnościami[span_95](start_span)[span_95](end_span)." },
+      { cat: "siewca", sub: "O siewcy", q: "Kim jest Siewca, a czym rozsiewane Ziarno?", a: "Siewcą jest Bóg (Chrystus), a ziarnem jest Słowo Boże." },
+      { cat: "siewca", sub: "O siewcy", q: "Co symbolizuje ziarno rzucone na drogę?", a: "Słowo usłyszane powierzchownie, które ptaki (złe moce) natychmiast porywają." },
+      { cat: "siewca", sub: "O siewcy", q: "Dlaczego ziarno na gruncie skalistym obumarło?", a: "Szybko wzeszło, lecz obumarło, gdyż nie mogło się głęboko zakorzenić." },
+      { cat: "siewca", sub: "O siewcy", q: "Co stało się z ziarnem rzuconym między ciernie?", a: "Ciernie wyrosły i zagłuszyły je, tak że nie wydało żadnego owocu." },
+      { cat: "siewca", sub: "O siewcy", q: "Co symbolizuje ziemia żyzna w tej paraboli?", a: "Człowieka o otwartym sercu, który przyjmuje Słowo i daje obfity plon." },
+      { cat: "siewca", sub: "O siewcy", q: "Co oznaczają poszczególne miejsca padania ziarna?", a: "Symbolizują różne ludzkie charaktery, serca i ich gotowość na wiarę." },
+      { cat: "siewca", sub: "O siewcy", q: "Co w życiu człowieka oznaczają ciernie duszące wiarę?", a: "Doczesne troski, pokusy, pogoń za bogactwem i przyjemnościami." },
       { cat: "siewca", sub: "O siewcy", q: "Jaki plon wydaje żyzna ziemia według Ewangelii?", a: "Plon trzydziestokrotny, sześćdziesięciokrotny, a nawet stokrotny." },
-      { cat: "siewca", sub: "O siewcy", q: "Na ile rodzajów podłoża upadło ziarno siewcy?", a: "Na cztery rodzaje: droga, grunt skalisty, ciernie oraz żyzna ziemia[span_96](start_span)[span_96](end_span)." },
-      { cat: "siewca", sub: "O siewcy", q: "Czego brakuje człowiekowi o postawie 'gruntu skalistego'?", a: "Głębi, wytrwałości i siły do przetrwania prób życiowych[span_97](start_span)[span_97](end_span)." },
-      { cat: "siewca", sub: "O siewcy", q: "Czy jakość ziarna rzucanego przez siewcę była różna?", a: "Nie, ziarno (Słowo Boże) było doskonałe, różna była jedynie gleba ludzkich serc[span_98](start_span)[span_98](end_span)." },
+      { cat: "siewca", sub: "O siewcy", q: "Na ile rodzajów podłoża upadło ziarno siewcy?", a: "Na cztery rodzaje: droga, grunt skalisty, ciernie oraz żyzna ziemia." },
+      { cat: "siewca", sub: "O siewcy", q: "Czego brakuje człowiekowi o postawie 'gruntu skalistego'?", a: "Głębi, wytrwałości i siły do przetrwania prób życiowych." },
+      { cat: "siewca", sub: "O siewcy", q: "Czy jakość ziarna rzucanego przez siewcę była różna?", a: "Nie, ziarno (Słowo Boże) było doskonałe, różna była jedynie gleba ludzkich serc." },
 
-      // 6. Gorczyca i Owca (10)
-      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Do czego porównane jest Królestwo Niebieskie?", a: "Do ziarnka gorczycy – początkowo najmniejszego, a potem wielkiej rośliny[span_99](start_span)[span_99](end_span)." },
-      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Jaki sens ma Przypowieść o ziarnku gorczycy?", a: "Wiara i Królestwo Boże zaczynają się skromnie, by urosnąć w potężną siłę[span_100](start_span)[span_100](end_span)." },
-      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Dlaczego faryzeusze oburzali się na Jezusa?", a: "Ponieważ nauczał nieuczciwych celników i jadał z grzesznikami[span_101](start_span)[span_101](end_span)." },
-      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Co robi pasterz, gdy jedna owca odłączy się od stada?", a: "Zostawia dziewięćdziesiąt dziewięć owiec i wyrusza na poszukiwania zagubionej[span_102](start_span)[span_102](end_span)." },
-      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Z czego cieszy się Bóg według Przypowieści o zagubionej owcy?", a: "Bóg troszczy się o potrzebujących i cieszy się z nawrócenia każdego grzesznika[span_103](start_span)[span_103](end_span)." },
+      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Do czego porównane jest Królestwo Niebieskie?", a: "Do ziarnka gorczycy – początkowo najmniejszego, a potem wielkiej rośliny." },
+      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Jaki sens ma Przypowieść o ziarnku gorczycy?", a: "Wiara i Królestwo Boże zaczynają się skromnie, by urosnąć w potężną siłę." },
+      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Dlaczego faryzeusze oburzali się na Jezusa?", a: "Ponieważ nauczał nieuczciwych celników i jadał z grzesznikami." },
+      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Co robi pasterz, gdy jedna owca odłączy się od stada?", a: "Zostawia dziewięćdziesiąt dziewięć owiec i wyrusza na poszukiwania zagubionej." },
+      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Z czego cieszy się Bóg według Przypowieści o zagubionej owcy?", a: "Bóg troszczy się o potrzebujących i cieszy się z nawrócenia każdego grzesznika." },
       { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Co pasterz robi po odnalezieniu zbłąkanej owcy?", a: "Bierze ją z radością na ramiona i wzywa przyjaciół do wspólnego świętowania." },
-      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Co zyskują ptaki na wyrośniętym krzewie gorczycy?", a: "Znajdują bezpieczne schronienie i wiją gniazda w jego gałęziach[span_104](start_span)[span_104](end_span)." },
-      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Kogo bezpośrednio symbolizuje zagubiona owca?", a: "Każdego człowieka, który zszedł z drogi prawości i potrzebuje ratunku[span_105](start_span)[span_105](end_span)." },
-      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Ile owiec liczyło całe stado pasterza?", a: "Stado liczyło dokładnie sto owiec[span_106](start_span)[span_106](end_span)." },
-      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Jaka jest główna cecha Boga ukazana w Przypowieści o zagubionej owcy?", a: "Indywidualna troska o każdego człowieka – nikt nie jest dla Niego obojętny[span_107](start_span)[span_107](end_span)." },
+      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Co zyskują ptaki na wyrośniętym krzewie gorczycy?", a: "Znajdują bezpieczne schronienie i wiją gniazda w jego gałęziach." },
+      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Kogo bezpośrednio symbolizuje zagubiona owca?", a: "Każdego człowieka, który zszedł z drogi prawości i potrzebuje ratunku." },
+      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Ile owiec liczyło całe stado pasterza?", a: "Stado liczyło dokładnie sto owiec." },
+      { cat: "gorczyca_owca", sub: "Gorczyca & Owca", q: "Jaka jest główna cecha Boga ukazana w Przypowieści o zagubionej owcy?", a: "Indywidualna troska o każdego człowieka – nikt nie jest dla Niego obojętny." },
 
-      // 7. Genesis i Upadek (10)
-      { cat: "genesis", sub: "Genesis & Upadek", q: "W jaki sposób Bóg powołał świat do istnienia?", a: "Z niczego (creatio ex nihilo) samym swoim suwerennym Słowem w ciągu 6 dni[span_108](start_span)[span_108](end_span)." },
-      { cat: "genesis", sub: "Genesis & Upadek", q: "Na czyj obraz został stworzony człowiek?", a: "Na obraz i podobieństwo Boże – jako zwieńczenie i korona stworzenia[span_109](start_span)[span_109](end_span)." },
-      { cat: "genesis", sub: "Genesis & Upadek", q: "Jaki jedyny zakaz otrzymali Adam i Ewa w raju?", a: "Zakaz spożywania owocu z Drzewa Poznania Dobra i Zła[span_110](start_span)[span_110](end_span)[span_111](start_span)[span_111](end_span)." },
-      { cat: "genesis", sub: "Genesis & Upadek", q: "Czym wąż skusił pierwszych ludzi w Edenie?", a: "Obietnicą: „będziecie jako bogowie znający dobro i zło[span_112](start_span)”[span_112](end_span)." },
-      { cat: "genesis", sub: "Genesis & Upadek", q: "Jakie były bezpośrednie skutki grzechu pierworodnego?", a: "Utrata raju, nieśmiertelności, wstyd z powodu nagości, ból, trud pracy i śmierć[span_113](start_span)[span_113](end_span)[span_114](start_span)[span_114](end_span)." },
-      { cat: "genesis", sub: "Genesis & Upadek", q: "Co oznacza motyw wygnania z raju w Biblii?", a: "Początek ziemskiej historii ludzkości, trwającej do sądu ostatecznego[span_115](start_span)[span_115](end_span)." },
-      { cat: "genesis", sub: "Genesis & Upadek", q: "Co symbolizuje rajski ogród (Eden)?", a: "Stan pierwotnej harmonii człowieka z Bogiem, samym sobą i przyrodą[span_116](start_span)[span_116](end_span)." },
-      { cat: "genesis", sub: "Genesis & Upadek", q: "Co oznacza biblijne zdanie: 'Prochem jesteś i w proch się obrócisz'?", a: "Zapowiedź nieuchronnej śmierci cielesnej jako skutku upadku pierwszych ludzi[span_117](start_span)[span_117](end_span)." },
+      { cat: "genesis", sub: "Genesis & Upadek", q: "W jaki sposób Bóg powołał świat do istnienia?", a: "Z niczego (creatio ex nihilo) samym swoim suwerennym Słowem w ciągu 6 dni." },
+      { cat: "genesis", sub: "Genesis & Upadek", q: "Na czyj obraz został stworzony człowiek?", a: "Na obraz i podobieństwo Boże – jako zwieńczenie i korona stworzenia." },
+      { cat: "genesis", sub: "Genesis & Upadek", q: "Jaki jedyny zakaz otrzymali Adam i Ewa w raju?", a: "Zakaz spożywania owocu z Drzewa Poznania Dobra i Zła." },
+      { cat: "genesis", sub: "Genesis & Upadek", q: "Czym wąż skusił pierwszych ludzi w Edenie?", a: "Obietnicą: „będziecie jako bogowie znający dobro i zło”." },
+      { cat: "genesis", sub: "Genesis & Upadek", q: "Jakie były bezpośrednie skutki grzechu pierworodnego?", a: "Utrata raju, nieśmiertelności, wstyd z powodu nagości, ból, trud pracy i śmierć." },
+      { cat: "genesis", sub: "Genesis & Upadek", q: "Co oznacza motyw wygnania z raju w Biblii?", a: "Początek ziemskiej historii ludzkości, trwającej do sądu ostatecznego." },
+      { cat: "genesis", sub: "Genesis & Upadek", q: "Co symbolizuje rajski ogród (Eden)?", a: "Stan pierwotnej harmonii człowieka z Bogiem, samym sobą i przyrodą." },
+      { cat: "genesis", sub: "Genesis & Upadek", q: "Co oznacza biblijne zdanie: 'Prochem jesteś i w proch się obrócisz'?", a: "Zapowiedź nieuchronnej śmierci cielesnej jako skutku upadku pierwszych ludzi." },
       { cat: "genesis", sub: "Genesis & Upadek", q: "Kto strzegł wejścia do raju po wygnaniu człowieka?", a: "Cherub z wirującym mieczem z ognia, chroniący dostęp do Drzewa Życia." },
       { cat: "genesis", sub: "Genesis & Upadek", q: "Co zrobili Adam i Ewa zaraz po zjedzeniu owocu?", a: "Zauważyli swoją nagość, spletli przepaski z liści figowych i ukryli się przed Bogiem." },
 
-      // 8. Hiob (11)
-      { cat: "hiob", sub: "Księga Hioba", q: "Na czym polega problem cierpienia niezawinionego u Hioba?", a: "Na tym, że cierpienie nie zawsze jest karą za grzechy, lecz próbą wiary lub tajemnicą Boga[span_118](start_span)[span_118](end_span)." },
-      { cat: "hiob", sub: "Księga Hioba", q: "Czym jest pojęcie TEODYCEI?", a: "Problemem pogodzenia dobroci i wszechmocy Boga z istnieniem zła i cierpienia na świecie[span_119](start_span)[span_119](end_span)." },
-      { cat: "hiob", sub: "Księga Hioba", q: "Jak brzmią słynne słowa Hioba po utracie majątku i dzieci?", a: "„Pan dał, Pan wziął, niech imię Pańskie będzie błogosławione[span_120](start_span)”[span_120](end_span)." },
-      { cat: "hiob", sub: "Księga Hioba", q: "Czym charakteryzuje się „postawa hiobowa”?", a: "Niezłomną cierpliwością, pokorą i bezgranicznym zaufaniem Bogu w nieszczęściu[span_121](start_span)[span_121](end_span)." },
-      { cat: "hiob", sub: "Księga Hioba", q: "Co w języku polskim oznacza „hiobowa wieść”?", a: "Tragiczną, złowrogą wiadomość zwiastującą nagłe i wielkie nieszczęście[span_122](start_span)[span_122](end_span)." },
-      { cat: "hiob", sub: "Księga Hioba", q: "Gdzie mieszkał Hiob i jak opisywano jego życie?", a: "W krainie Us; był człowiekiem prawym, sprawiedliwym i bogobojnym[span_123](start_span)[span_123](end_span)." },
-      { cat: "hiob", sub: "Księga Hioba", q: "O co szatan założył się z Bogiem w sprawie Hioba?", a: "Że Hiob czci Boga tylko z powodu pomyślności i dóbr doczesnych[span_124](start_span)[span_124](end_span)." },
-      { cat: "hiob", sub: "Księga Hioba", q: "Jaką chorobą szatan dotknął ciało Hioba?", a: "Złośliwym trądem od stóp do głów[span_125](start_span)[span_125](end_span)." },
-      { cat: "hiob", sub: "Księga Hioba", q: "Co przyjaciele wmawiali cierpiącemu Hiobowi?", a: "Że musiał dopuścić się ukrytych win, gdyż wierzyli w ścisłą teologię odpłaty[span_126](start_span)[span_126](end_span)." },
-      { cat: "hiob", sub: "Księga Hioba", q: "Z czego przemówił Bóg pod koniec Księgi Hioba?", a: "Z wichru (burzy), ukazując nieogarnioną potęgę i mądrość stworzenia[span_127](start_span)[span_127](end_span)." },
-      { cat: "hiob", sub: "Księga Hioba", q: "Jak kończy się historia Hioba?", a: "Bóg przywraca mu zdrowie, podwaja jego dawny majątek i obdarza nową rodziną[span_128](start_span)[span_128](end_span)." },
+      { cat: "hiob", sub: "Księga Hioba", q: "Na czym polega problem cierpienia niezawinionego u Hioba?", a: "Na tym, że cierpienie nie zawsze jest karą za grzechy, lecz próbą wiary lub tajemnicą Boga." },
+      { cat: "hiob", sub: "Księga Hioba", q: "Czym jest pojęcie TEODYCEI?", a: "Problemem pogodzenia dobroci i wszechmocy Boga z istnieniem zła i cierpienia na świecie." },
+      { cat: "hiob", sub: "Księga Hioba", q: "Jak brzmią słynne słowa Hioba po utracie majątku i dzieci?", a: "„Pan dał, Pan wziął, niech imię Pańskie będzie błogosławione”." },
+      { cat: "hiob", sub: "Księga Hioba", q: "Czym charakteryzuje się „postawa hiobowa”?", a: "Niezłomną cierpliwością, pokorą i bezgranicznym zaufaniem Bogu w nieszczęściu." },
+      { cat: "hiob", sub: "Księga Hioba", q: "Co w języku polskim oznacza „hiobowa wieść”?", a: "Tragiczną, złowrogą wiadomość zwiastującą nagłe i wielkie nieszczęście." },
+      { cat: "hiob", sub: "Księga Hioba", q: "Gdzie mieszkał Hiob i jak opisywano jego życie?", a: "W krainie Us; był człowiekiem prawym, sprawiedliwym i bogobojnym." },
+      { cat: "hiob", sub: "Księga Hioba", q: "O co szatan założył się z Bogiem w sprawie Hioba?", a: "Że Hiob czci Boga tylko z powodu pomyślności i dóbr doczesnych." },
+      { cat: "hiob", sub: "Księga Hioba", q: "Jaką chorobą szatan dotknął ciało Hioba?", a: "Złośliwym trądem od stóp do głów." },
+      { cat: "hiob", sub: "Księga Hioba", q: "Co przyjaciele wmawiali cierpiącemu Hiobowi?", a: "Że musiał dopuścić się ukrytych win, gdyż wierzyli w ścisłą teologię odpłaty." },
+      { cat: "hiob", sub: "Księga Hioba", q: "Z czego przemówił Bóg pod koniec Księgi Hioba?", a: "Z wichru (burzy), ukazując nieogarnioną potęgę i mądrość stworzenia." },
+      { cat: "hiob", sub: "Księga Hioba", q: "Jak kończy się historia Hioba?", a: "Bóg przywraca mu zdrowie, podwaja jego dawny majątek i obdarza nową rodziną." },
 
-      // 9. Kohelet (10)
-      { cat: "kohelet", sub: "Księga Koheleta", q: "Co oznacza łacińska sentencja: „Vanitas vanitatum et omnia vanitas”?", a: "„Marność nad marnościami i wszystko marność” – motyw przemijania ziemskich spraw[span_129](start_span)[span_129](end_span)." },
-      { cat: "kohelet", sub: "Księga Koheleta", q: "Co według Koheleta jest ową „marnością”?", a: "Wszelkie doczesne dobra: bogactwo, władza, uroda, sława, a nawet ludzka mądrość[span_130](start_span)[span_130](end_span)." },
-      { cat: "kohelet", sub: "Księga Koheleta", q: "Co według Koheleta zrównuje mędrca z głupcem?", a: "Nieuchronna śmierć cielesna i zapomnienie przez przyszłe pokolenia[span_131](start_span)[span_131](end_span)." },
-      { cat: "kohelet", sub: "Księga Koheleta", q: "Jaką radę na przemijanie daje mędrzec Kohelet?", a: "Cieszyć się drobnymi, codziennymi darami (pracą, posiłkiem), zachować umiar i pamiętać o Bogu[span_132](start_span)[span_132](end_span)." },
-      { cat: "kohelet", sub: "Księga Koheleta", q: "Czym charakteryzuje się czas w Księdze Koheleta?", a: "Cyklicznością i zmiennością: „Jest czas rodzenia i czas umierania, burzenia i budowania[span_133](start_span)”[span_133](end_span)." },
-      { cat: "kohelet", sub: "Księga Koheleta", q: "Kim jest postać Koheleta?", a: "Mędrcem przemawiającym na zgromadzeniu, tradycyjnie utożsamianym z Salomonem[span_134](start_span)[span_134](end_span)." },
+      { cat: "kohelet", sub: "Księga Koheleta", q: "Co oznacza łacińska sentencja: „Vanitas vanitatum et omnia vanitas”?", a: "„Marność nad marnościami i wszystko marność” – motyw przemijania ziemskich spraw." },
+      { cat: "kohelet", sub: "Księga Koheleta", q: "Co według Koheleta jest ową „marnością”?", a: "Wszelkie doczesne dobra: bogactwo, władza, uroda, sława, a nawet ludzka mądrość." },
+      { cat: "kohelet", sub: "Księga Koheleta", q: "Co według Koheleta zrównuje mędrca z głupcem?", a: "Nieuchronna śmierć cielesna i zapomnienie przez przyszłe pokolenia." },
+      { cat: "kohelet", sub: "Księga Koheleta", q: "Jaką radę na przemijanie daje mędrzec Kohelet?", a: "Cieszyć się drobnymi, codziennymi darami (pracą, posiłkiem), zachować umiar i pamiętać o Bogu." },
+      { cat: "kohelet", sub: "Księga Koheleta", q: "Czym charakteryzuje się czas w Księdze Koheleta?", a: "Cyklicznością i zmiennością: „Jest czas rodzenia i czas umierania, burzenia i budowania”." },
+      { cat: "kohelet", sub: "Księga Koheleta", q: "Kim jest postać Koheleta?", a: "Mędrcem przemawiającym na zgromadzeniu, tradycyjnie utożsamianym z Salomonem." },
       { cat: "kohelet", sub: "Księga Koheleta", q: "Co oznacza powiedzenie: 'Nihil novi sub sole'?", a: "„Nic nowego pod słońcem” – odwieczna powtarzalność praw natury i ludzkiego losu." },
-      { cat: "kohelet", sub: "Księga Koheleta", q: "Do jakiego działu ksiąg biblijnych należy Księga Koheleta?", a: "Do ksiąg mądrościowych (dydaktycznych) Starego Testamentu[span_135](start_span)[span_135](end_span)." },
-      { cat: "kohelet", sub: "Księga Koheleta", q: "Czym według Koheleta jest pogoń za sławą i bogactwem?", a: "Nazywa ją „pogonią za wiatrem”, która nie przynosi trwałego pożytku duchowego[span_136](start_span)[span_136](end_span)." },
-      { cat: "kohelet", sub: "Księga Koheleta", q: "Jaki jest ostateczny fundament mądrości według Koheleta?", a: "Bojaźń Boża i przestrzeganie Bożych przykazań pomimo zmienności świata[span_137](start_span)[span_137](end_span)." }
+      { cat: "kohelet", sub: "Księga Koheleta", q: "Do jakiego działu ksiąg biblijnych należy Księga Koheleta?", a: "Do ksiąg mądrościowych (dydaktycznych) Starego Testamentu." },
+      { cat: "kohelet", sub: "Księga Koheleta", q: "Czym według Koheleta jest pogoń za sławą i bogactwem?", a: "Nazywa ją „pogonią za wiatrem”, która nie przynosi trwałego pożytku duchowego." },
+      { cat: "kohelet", sub: "Księga Koheleta", q: "Jaki jest ostateczny fundament mądrości według Koheleta?", a: "Bojaźń Boża i przestrzeganie Bożych przykazań pomimo zmienności świata." }
     ];
 
     function renderFlashcards() {
@@ -605,7 +573,6 @@
       });
     }
 
-    // ================= DOKŁADNIE 243 PYTANIA QUIZOWE (27 pytań na każdy z 9 tematów) =================
     const quizMasterBank = [];
 
     function addQ(cat, topicName, question, correctOpt, wrongOpt1, wrongOpt2, tip) {
@@ -619,142 +586,132 @@
       });
     }
 
-    // 1. Parabola (27)
-    addQ("lit", "Parabola", "Świat przedstawiony w paraboli jest podporządkowany:", "Ukrytemu, przenośnemu sensowi opowiadanej historii[span_138](start_span)[span_138](end_span)", "Opisowi wojen rzymskich", "Dokładnej biografii Jezusa", "Parabola służy przekazaniu głębszej prawdy moralnej[span_139](start_span)[span_139](end_span).");
-    addQ("lit", "Parabola", "Bohaterowie w przypowieści są zazwyczaj:", "Pozbawieni cech indywidualnych i bezimienni[span_140](start_span)[span_140](end_span)", "Bogato opisani pod kątem wyglądu i ubioru", "Autentycznymi królami z rodowodem", "Schematyczność ułatwia utożsamienie się z sytuacją[span_141](start_span)[span_141](end_span).");
-    addQ("lit", "Parabola", "Wydarzenia w paraboli mają na celu:", "Ilustrowanie uniwersalnych prawd egzystencjalnych[span_142](start_span)[span_142](end_span)", "Rozbawienie słuchacza", "Opisanie geografii Galilei", "Fabuła pełni funkcję dydaktyczną[span_143](start_span)[span_143](end_span).");
-    addQ("lit", "Parabola", "Dwupoziomowość paraboli oznacza obecność znaczenia:", "Dosłownego oraz ukrytego (alegorycznego)[span_144](start_span)[span_144](end_span)", "Politycznego oraz wojennego", "Historycznego oraz baśniowego", "Warstwa dosłowna to tło dla sensu właściwego[span_145](start_span)[span_145](end_span).");
-    addQ("lit", "Parabola", "Czas i miejsce akcji w paraboli są:", "Zuniwersalizowane i pozbawione konkretów[span_146](start_span)[span_146](end_span)", "Zapisane co do minuty w kronikach", "Ściśle ograniczone do Jerozolimy", "Uniwersalizm pozwala na ponadczasowy odbiór[span_147](start_span)[span_147](end_span).");
-    addQ("lit", "Parabola", "Główną funkcją przypowieści biblijnej jest funkcja:", "Dydaktyczno-moralizatorska[span_148](start_span)[span_148](end_span)", "Czysto rozrywkowa", "Dokumentalna", "Ma pouczać człowieka, jak postępować[span_149](start_span)[span_149](end_span).");
+    addQ("lit", "Parabola", "Świat przedstawiony w paraboli jest podporządkowany:", "Ukrytemu, przenośnemu sensowi opowiadanej historii", "Opisowi wojen rzymskich", "Dokładnej biografii Jezusa", "Parabola służy przekazaniu głębszej prawdy moralnej.");
+    addQ("lit", "Parabola", "Bohaterowie w przypowieści są zazwyczaj:", "Pozbawieni cech indywidualnych i bezimienni", "Bogato opisani pod kątem wyglądu i ubioru", "Autentycznymi królami z rodowodem", "Schematyczność ułatwia utożsamienie się z sytuacją.");
+    addQ("lit", "Parabola", "Wydarzenia w paraboli mają na celu:", "Ilustrowanie uniwersalnych prawd egzystencjalnych", "Rozbawienie słuchacza", "Opisanie geografii Galilei", "Fabuła pełni funkcję dydaktyczną.");
+    addQ("lit", "Parabola", "Dwupoziomowość paraboli oznacza obecność znaczenia:", "Dosłownego oraz ukrytego (alegorycznego)", "Politycznego oraz wojennego", "Historycznego oraz baśniowego", "Warstwa dosłowna to tło dla sensu właściwego.");
+    addQ("lit", "Parabola", "Czas i miejsce akcji w paraboli są:", "Zuniwersalizowane i pozbawione konkretów", "Zapisane co do minuty w kronikach", "Ściśle ograniczone do Jerozolimy", "Uniwersalizm pozwala na ponadczasowy odbiór.");
+    addQ("lit", "Parabola", "Główną funkcją przypowieści biblijnej jest funkcja:", "Dydaktyczno-moralizatorska", "Czysto rozrywkowa", "Dokumentalna", "Ma pouczać człowieka, jak postępować.");
     addQ("lit", "Parabola", "Do jakiego rodzaju literackiego należy parabola?", "Do epiki", "Do liryki", "Do dramatu", "Jest utworem narracyjnym pisanym prozą.");
-    addQ("lit", "Parabola", "Czy bohaterowie paraboli posiadają rozbudowaną psychologię?", "Nie, są schematycznymi nośnikami postaw[span_150](start_span)[span_150](end_span)", "Tak, mają skomplikowane portrety wewnętrzne", "Tak, opisane są ich sny i marzenia", "Parabola unika indywidualizowania postaci[span_151](start_span)[span_151](end_span).");
-    addQ("lit", "Parabola", "Słowo 'parabola' w języku greckim odnosi się do:", "Zestawienia, porównania i przypowieści[span_152](start_span)[span_152](end_span)", "Okrętu handlowego", "Mowy obrończej w sądzie", "Parabola zestawia fabułę z sensem duchowym[span_153](start_span)[span_153](end_span).");
-    addQ("lit", "Parabola", "Który element w paraboli ma znaczenie nadrzędne?", "Głębszy sens moralny i religijny[span_154](start_span)[span_154](end_span)", "Opis strojów i potraw", "Liczba dialogów między postaciami", "Fabuła jest tylko nośnikiem prawdy moralnej[span_155](start_span)[span_155](end_span).");
+    addQ("lit", "Parabola", "Czy bohaterowie paraboli posiadają rozbudowaną psychologię?", "Nie, są schematycznymi nośnikami postaw", "Tak, mają skomplikowane portrety wewnętrzne", "Tak, opisane są ich sny i marzenia", "Parabola unika indywidualizowania postaci.");
+    addQ("lit", "Parabola", "Słowo 'parabola' w języku greckim odnosi się do:", "Zestawienia, porównania i przypowieści", "Okrętu handlowego", "Mowy obrończej w sądzie", "Parabola zestawia fabułę z sensem duchowym.");
+    addQ("lit", "Parabola", "Który element w paraboli ma znaczenie nadrzędne?", "Głębszy sens moralny i religijny", "Opis strojów i potraw", "Liczba dialogów między postaciami", "Fabuła jest tylko nośnikiem prawdy moralnej.");
     for (let i = 1; i <= 17; i++) {
-      addQ("lit", "Parabola", `Cechą formalną paraboli (pytanie ${i}) jest:`, "Uproszczenie fabuły na rzecz uniwersalnego morału[span_156](start_span)[span_156](end_span)", "Kronikarski zapis dat rocznych", "Rymowana forma wierszowa", "Prostota służy dydaktycznemu przesłaniu[span_157](start_span)[span_157](end_span).");
+      addQ("lit", "Parabola", `Cechą formalną paraboli (pytanie ${i}) jest:`, "Uproszczenie fabuły na rzecz uniwersalnego morału", "Kronikarski zapis dat rocznych", "Rymowana forma wierszowa", "Prostota służy dydaktycznemu przesłaniu.");
     }
 
-    // 2. Talenty (27)
-    addQ("talenty", "O talentach", "Czym w sensie dosłownym były talenty w przypowieści?", "Pieniędzmi (jednostkami kruszcu)[span_158](start_span)[span_158](end_span)", "Zdolnościami malarskimi", "Ziemią uprawną", "Talent w starożytności był monetą i miarą wagi[span_159](start_span)[span_159](end_span).");
-    addQ("talenty", "O talentach", "Ilu sług obdarował pan w przypowieści?", "Trzech sług[span_160](start_span)[span_160](end_span)", "Dwunastu sług", "Siedmiu sług", "Pan powierzył talenty trzem sługom[span_161](start_span)[span_161](end_span).");
-    addQ("talenty", "O talentach", "Ilu sług pomnożyło powierzony im majątek?", "Dwaj słudzy[span_162](start_span)[span_162](end_span)", "Wszyscy trzej", "Tylko jeden sługa", "Pierwszy i drugi podwoili kapitał[span_163](start_span)[span_163](end_span).");
-    addQ("talenty", "O talentach", "Co ze swoim talentem uczynił trzeci sługa?", "Zakopał powierzony talent w ziemi[span_164](start_span)[span_164](end_span)", "Zgubił go w gospodzie", "Kupił stado owiec", "Zakopał dar z lęku i gnuśności[span_165](start_span)[span_165](end_span).");
-    addQ("talenty", "O talentach", "Jak pan postąpił z dwoma pierwszymi sługami?", "Nagrodził ich za pomnożenie majątku[span_166](start_span)[span_166](end_span)", "Zabrał im zysk i odprawił", "Kazał im służyć trzeciemu", "Pochwalił ich wierność w małych rzeczach[span_167](start_span)[span_167](end_span).");
-    addQ("talenty", "O talentach", "Co stało się z talentem trzeciego sługi po powrocie pana?", "Odebrał mu go i dał temu, co miał dziesięć[span_168](start_span)[span_168](end_span)", "Pozostawił go w ziemi na zawsze", "Rozdał ubogim w mieście", "Odebrano mu go za bezużyteczność[span_169](start_span)[span_169](end_span).");
-    addQ("talenty", "O talentach", "Co w przypowieści symbolizują powierzone talenty?", "Słowo Boże, łaskę wiary, dary i życie[span_170](start_span)[span_170](end_span)", "Czyste złoto rzymskie", "Podatki płacone cezarowi", "Talent to każdy dar dany człowiekowi przez Boga[span_171](start_span)[span_171](end_span).");
-    addQ("talenty", "O talentach", "Jaki jest główny morał z Przypowieści o talentach?", "To, czym zostajemy obdarowani, należy wzbogacać i rozwijać[span_172](start_span)[span_172](end_span)", "Lepiej nie ryzykować i chować majątek", "Bogactwo materialne to jedyny cel", "Bóg potępia gnuśność i bierność[span_173](start_span)[span_173](end_span).");
-    addQ("talenty", "O talentach", "Dlaczego pan ukarał trzeciego sługę?", "Ponieważ nie potrafił zrobić z daru użytku[span_174](start_span)[span_174](end_span)", "Bo ukradł część pieniędzy", "Bo wydał talent na hulanki", "Kara spotkała go za bezużyteczność i lęk[span_175](start_span)[span_175](end_span).");
-    addQ("talenty", "O talentach", "Przypowieść o talentach potępia w postawie ludzkiej:", "Bierność, lenistwo i strach przed działaniem[span_176](start_span)[span_176](end_span)", "Pracowitość na roli", "Odważne pomnażanie dobra", "Zaniechanie dobra jest winą człowieka[span_177](start_span)[span_177](end_span).");
+    addQ("talenty", "O talentach", "Czym w sensie dosłownym były talenty w przypowieści?", "Pieniędzmi (jednostkami kruszcu)", "Zdolnościami malarskimi", "Ziemią uprawną", "Talent w starożytności był monetą i miarą wagi.");
+    addQ("talenty", "O talentach", "Ilu sług obdarował pan w przypowieści?", "Trzech sług", "Dwunastu sług", "Siedmiu sług", "Pan powierzył talenty trzem sługom.");
+    addQ("talenty", "O talentach", "Ilu sług pomnożyło powierzony im majątek?", "Dwaj słudzy", "Wszyscy trzej", "Tylko jeden sługa", "Pierwszy i drugi podwoili kapitał.");
+    addQ("talenty", "O talentach", "Co ze swoim talentem uczynił trzeci sługa?", "Zakopał powierzony talent w ziemi", "Zgubił go w gospodzie", "Kupił stado owiec", "Zakopał dar z lęku i gnuśności.");
+    addQ("talenty", "O talentach", "Jak pan postąpił z dwoma pierwszymi sługami?", "Nagrodził ich za pomnożenie majątku", "Zabrał im zysk i odprawił", "Kazał im służyć trzeciemu", "Pochwalił ich wierność w małych rzeczach.");
+    addQ("talenty", "O talentach", "Co stało się z talentem trzeciego sługi po powrocie pana?", "Odebrał mu go i dał temu, co miał dziesięć", "Pozostawił go w ziemi na zawsze", "Rozdał ubogim w mieście", "Odebrano mu go za bezużyteczność.");
+    addQ("talenty", "O talentach", "Co w przypowieści symbolizują powierzone talenty?", "Słowo Boże, łaskę wiary, dary i życie", "Czyste złoto rzymskie", "Podatki płacone cezarowi", "Talent to każdy dar dany człowiekowi przez Boga.");
+    addQ("talenty", "O talentach", "Jaki jest główny morał z Przypowieści o talentach?", "To, czym zostajemy obdarowani, należy wzbogacać i rozwijać", "Lepiej nie ryzykować i chować majątek", "Bogactwo materialne to jedyny cel", "Bóg potępia gnuśność i bierność.");
+    addQ("talenty", "O talentach", "Dlaczego pan ukarał trzeciego sługę?", "Ponieważ nie potrafił zrobić z daru użytku", "Bo ukradł część pieniędzy", "Bo wydał talent na hulanki", "Kara spotkała go za bezużyteczność i lęk.");
+    addQ("talenty", "O talentach", "Przypowieść o talentach potępia w postawie ludzkiej:", "Bierność, lenistwo i strach przed działaniem", "Pracowitość na roli", "Odważne pomnażanie dobra", "Zaniechanie dobra jest winą człowieka.");
     for (let i = 1; i <= 17; i++) {
-      addQ("talenty", "O talentach", `Wymowa Przypowieści o talentach (wariant ${i}) uczy, że:`, "Otrzymane od Boga dary należy stale pomnażać[span_178](start_span)[span_178](end_span)", "Talenty należy natychmiast zakopywać", "Każdy człowiek otrzymuje identyczną zapłatę bez pracy", "Liczy się wierność i aktywny rozwój darów[span_179](start_span)[span_179](end_span).");
+      addQ("talenty", "O talentach", `Wymowa Przypowieści o talentach (wariant ${i}) uczy, że:`, "Otrzymane od Boga dary należy stale pomnażać", "Talenty należy natychmiast zakopywać", "Każdy człowiek otrzymuje identyczną zapłatę bez pracy", "Liczy się wierność i aktywny rozwój darów.");
     }
 
-    // 3. Syn marnotrawny (27)
-    addQ("syn", "Syn marnotrawny", "Ilu synów miał ojciec w przypowieści?", "Dwóch synów[span_180](start_span)[span_180](end_span)", "Trzech synów", "Jednego syna", "Opowieść dotyczy ojca i dwóch synów[span_181](start_span)[span_181](end_span).");
-    addQ("syn", "Syn marnotrawny", "Co zrobił młodszy syn z otrzymaną częścią majątku?", "Utracił podarowany majątek na rozrzutne życie[span_182](start_span)[span_182](end_span)", "Zbudował dom w Jerozolimie", "Podwoił go na handlu wełną", "Roztrwonił wszystko w dalekiej krainie[span_183](start_span)[span_183](end_span).");
-    addQ("syn", "Syn marnotrawny", "Przy czym musiał pracować syn, gdy nastał głód?", "Przy wypasie świń[span_184](start_span)[span_184](end_span)", "W winnicy cesarskiej", "Jako żołnierz w forcie", "Świnie były dla Żydów zwierzętami nieczystymi[span_185](start_span)[span_185](end_span).");
-    addQ("syn", "Syn marnotrawny", "Co syn zrozumiał, gdy znalazł się w skrajnej nędzy?", "Zrozumiał swoje błędy i postanowił prosić o przebaczenie[span_186](start_span)[span_186](end_span)", "Że ojciec był dla niego zbyt surowy", "Że musi uciekać do Egiptu", "Doznał skruchy i opamiętania[span_187](start_span)[span_187](end_span).");
-    addQ("syn", "Syn marnotrawny", "W jakiej roli syn chciał powrócić do domu ojca?", "Jako jeden z najemników[span_188](start_span)[span_188](end_span)", "Jako zarządca pałacu", "Jako gość honorowy", "Uznał, że nie jest godzien miana syna[span_189](start_span)[span_189](end_span).");
-    addQ("syn", "Syn marnotrawny", "Jak ojciec przywitał wracającego młodszego syna?", "Przyjął go z otwartymi ramionami i wyprawił ucztę[span_190](start_span)[span_190](end_span)", "Kazał mu spać przed bramą", "Wypędził go kijem za zdradę", "Ojciec wybiegł naprzeciw z miłosierdziem[span_191](start_span)[span_191](end_span).");
-    addQ("syn", "Syn marnotrawny", "Jakie zwierzę zabito na ucztę z okazji powrotu syna?", "Utuczone cielę[span_192](start_span)[span_192](end_span)", "Barana bez skazy", "Młodego osła", "Zabicie utuczonego cielęcia oznaczało wielką radość[span_193](start_span)[span_193](end_span).");
-    addQ("syn", "Syn marnotrawny", "Kogo w przypowieści symbolizuje miłosierny ojciec?", "Boga okazującego przebaczenie grzesznikowi[span_194](start_span)[span_194](end_span)", "Rzymskiego sędziego", "Surowego prawodawcę Mojżesza", "Bóg jest kochającym Ojcem przyjmującym nawróconych[span_195](start_span)[span_195](end_span).");
+    addQ("syn", "Syn marnotrawny", "Ilu synów miał ojciec w przypowieści?", "Dwóch synów", "Trzech synów", "Jednego syna", "Opowieść dotyczy ojca i dwóch synów.");
+    addQ("syn", "Syn marnotrawny", "Co zrobił młodszy syn z otrzymaną częścią majątku?", "Utracił podarowany majątek na rozrzutne życie", "Zbudował dom w Jerozolimie", "Podwoił go na handlu wełną", "Roztrwonił wszystko w dalekiej krainie.");
+    addQ("syn", "Syn marnotrawny", "Przy czym musiał pracować syn, gdy nastał głód?", "Przy wypasie świń", "W winnicy cesarskiej", "Jako żołnierz w forcie", "Świnie były dla Żydów zwierzętami nieczystymi.");
+    addQ("syn", "Syn marnotrawny", "Co syn zrozumiał, gdy znalazł się w skrajnej nędzy?", "Zrozumiał swoje błędy i postanowił prosić o przebaczenie", "Że ojciec był dla niego zbyt surowy", "Że musi uciekać do Egiptu", "Doznał skruchy i opamiętania.");
+    addQ("syn", "Syn marnotrawny", "W jakiej roli syn chciał powrócić do domu ojca?", "Jako jeden z najemników", "Jako zarządca pałacu", "Jako gość honorowy", "Uznał, że nie jest godzien miana syna.");
+    addQ("syn", "Syn marnotrawny", "Jak ojciec przywitał wracającego młodszego syna?", "Przyjął go z otwartymi ramionami i wyprawił ucztę", "Kazał mu spać przed bramą", "Wypędził go kijem za zdradę", "Ojciec wybiegł naprzeciw z miłosierdziem.");
+    addQ("syn", "Syn marnotrawny", "Jakie zwierzę zabito na ucztę z okazji powrotu syna?", "Utuczone cielę", "Barana bez skazy", "Młodego osła", "Zabicie utuczonego cielęcia oznaczało wielką radość.");
+    addQ("syn", "Syn marnotrawny", "Kogo w przypowieści symbolizuje miłosierny ojciec?", "Boga okazującego przebaczenie grzesznikowi", "Rzymskiego sędziego", "Surowego prawodawcę Mojżesza", "Bóg jest kochającym Ojcem przyjmującym nawróconych.");
     addQ("syn", "Syn marnotrawny", "Jak na powrót brata zareagował starszy syn?", "Oburzył się i miał pretensje do ojca", "Płakał ze szczęścia", "Uciekł z domu w góry", "Wykazał się zawiścią i brakiem miłosierdzia.");
-    addQ("syn", "Syn marnotrawny", "Jaki jest główny morał z tej przypowieści?", "Szczerze żałujący grzesznik może liczyć na Boże miłosierdzie[span_196](start_span)[span_196](end_span)", "Młodsze dzieci mają zawsze większe prawa", "Nie należy nigdy dzielić majątku za życia", "Skrucha otwiera drogę do przebaczenia[span_197](start_span)[span_197](end_span).");
+    addQ("syn", "Syn marnotrawny", "Jaki jest główny morał z tej przypowieści?", "Szczerze żałujący grzesznik może liczyć na Boże miłosierdzie", "Młodsze dzieci mają zawsze większe prawa", "Nie należy nigdy dzielić majątku za życia", "Skrucha otwiera drogę do przebaczenia.");
     for (let i = 1; i <= 17; i++) {
-      addQ("syn", "Syn marnotrawny", `Sens przypowieści o synu marnotrawnym (sprawdzian ${i}) to:`, "Radość z nawrócenia każdego skruszonego człowieka[span_198](start_span)[span_198](end_span)", "Pochwała rozrzutnego życia na obczyźnie", "Konieczność ukarania syna dożywotnią pracą", "Nawet największy grzech może być odpuszczony[span_199](start_span)[span_199](end_span).");
+      addQ("syn", "Syn marnotrawny", `Sens przypowieści o synu marnotrawnym (sprawdzian ${i}) to:`, "Radość z nawrócenia każdego skruszonego człowieka", "Pochwała rozrzutnego życia na obczyźnie", "Konieczność ukarania syna dożywotnią pracą", "Nawet największy grzech może być odpuszczony.");
     }
 
-    // 4. Samarytanin (27)
-    addQ("samarytanin", "Samarytanin", "Kto napadł na podróżnego idącego drogą?", "Zbójcy, którzy go ranili i ograbili[span_200](start_span)[span_200](end_span)", "Rzymscy żołnierze", "Dzikie zwierzęta", "Podróżny został pobity i zostawiony półżywy[span_201](start_span)[span_201](end_span).");
-    addQ("samarytanin", "Samarytanin", "Którzy współwyznawcy minęli rannego bez pomocy?", "Kapłan oraz lewita[span_202](start_span)[span_202](end_span)", "Apostołowie", "Kupcy z Sydonu", "Mimo religijnego statusu nie okazali miłosierdzia[span_203](start_span)[span_203](end_span).");
-    addQ("samarytanin", "Samarytanin", "Kim dla Żydów byli w tamtym czasie Samarytanie?", "Zdrajcami i odstępcami od czystej wiary[span_204](start_span)[span_204](end_span)", "Najbliższymi przyjaciółmi", "Namiestnikami cezara", "Obie grupy były do siebie wrogo nastawione[span_205](start_span)[span_205](end_span).");
-    addQ("samarytanin", "Samarytanin", "Kto jako jedyny okazał miłosierdzie pobitemu?", "Niewierny Samarytanin[span_206](start_span)[span_206](end_span)", "Rzymski centurion", "Żydowski faryzeusz", "Samarytanin okazał współczucie w czynach[span_207](start_span)[span_207](end_span).");
-    addQ("samarytanin", "Samarytanin", "Czym Samarytanin opatrzył rany poszkodowanego?", "Oliwą i winem[span_208](start_span)[span_208](end_span)", "Czystym octem i piaskiem", "Wodą ze studni Jakubowej", "Wino odkażało rany, oliwa koiła ból[span_209](start_span)[span_209](end_span).");
+    addQ("samarytanin", "Samarytanin", "Kto napadł na podróżnego idącego drogą?", "Zbójcy, którzy go ranili i ograbili", "Rzymscy żołnierze", "Dzikie zwierzęta", "Podróżny został pobity i zostawiony półżywy.");
+    addQ("samarytanin", "Samarytanin", "Którzy współwyznawcy minęli rannego bez pomocy?", "Kapłan oraz lewita", "Apostołowie", "Kupcy z Sydonu", "Mimo religijnego statusu nie okazali miłosierdzia.");
+    addQ("samarytanin", "Samarytanin", "Kim dla Żydów byli w tamtym czasie Samarytanie?", "Zdrajcami i odstępcami od czystej wiary", "Najbliższymi przyjaciółmi", "Namiestnikami cezara", "Obie grupy były do siebie wrogo nastawione.");
+    addQ("samarytanin", "Samarytanin", "Kto jako jedyny okazał miłosierdzie pobitemu?", "Niewierny Samarytanin", "Rzymski centurion", "Żydowski faryzeusz", "Samarytanin okazał współczucie w czynach.");
+    addQ("samarytanin", "Samarytanin", "Czym Samarytanin opatrzył rany poszkodowanego?", "Oliwą i winem", "Czystym octem i piaskiem", "Wodą ze studni Jakubowej", "Wino odkażało rany, oliwa koiła ból.");
     addQ("samarytanin", "Samarytanin", "Gdzie Samarytanin przetransportował rannego?", "Do gospody", "Do synagogi w Jerozolimie", "Do własnego pałacu", "Zapewnił mu bezpieczne schronienie i opiekę.");
     addQ("samarytanin", "Samarytanin", "Ile denarów Samarytanin przekazał gospodarzowi?", "Dwa denary", "Pięć talentów", "Sto szekli", "Zapewnił środki na doraźną kurację.");
-    addQ("samarytanin", "Samarytanin", "Z jakim przykazaniem Bożym postąpił zgodnie Samarytanin?", "By miłować bliźniego jak siebie samego[span_210](start_span)[span_210](end_span)", "By składać ofiary ze zwierząt", "By unikać obcych ludzi", "Miłość bliźniego jest nadrzędnym nakazem[span_211](start_span)[span_211](end_span).");
-    addQ("samarytanin", "Samarytanin", "Przypowieść uczy, że miłość bliźniego polega na:", "Konkretnych czynach i bezinteresownej empatii[span_212](start_span)[span_212](end_span)", "Deklaracjach słownych bez pomocy", "Pomaganiu wyłącznie rodzinie", "Czynne miłosierdzie nie patrzy na podziały[span_213](start_span)[span_213](end_span).");
-    addQ("samarytanin", "Samarytanin", "Bliźnim według przypowieści jest:", "Każdy człowiek potrzebujący pomocy[span_214](start_span)[span_214](end_span)", "Wyłącznie członek tego samego narodu", "Jedynie człowiek bogaty", "Potrzebujący definiuje pojęcie bliźniego[span_215](start_span)[span_215](end_span).");
+    addQ("samarytanin", "Samarytanin", "Z jakim przykazaniem Bożym postąpił zgodnie Samarytanin?", "By miłować bliźniego jak siebie samego", "By składać ofiary ze zwierząt", "By unikać obcych ludzi", "Miłość bliźniego jest nadrzędnym nakazem.");
+    addQ("samarytanin", "Samarytanin", "Przypowieść uczy, że miłość bliźniego polega na:", "Konkretnych czynach i bezinteresownej empatii", "Deklaracjach słownych bez pomocy", "Pomaganiu wyłącznie rodzinie", "Czynne miłosierdzie nie patrzy na podziały.");
+    addQ("samarytanin", "Samarytanin", "Bliźnim według przypowieści jest:", "Każdy człowiek potrzebujący pomocy", "Wyłącznie członek tego samego narodu", "Jedynie człowiek bogaty", "Potrzebujący definiuje pojęcie bliźniego.");
     for (let i = 1; i <= 17; i++) {
-      addQ("samarytanin", "Samarytanin", `Wymowa postawy Samarytanina (pytanie ${i}) wskazuje, że:`, "Miłosierdzie przekracza wszelkie uprzedzenia i granice[span_216](start_span)[span_216](end_span)", "Lepiej nie wtrącać się w cudze nieszczęście", "Kapłani postąpili zgodnie z wolą Bożą", "Wartość człowieka leży w jego miłości do bliźnich[span_217](start_span)[span_217](end_span).");
+      addQ("samarytanin", "Samarytanin", `Wymowa postawy Samarytanina (pytanie ${i}) wskazuje, że:`, "Miłosierdzie przekracza wszelkie uprzedzenia i granice", "Lepiej nie wtrącać się w cudze nieszczęście", "Kapłani postąpili zgodnie z wolą Bożą", "Wartość człowieka leży w jego miłości do bliźnich.");
     }
 
-    // 5. O siewcy (27)
-    addQ("siewca", "O siewcy", "Kto jest Siewcą w przypowieści?", "Bóg[span_218](start_span)[span_218](end_span)", "Rzymski urzędnik", "Zwykły człowiek bez wiary", "Siewcą rozrzucającym ziarno jest sam Bóg[span_219](start_span)[span_219](end_span).");
-    addQ("siewca", "O siewcy", "Czym jest ziarno w sensie przenośnym?", "Słowem Bożym[span_220](start_span)[span_220](end_span)", "Złotymi monetami", "Ludzką wiedzą filozoficzną", "Ziarno niesie w sobie Bożą naukę[span_221](start_span)[span_221](end_span).");
-    addQ("siewca", "O siewcy", "Co stało się z ziarnem rzuconym na drogę?", "Szybko porwały je ptaki[span_222](start_span)[span_222](end_span)", "Wydziobały je dzikie wilki", "Zmyła je woda do rzeki", "Ziarno przy drodze zostało natychmiast zniszczone[span_223](start_span)[span_223](end_span).");
-    addQ("siewca", "O siewcy", "Dlaczego ziarno na gruncie skalistym obumarło?", "Gdyż nie mogło się głęboko zakorzenić[span_224](start_span)[span_224](end_span)", "Bo zjadły je robaki", "Zostało spalone przez rolnika", "Brak korzeni spowodował uschnięcie w słońcu[span_225](start_span)[span_225](end_span).");
-    addQ("siewca", "O siewcy", "Co stało się z ziarnem, które wpadło między ciernie?", "Zostało zagłuszone i nie wydało owoców[span_226](start_span)[span_226](end_span)", "Wydało największy plon", "Zamieniło się w chwast", "Ciernie udusiły wzrastającą roślinę[span_227](start_span)[span_227](end_span).");
-    addQ("siewca", "O siewcy", "Co dało ziarno rzucone na żyzną ziemię?", "Dało obfity plon[span_228](start_span)[span_228](end_span)", "Uschło po kilku dniach", "Wyrosło na trujące krzewy", "Dobra gleba pozwala na obfity zysk duchowy[span_229](start_span)[span_229](end_span).");
-    addQ("siewca", "O siewcy", "Co symbolizują miejsca, na które pada ziarno?", "Różne ludzkie charaktery i serca[span_230](start_span)[span_230](end_span)", "Cztery pory roku", "Miasta w Palestynie", "Podłoże to stan gotowości ludzkiego wnętrza[span_231](start_span)[span_231](end_span).");
-    addQ("siewca", "O siewcy", "Na ile różnych miejsc upadło ziarno siewcy?", "Na cztery miejsca[span_232](start_span)[span_232](end_span)", "Na dwa podłoża", "Na sześć miejsc", "Droga, grunt skalisty, ciernie oraz ziemia żyzna[span_233](start_span)[span_233](end_span).");
-    addQ("siewca", "O siewcy", "Grunt skalisty w życiu człowieka oznacza:", "Wiarę powierzchowną, gasnącą przy trudnościach[span_234](start_span)[span_234](end_span)", "Twardy opór przed wszelką wiedzą", "Brak jakichkolwiek uczuć", "Płytki entuzjazm bez korzenia szybko usycha[span_235](start_span)[span_235](end_span).");
-    addQ("siewca", "O siewcy", "Ciernie w ludzkim życiu symbolizują:", "Troski doczesne i pogoń za bogactwem duszące wiarę[span_236](start_span)[span_236](end_span)", "Choroby zakaźne ciała", "Prześladowania wojskowe", "Przywiązanie do świata zagłusza Słowo Boże[span_237](start_span)[span_237](end_span).");
+    addQ("siewca", "O siewcy", "Kto jest Siewcą w przypowieści?", "Bóg", "Rzymski urzędnik", "Zwykły człowiek bez wiary", "Siewcą rozrzucającym ziarno jest sam Bóg.");
+    addQ("siewca", "O siewcy", "Czym jest ziarno w sensie przenośnym?", "Słowem Bożym", "Złotymi monetami", "Ludzką wiedzą filozoficzną", "Ziarno niesie w sobie Bożą naukę.");
+    addQ("siewca", "O siewcy", "Co stało się z ziarnem rzuconym na drogę?", "Szybko porwały je ptaki", "Wydziobały je dzikie wilki", "Zmyła je woda do rzeki", "Ziarno przy drodze zostało natychmiast zniszczone.");
+    addQ("siewca", "O siewcy", "Dlaczego ziarno na gruncie skalistym obumarło?", "Gdyż nie mogło się głęboko zakorzenić", "Bo zjadły je robaki", "Zostało spalone przez rolnika", "Brak korzeni spowodował uschnięcie w słońcu.");
+    addQ("siewca", "O siewcy", "Co stało się z ziarnem, które wpadło między ciernie?", "Zostało zagłuszone i nie wydało owoców", "Wydało największy plon", "Zamieniło się w chwast", "Ciernie udusiły wzrastającą roślinę.");
+    addQ("siewca", "O siewcy", "Co dało ziarno rzucone na żyzną ziemię?", "Dało obfity plon", "Uschło po kilku dniach", "Wyrosło na trujące krzewy", "Dobra gleba pozwala na obfity zysk duchowy.");
+    addQ("siewca", "O siewcy", "Co symbolizują miejsca, na które pada ziarno?", "Różne ludzkie charaktery i serca", "Cztery pory roku", "Miasta w Palestynie", "Podłoże to stan gotowości ludzkiego wnętrza.");
+    addQ("siewca", "O siewcy", "Na ile różnych miejsc upadło ziarno siewcy?", "Na cztery miejsca", "Na dwa podłoża", "Na sześć miejsc", "Droga, grunt skalisty, ciernie oraz ziemia żyzna.");
+    addQ("siewca", "O siewcy", "Grunt skalisty w życiu człowieka oznacza:", "Wiarę powierzchowną, gasnącą przy trudnościach", "Twardy opór przed wszelką wiedzą", "Brak jakichkolwiek uczuć", "Płytki entuzjazm bez korzenia szybko usycha.");
+    addQ("siewca", "O siewcy", "Ciernie w ludzkim życiu symbolizują:", "Troski doczesne i pogoń za bogactwem duszące wiarę", "Choroby zakaźne ciała", "Prześladowania wojskowe", "Przywiązanie do świata zagłusza Słowo Boże.");
     for (let i = 1; i <= 17; i++) {
-      addQ("siewca", "O siewcy", `Przesłanie Przypowieści o siewcy (analiza ${i}) uczy, że:`, "Owoc wiary zależy od otwartości ludzkiego serca[span_238](start_span)[span_238](end_span)", "Siewca popełnił błąd, siejąc na skałę", "Każdy człowiek wydaje taki sam plon bez wysiłku", "Bóg daje słowo każdemu, lecz człowiek musi je przyjąć[span_239](start_span)[span_239](end_span).");
+      addQ("siewca", "O siewcy", `Przesłanie Przypowieści o siewcy (analiza ${i}) uczy, że:`, "Owoc wiary zależy od otwartości ludzkiego serca", "Siewca popełnił błąd, siejąc na skałę", "Każdy człowiek wydaje taki sam plon bez wysiłku", "Bóg daje słowo każdemu, lecz człowiek musi je przyjąć.");
     }
 
-    // 6. Gorczyca i Owca (27)
-    addQ("gorczyca_owca", "Gorczyca & Owca", "Do czego porównane zostało Królestwo Niebieskie?", "Do ziarnka gorczycy[span_240](start_span)[span_240](end_span)", "Do złotego miecza", "Do wysokiego muru", "Porównanie ukazuje niezwykły wzrost z małego początku[span_241](start_span)[span_241](end_span).");
-    addQ("gorczyca_owca", "Gorczyca & Owca", "Jakie początkowo jest ziarnko gorczycy?", "Niemal niewidoczne i bardzo małe[span_242](start_span)[span_242](end_span)", "Największe ze wszystkich nasion", "Czarne i trujące", "Uchodziło za symbol drobności[span_243](start_span)[span_243](end_span).");
-    addQ("gorczyca_owca", "Gorczyca & Owca", "Do jakich rozmiarów rozrasta się gorczyca?", "Do rozmiarów dużej rośliny dającej schronienie[span_244](start_span)[span_244](end_span)", "Pozostaje mchem przy ziemi", "Usycha po wypuszczeniu pędu", "Staje się potężnym krzewem dla ptaków[span_245](start_span)[span_245](end_span).");
-    addQ("gorczyca_owca", "Gorczyca & Owca", "Dlaczego faryzeusze oburzali się na Jezusa?", "Nauczał nieuczciwych celników i grzeszników[span_246](start_span)[span_246](end_span)", "Nie płacił podatków cesarzowi", "Odrzucał czytanie Pisma", "Faryzeusze gardzili grzesznikami[span_247](start_span)[span_247](end_span).");
-    addQ("gorczyca_owca", "Gorczyca & Owca", "Ilu owiec pilnował pasterz przed zaginięciem jednej?", "Stu owiec[span_248](start_span)[span_248](end_span)", "Dziesięciu owiec", "Tysiąca owiec", "Zostawił dziewięćdziesiąt dziewięć, by szukać jednej[span_249](start_span)[span_249](end_span).");
-    addQ("gorczyca_owca", "Gorczyca & Owca", "Co robi pasterz na pustkowiu, gdy zginie owca?", "Wyrusza na poszukiwania zagubionej[span_250](start_span)[span_250](end_span)", "Sprzedaje resztę stada", "Kupuje nową owcę w mieście", "Pasterz nie spisuje żadnej owcy na straty[span_251](start_span)[span_251](end_span).");
-    addQ("gorczyca_owca", "Gorczyca & Owca", "Z czego raduje się Bóg według Przypowieści o zagubionej owcy?", "Z nawrócenia każdego pojedynczego grzesznika[span_252](start_span)[span_252](end_span)", "Ze zdobycia nowego terytorium", "Ze śmierci swoich wrogów", "W niebie panuje radość z ocalenia człowieka[span_253](start_span)[span_253](end_span).");
-    addQ("gorczyca_owca", "Gorczyca & Owca", "Wymowa Przypowieści o ziarnku gorczycy ukazuje:", "Rozrost wiary i dzieła Bożego ze skromnych początków[span_254](start_span)[span_254](end_span)", "Zasady pielęgnacji ogrodu w Galilei", "Konieczność siania wyłącznie gorczycy", "Małe ziarno daje potężne owoce duchowe[span_255](start_span)[span_255](end_span).");
-    addQ("gorczyca_owca", "Gorczyca & Owca", "Obraz dobrego pasterza dowodzi, że Bóg:", "Troszczy się o wszystkich potrzebujących pomocy[span_256](start_span)[span_256](end_span)", "Karze surowo za każde zbłądzenie", "Dba jedynie o silne i zdrowe jednostki", "Bóg szuka każdego, kto się pogubił[span_257](start_span)[span_257](end_span).");
-    addQ("gorczyca_owca", "Gorczyca & Owca", "Kogo w przypowieści symbolizuje zagubiona owca?", "Każdego człowieka, który zszedł z właściwej drogi[span_258](start_span)[span_258](end_span)", "Złodzieja owiec", "Dzikie zwierzę polne", "Zagubiona owca to grzesznik oczekujący ratunku[span_259](start_span)[span_259](end_span).");
+    addQ("gorczyca_owca", "Gorczyca & Owca", "Do czego porównane zostało Królestwo Niebieskie?", "Do ziarnka gorczycy", "Do złotego miecza", "Do wysokiego muru", "Porównanie ukazuje niezwykły wzrost z małego początku.");
+    addQ("gorczyca_owca", "Gorczyca & Owca", "Jakie początkowo jest ziarnko gorczycy?", "Niemal niewidoczne i bardzo małe", "Największe ze wszystkich nasion", "Czarne i trujące", "Uchodziło za symbol drobności.");
+    addQ("gorczyca_owca", "Gorczyca & Owca", "Do jakich rozmiarów rozrasta się gorczyca?", "Do rozmiarów dużej rośliny dającej schronienie", "Pozostaje mchem przy ziemi", "Usycha po wypuszczeniu pędu", "Staje się potężnym krzewem dla ptaków.");
+    addQ("gorczyca_owca", "Gorczyca & Owca", "Dlaczego faryzeusze oburzali się na Jezusa?", "Nauczał nieuczciwych celników i grzeszników", "Nie płacił podatków cesarzowi", "Odrzucał czytanie Pisma", "Faryzeusze gardzili grzesznikami.");
+    addQ("gorczyca_owca", "Gorczyca & Owca", "Ilu owiec pilnował pasterz przed zaginięciem jednej?", "Stu owiec", "Dziesięciu owiec", "Tysiąca owiec", "Zostawił dziewięćdziesiąt dziewięć, by szukać jednej.");
+    addQ("gorczyca_owca", "Gorczyca & Owca", "Co robi pasterz na pustkowiu, gdy zginie owca?", "Wyrusza na poszukiwania zagubionej", "Sprzedaje resztę stada", "Kupuje nową owcę w mieście", "Pasterz nie spisuje żadnej owcy na straty.");
+    addQ("gorczyca_owca", "Gorczyca & Owca", "Z czego raduje się Bóg według Przypowieści o zagubionej owcy?", "Z nawrócenia każdego pojedynczego grzesznika", "Ze zdobycia nowego terytorium", "Ze śmierci swoich wrogów", "W niebie panuje radość z ocalenia człowieka.");
+    addQ("gorczyca_owca", "Gorczyca & Owca", "Wymowa Przypowieści o ziarnku gorczycy ukazuje:", "Rozrost wiary i dzieła Bożego ze skromnych początków", "Zasady pielęgnacji ogrodu w Galilei", "Konieczność siania wyłącznie gorczycy", "Małe ziarno daje potężne owoce duchowe.");
+    addQ("gorczyca_owca", "Gorczyca & Owca", "Obraz dobrego pasterza dowodzi, że Bóg:", "Troszczy się o wszystkich potrzebujących pomocy", "Karze surowo za każde zbłądzenie", "Dba jedynie o silne i zdrowe jednostki", "Bóg szuka każdego, kto się pogubi.");
+    addQ("gorczyca_owca", "Gorczyca & Owca", "Kogo w przypowieści symbolizuje zagubiona owca?", "Każdego człowieka, który zszedł z właściwej drogi", "Złodzieja owiec", "Dzikie zwierzę polne", "Zagubiona owca to grzesznik oczekujący ratunku.");
     for (let i = 1; i <= 17; i++) {
-      addQ("gorczyca_owca", "Gorczyca & Owca", `Przesłanie o gorczycy i owcy (sprawdzian ${i}) podkreśla:`, "Bożą miłość do jednostki oraz potęgę rozwoju Królestwa Bożego[span_260](start_span)[span_260](end_span)", "Wyższość dziewięćdziesięciu dziewięciu owiec nad jedną", "Że grzesznicy nie mają wstępu do nieba", "Bóg szuka błądzących i daje im nowe życie[span_261](start_span)[span_261](end_span).");
+      addQ("gorczyca_owca", "Gorczyca & Owca", `Przesłanie o gorczycy i owcy (sprawdzian ${i}) podkreśla:`, "Bożą miłość do jednostki oraz potęgę rozwoju Królestwa Bożego", "Wyższość dziewięćdziesięciu dziewięciu owiec nad jedną", "Że grzesznicy nie mają wstępu do nieba", "Bóg szuka błądzących i daje im nowe życie.");
     }
 
-    // 7. Genesis i Upadek (27)
-    addQ("genesis", "Genesis & Upadek", "W jaki sposób Bóg powołał świat do istnienia?", "Z niczego (creatio ex nihilo) samym Słowem[span_262](start_span)[span_262](end_span)", "Tocząc walkę z potworami", "Z wcześniej istniejących skał kosmicznych", "Bóg stwarza świat suwerennym Słowem w 6 dni[span_263](start_span)[span_263](end_span).");
-    addQ("genesis", "Genesis & Upadek", "Ile dni trwało biblijne dzieło stworzenia?", "Sześć dni (siódmego odpoczął)[span_264](start_span)[span_264](end_span)", "Siedem dni nieustannej pracy", "Czterdzieści dni", "Siódmego dnia Bóg odpoczął, dając szabat[span_265](start_span)[span_265](end_span).");
-    addQ("genesis", "Genesis & Upadek", "Człowiek został stworzony na:", "Obraz i podobieństwo Boże[span_266](start_span)[span_266](end_span)", "Podobieństwo aniołów", "Wzór zwierząt polnych", "Daje to człowiekowi wyjątkową godność i wolną wolę[span_267](start_span)[span_267](end_span).");
-    addQ("genesis", "Genesis & Upadek", "Jaki jedyny zakaz otrzymali Adam i Ewa w Edenie?", "Nie spożywać owocu z Drzewa Poznania Dobra i Zła[span_268](start_span)[span_268](end_span)[span_269](start_span)[span_269](end_span)", "Nie dotykać wód rzeki", "Nie rozmawiać ze zwierzętami", "Zakaz ten testował posłuszeństwo i zaufanie[span_270](start_span)[span_270](end_span)[span_271](start_span)[span_271](end_span).");
+    addQ("genesis", "Genesis & Upadek", "W jaki sposób Bóg powołał świat do istnienia?", "Z niczego (creatio ex nihilo) samym Słowem", "Tocząc walkę z potworami", "Z wcześniej istniejących skał kosmicznych", "Bóg stwarza świat suwerennym Słowem w 6 dni.");
+    addQ("genesis", "Genesis & Upadek", "Ile dni trwało biblijne dzieło stworzenia?", "Sześć dni (siódmego odpoczął)", "Siedem dni nieustannej pracy", "Czterdzieści dni", "Siódmego dnia Bóg odpoczął, dając szabat.");
+    addQ("genesis", "Genesis & Upadek", "Człowiek został stworzony na:", "Obraz i podobieństwo Boże", "Podobieństwo aniołów", "Wzór zwierząt polnych", "Daje to człowiekowi wyjątkową godność i wolną wolę.");
+    addQ("genesis", "Genesis & Upadek", "Jaki jedyny zakaz otrzymali Adam i Ewa w Edenie?", "Nie spożywać owocu z Drzewa Poznania Dobra i Zła", "Nie dotykać wód rzeki", "Nie rozmawiać ze zwierzętami", "Zakaz ten testował posłuszeństwo i zaufanie.");
     addQ("genesis", "Genesis & Upadek", "Pod jaką postacią szatan skusił Ewę do grzechu?", "Węża", "Kruka", "Smoka", "Wąż był najbardziej przebiegłym ze stworzeń.");
-    addQ("genesis", "Genesis & Upadek", "Jaką obietnicą wąż skusił pierwszych ludzi?", "„Będziecie jako bogowie znający dobro i zło[span_272](start_span)”[span_272](end_span)", "Że dostaną góry złota", "Że staną się niewidzialni", "Pycha i chęć bycia jak Bóg były źródłem upadku[span_273](start_span)[span_273](end_span).");
+    addQ("genesis", "Genesis & Upadek", "Jaką obietnicą wąż skusił pierwszych ludzi?", "„Będziecie jako bogowie znający dobro i zło”", "Że dostaną góry złota", "Że staną się niewidzialni", "Pycha i chęć bycia jak Bóg były źródłem upadku.");
     addQ("genesis", "Genesis & Upadek", "Co zauważyli pierwsi ludzie zaraz po spożyciu owocu?", "Że są nadzy i poczuli wstyd", "Że potrafią latać", "Że Eden zniknął", "Utrata niewinności wywołała wstyd i lęk.");
-    addQ("genesis", "Genesis & Upadek", "Jakie były bezpośrednie konsekwencje grzechu pierworodnego?", "Wygnanie z raju, cierpienie, trud pracy i śmierć[span_274](start_span)[span_274](end_span)[span_275](start_span)[span_275](end_span)", "Natychmiastowe unicestwienie ziemi", "Brak jakichkolwiek zmian", "Człowiek utracił stan pierwotnej harmonii[span_276](start_span)[span_276](end_span)[span_277](start_span)[span_277](end_span).");
-    addQ("genesis", "Genesis & Upadek", "Słowa „Prochem jesteś i w proch się obrócisz” przypominają o:", "Śmiertelności cielesnej człowieka[span_278](start_span)[span_278](end_span)", "Konieczności sprzątania ogrodu", "Spaleniu raju przez ogień", "Śmierć fizyczna stała się skutkiem upadku[span_279](start_span)[span_279](end_span).");
-    addQ("genesis", "Genesis & Upadek", "Czym w Biblii jest moment wygnania z raju?", "Początkiem ziemskiej historii ludzkości[span_280](start_span)[span_280](end_span)", "Końcem wszelkich relacji z Bogiem", "Mitem bez znaczenia teologicznego", "Rozpoczyna drogę ludzkości aż do sądu ostatecznego[span_281](start_span)[span_281](end_span).");
+    addQ("genesis", "Genesis & Upadek", "Jakie były bezpośrednie konsekwencje grzechu pierworodnego?", "Wygnanie z raju, cierpienie, trud pracy i śmierć", "Natychmiastowe unicestwienie ziemi", "Brak jakichkolwiek zmian", "Człowiek utracił stan pierwotnej harmonii.");
+    addQ("genesis", "Genesis & Upadek", "Słowa „Prochem jesteś i w proch się obrócisz” przypominają o:", "Śmiertelności cielesnej człowieka", "Konieczności sprzątania ogrodu", "Spaleniu raju przez ogień", "Śmierć fizyczna stała się skutkiem upadku.");
+    addQ("genesis", "Genesis & Upadek", "Czym w Biblii jest moment wygnania z raju?", "Początkiem ziemskiej historii ludzkości", "Końcem wszelkich relacji z Bogiem", "Mitem bez znaczenia teologicznego", "Rozpoczyna drogę ludzkości aż do sądu ostatecznego.");
     for (let i = 1; i <= 17; i++) {
-      addQ("genesis", "Genesis & Upadek", `Prawda teologiczna Księgi Rodzaju (wariant ${i}) uczy, że:`, "Świat stworzony przez Boga był dobry, a zło weszło przez grzech człowieka[span_282](start_span)[span_282](end_span)[span_283](start_span)[span_283](end_span)", "Bóg stworzył zło jako element raju", "Człowiek nie ponosi odpowiedzialności za upadek", "Grzech pierworodny zerwał pierwotną więź z Bogiem[span_284](start_span)[span_284](end_span)[span_285](start_span)[span_285](end_span).");
+      addQ("genesis", "Genesis & Upadek", `Prawda teologiczna Księgi Rodzaju (wariant ${i}) uczy, że:`, "Świat stworzony przez Boga był dobry, a zło weszło przez grzech człowieka", "Bóg stworzył zło jako element raju", "Człowiek nie ponosi odpowiedzialności za upadek", "Grzech pierworodny zerwał pierwotną więź z Bogiem.");
     }
 
-    // 8. Hiob (27)
-    addQ("hiob", "Księga Hioba", "Gdzie mieszkał Hiob?", "W krainie Us[span_286](start_span)[span_286](end_span)", "W Rzymie", "W Egipcie", "Kraina Us była ojczyzną sprawiedliwego Hioba[span_287](start_span)[span_287](end_span).");
-    addQ("hiob", "Księga Hioba", "Jak Biblia opisuje postawę Hioba?", "Był mężem prawym, sprawiedliwym i bogobojnym[span_288](start_span)[span_288](end_span)", "Był chciwym celnikiem", "Był kapłanem pogańskim", "Hiob był wzorem wierności Bogu[span_289](start_span)[span_289](end_span).");
-    addQ("hiob", "Księga Hioba", "Jakie nieszczęścia spadły na Hioba w ramach próby?", "Utrata majątku, śmierć dzieci i trąd[span_290](start_span)[span_290](end_span)", "Utrata wzroku i więzienie", "Wygnanie na bezludną wyspę", "Szatan odebrał mu wszystko za pozwoleniem Boga[span_291](start_span)[span_291](end_span).");
-    addQ("hiob", "Księga Hioba", "Co powiedział Hiob po otrzymaniu wiadomości o tragediach?", "„Pan dał, Pan wziął, niech imię Pańskie będzie błogosławione[span_292](start_span)”[span_292](end_span)", "„Przeklinam dzień moich narodzin i Boga”", "„Uciekam przed gniewem Stwórcy”", "Słowa te dowodzą bezgranicznej wierności i pokory[span_293](start_span)[span_293](end_span).");
-    addQ("hiob", "Księga Hioba", "Jak zachowali się przyjaciele Hioba?", "Wmawiali mu, że cierpi z powodu ukrytych grzechów[span_294](start_span)[span_294](end_span)", "Leczyli jego rany oliwą", "Zbudowali mu nowy dom", "Reprezentowali błędną teologię odpłaty[span_295](start_span)[span_295](end_span).");
-    addQ("hiob", "Księga Hioba", "Problem teodycei w Księdze Hioba to:", "Pogodzenie dobroci i wszechmocy Boga z istnieniem cierpienia[span_296](start_span)[span_296](end_span)", "Spór o granice krainy Us", "Pytanie o liczbę gwiazd na niebie", "Dlaczego niewinny człowiek cierpi pod rządami dobrego Boga?[span_297](start_span)[span_297](end_span)");
-    addQ("hiob", "Księga Hioba", "Księga Hioba dowodzi, że cierpienie człowieka:", "Nie zawsze jest karą za grzechy – bywa próbą lub tajemnicą[span_298](start_span)[span_298](end_span)", "Zawsze świadczy o popełnionym przestępstwie", "Jest dziełem przypadku bez wiedzy Boga", "Obalona zostaje uproszczona teologia odpłaty[span_299](start_span)[span_299](end_span).");
-    addQ("hiob", "Księga Hioba", "Z czego przemówił Bóg pod koniec księgi do Hioba?", "Z wichru (burzy)[span_300](start_span)[span_300](end_span)", "Z płonącego krzewu", "Z cichej jaskini", "Ukazał niepojętą wielkość i majestat stworzenia[span_301](start_span)[span_301](end_span).");
-    addQ("hiob", "Księga Hioba", "Czym jest „postawa hiobowa”?", "Niezłomną cierpliwością, pokorą i zaufaniem Bogu w nieszczęściu[span_302](start_span)[span_302](end_span)", "Buntem przeciw wszelkim zasadom", "Popadnięciem w rozpacz i obłęd", "Hiob nie wyrzekł się Boga mimo skrajnego cierpienia[span_303](start_span)[span_303](end_span).");
-    addQ("hiob", "Księga Hioba", "Zwrot „hiobowa wieść” oznacza w języku polskim:", "Tragiczną wiadomość zwiastującą nagłe nieszczęście[span_304](start_span)[span_304](end_span)", "Dobrą nowinę o zysku", "Tajemniczy list bez podpisu", "Nawiązuje do posłańców donoszących Hiobowi o klęskach[span_305](start_span)[span_305](end_span).");
+    addQ("hiob", "Księga Hioba", "Gdzie mieszkał Hiob?", "W krainie Us", "W Rzymie", "W Egipcie", "Kraina Us była ojczyzną sprawiedliwego Hioba.");
+    addQ("hiob", "Księga Hioba", "Jak Biblia opisuje postawę Hioba?", "Był mężem prawym, sprawiedliwym i bogobojnym", "Był chciwym celnikiem", "Był kapłanem pogańskim", "Hiob był wzorem wierności Bogu.");
+    addQ("hiob", "Księga Hioba", "Jakie nieszczęścia spadły na Hioba w ramach próby?", "Utrata majątku, śmierć dzieci i trąd", "Utrata wzroku i więzienie", "Wygnanie na bezludną wyspę", "Szatan odebrał mu wszystko za pozwoleniem Boga.");
+    addQ("hiob", "Księga Hioba", "Co powiedział Hiob po otrzymaniu wiadomości o tragediach?", "„Pan dał, Pan wziął, niech imię Pańskie będzie błogosławione”", "„Przeklinam dzień moich narodzin i Boga”", "„Uciekam przed gniewem Stwórcy”", "Słowa te dowodzą bezgranicznej wierności i pokory.");
+    addQ("hiob", "Księga Hioba", "Jak zachowali się przyjaciele Hioba?", "Wmawiali mu, że cierpi z powodu ukrytych grzechów", "Leczyli jego rany oliwą", "Zbudowali mu nowy dom", "Reprezentowali błędną teologię odpłaty.");
+    addQ("hiob", "Księga Hioba", "Problem teodycei w Księdze Hioba to:", "Pogodzenie dobroci i wszechmocy Boga z istnieniem cierpienia", "Spór o granice krainy Us", "Pytanie o liczbę gwiazd na niebie", "Dlaczego niewinny człowiek cierpi pod rządami dobrego Boga?");
+    addQ("hiob", "Księga Hioba", "Księga Hioba dowodzi, że cierpienie człowieka:", "Nie zawsze jest karą za grzechy – bywa próbą lub tajemnicą", "Zawsze świadczy o popełnionym przestępstwie", "Jest dziełem przypadku bez wiedzy Boga", "Obalona zostaje uproszczona teologia odpłaty.");
+    addQ("hiob", "Księga Hioba", "Z czego przemówił Bóg pod koniec księgi do Hioba?", "Z wichru (burzy)", "Z płonącego krzewu", "Z cichej jaskini", "Ukazał niepojętą wielkość i majestat stworzenia.");
+    addQ("hiob", "Księga Hioba", "Czym jest „postawa hiobowa”?", "Niezłomną cierpliwością, pokorą i zaufaniem Bogu w nieszczęściu", "Buntem przeciw wszelkim zasadom", "Popadnięciem w rozpacz i obłęd", "Hiob nie wyrzekł się Boga mimo skrajnego cierpienia.");
+    addQ("hiob", "Księga Hioba", "Zwrot „hiobowa wieść” oznacza w języku polskim:", "Tragiczną wiadomość zwiastującą nagłe nieszczęście", "Dobrą nowinę o zysku", "Tajemniczy list bez podpisu", "Nawiązuje do posłańców donoszących Hiobowi o klęskach.");
     for (let i = 1; i <= 17; i++) {
-      addQ("hiob", "Księga Hioba", `Przesłanie Księgi Hioba (sprawdzian ${i}) wskazuje, że:`, "Cierpienie bywa próbą wiary, a plany Boże przewyższają ludzki rozum[span_306](start_span)[span_306](end_span)", "Hiob był w rzeczywistości wielkim grzesznikiem", "Szatan jest silniejszy od Boga", "Pokora i wierność Hioba zostały w finale nagrodzone[span_307](start_span)[span_307](end_span).");
+      addQ("hiob", "Księga Hioba", `Przesłanie Księgi Hioba (sprawdzian ${i}) wskazuje, że:`, "Cierpienie bywa próbą wiary, a plany Boże przewyższają ludzki rozum", "Hiob był w rzeczywistości wielkim grzesznikiem", "Szatan jest silniejszy od Boga", "Pokora i wierność Hioba zostały w finale nagrodzone.");
     }
 
-    // 9. Kohelet (27)
-    addQ("kohelet", "Księga Koheleta", "Kim jest Kohelet?", "Mędrcem przemawiającym na zgromadzeniu[span_308](start_span)[span_308](end_span)", "Wojownikiem izraelskim", "Zarządcą świątyni", "Kohelet to tytuł mędrca-kaznodziei[span_309](start_span)[span_309](end_span).");
-    addQ("kohelet", "Księga Koheleta", "Jak brzmi słynny łaciński motyw otwierający Księgę Koheleta?", "Vanitas vanitatum et omnia vanitas[span_310](start_span)[span_310](end_span)", "Carpe diem", "Memento mori", "Marność nad marnościami i wszystko marność[span_311](start_span)[span_311](end_span).");
-    addQ("kohelet", "Księga Koheleta", "Co według Koheleta jest 'marnością'?", "Dobra doczesne: bogactwo, sława, uroda, a nawet mądrość[span_312](start_span)[span_312](end_span)", "Jedynie kłamstwo i zdrada", "Tylko bieda materialna", "Wszystko pod słońcem przemija w obliczu śmierci[span_313](start_span)[span_313](end_span).");
-    addQ("kohelet", "Księga Koheleta", "Co w oczach Koheleta zrównuje mędrca z głupcem?", "Nieuchronna śmierć cielesna i zapomnienie[span_314](start_span)[span_314](end_span)", "Podobny stan majątkowy", "Taki sam brak szacunku u ludzi", "Koniec ziemski każdego człowieka jest identyczny[span_315](start_span)[span_315](end_span).");
-    addQ("kohelet", "Księga Koheleta", "Słowa „Wszystko ma swój czas [...] czas rodzenia i czas umierania” oznaczają:", "Cykliczność i przemijalność ludzkiego losu[span_316](start_span)[span_316](end_span)", "Konieczność ciągłego pośpiechu", "Brak jakiegokolwiek porządku w świecie", "Człowiek podlega prawom wyznaczonym przez Boga[span_317](start_span)[span_317](end_span).");
-    addQ("kohelet", "Księga Koheleta", "Jaka jest ostateczna rada życiowa Koheleta?", "Cieszyć się drobnymi darami, zachować umiar i pamiętać o Bogu[span_318](start_span)[span_318](end_span)", "Wydać majątek i zrezygnować z życia", "Dążyć do władzy za wszelką cenę", "Mądre czerpanie radości z prostych chwil w bojaźni Bożej[span_319](start_span)[span_319](end_span).");
-    addQ("kohelet", "Księga Koheleta", "Do jakiego działu ksiąg biblijnych należy Księga Koheleta?", "Do ksiąg mądrościowych (dydaktycznych)[span_320](start_span)[span_320](end_span)", "Do ksiąg historycznych", "Do pism prorockich", "Zawiera głębokie refleksje filozoficzne nad sensem istnienia[span_321](start_span)[span_321](end_span).");
+    addQ("kohelet", "Księga Koheleta", "Kim jest Kohelet?", "Mędrcem przemawiającym na zgromadzeniu", "Wojownikiem izraelskim", "Zarządcą świątyni", "Kohelet to tytuł mędrca-kaznodziei.");
+    addQ("kohelet", "Księga Koheleta", "Jak brzmi słynny łaciński motyw otwierający Księgę Koheleta?", "Vanitas vanitatum et omnia vanitas", "Carpe diem", "Memento mori", "Marność nad marnościami i wszystko marność.");
+    addQ("kohelet", "Księga Koheleta", "Co według Koheleta jest 'marnością'?", "Dobra doczesne: bogactwo, sława, uroda, a nawet mądrość", "Jedynie kłamstwo i zdrada", "Tylko bieda materialna", "Wszystko pod słońcem przemija w obliczu śmierci.");
+    addQ("kohelet", "Księga Koheleta", "Co w oczach Koheleta zrównuje mędrca z głupcem?", "Nieuchronna śmierć cielesna i zapomnienie", "Podobny stan majątkowy", "Taki sam brak szacunku u ludzi", "Koniec ziemski każdego człowieka jest identyczny.");
+    addQ("kohelet", "Księga Koheleta", "Słowa „Wszystko ma swój czas [...] czas rodzenia i czas umierania” oznaczają:", "Cykliczność i przemijalność ludzkiego losu", "Konieczność ciągłego pośpiechu", "Brak jakiegokolwiek porządku w świecie", "Człowiek podlega prawom wyznaczonym przez Boga.");
+    addQ("kohelet", "Księga Koheleta", "Jaka jest ostateczna rada życiowa Koheleta?", "Cieszyć się drobnymi darami, zachować umiar i pamiętać o Bogu", "Wydać majątek i zrezygnować z życia", "Dążyć do władzy za wszelką cenę", "Mądre czerpanie radości z prostych chwil w bojaźni Bożej.");
+    addQ("kohelet", "Księga Koheleta", "Do jakiego działu ksiąg biblijnych należy Księga Koheleta?", "Do ksiąg mądrościowych (dydaktycznych)", "Do ksiąg historycznych", "Do pism prorockich", "Zawiera głębokie refleksje filozoficzne nad sensem istnienia.");
     addQ("kohelet", "Księga Koheleta", "Zdanie „Nic nowego pod słońcem” podkreśla:", "Odwieczną powtarzalność praw natury i ludzkich dążeń", "Zatrzymanie słońca na niebie", "Brak zmian pogody na ziemi", "Natura ludzka i świat zataczają te same koła.");
     addQ("kohelet", "Księga Koheleta", "Motyw vanitas był niezwykle popularny w późniejszej epoce:", "Baroku", "Oświecenia", "Pozytywizmu", "Barok fascynował się kruchością życia i motywem śmierci.");
-    addQ("kohelet", "Księga Koheleta", "Kohelet uważa ludzką pogoń za sławą i bogactwem za:", "Pogoń za wiatrem i marność[span_322](start_span)[span_322](end_span)", "Jedyną godną drogę dla człowieka", "Obowiązek każdego sprawiedliwego", "Doczesne dobra nie zapewniają trwałego szczęścia[span_323](start_span)[span_323](end_span).");
+    addQ("kohelet", "Księga Koheleta", "Kohelet uważa ludzką pogoń za sławą i bogactwem za:", "Pogoń za wiatrem i marność", "Jedyną godną drogę dla człowieka", "Obowiązek każdego sprawiedliwego", "Doczesne dobra nie zapewniają trwałego szczęścia.");
     for (let i = 1; i <= 17; i++) {
-      addQ("kohelet", "Księga Koheleta", `Wnioski filozoficzne Koheleta (wariant ${i}) uczą, że:`, "Wobec nieuchronnej śmierci należy żyć z umiarem i przestrzegać przykazań[span_324](start_span)[span_324](end_span)", "Człowiek powinien całkowicie odrzucić pracę na ziemi", "Śmierć nie dotyczy ludzi mądrych i bogatych", "Fundamentem i ostatecznym punktem odniesienia pozostaje Bóg[span_325](start_span)[span_325](end_span).");
+      addQ("kohelet", "Księga Koheleta", `Wnioski filozoficzne Koheleta (wariant ${i}) uczą, że:`, "Wobec nieuchronnej śmierci należy żyć z umiarem i przestrzegać przykazań", "Człowiek powinien całkowicie odrzucić pracę na ziemi", "Śmierć nie dotyczy ludzi mądrych i bogatych", "Fundamentem i ostatecznym punktem odniesienia pozostaje Bóg.");
     }
 
-    // ================= SYSTEM LOSOWANIA BEZ POWTÓREK =================
     let currentFilteredPool = [];
     let remainingDeck = [];
 
@@ -780,14 +737,12 @@
         return;
       }
 
-      // Jeśli w talii zostało mniej niż 10 pytań, tasujemy od nowa, by nie zabrakło
       let noticeHtml = '';
       if (remainingDeck.length < 10) {
         remainingDeck = shuffle(currentFilteredPool);
         noticeHtml = '<div style="font-size:0.75rem; color:var(--accent); text-align:center; margin-bottom:12px;">Przerobiono wszystkie unikalne pytania z puli! Talia została potasowana od nowa.</div>';
       }
 
-      // Pobranie dokładnie 10 pytań bez zwracania
       const selectedBatch = remainingDeck.splice(0, 10);
       document.getElementById('quiz-pool-stat').innerText = remainingDeck.length;
 
@@ -849,7 +804,6 @@
       card.querySelector('.q-explanation').style.display = 'block';
     }
 
-    // Start aplikacji
     resetDeck();
     renderFlashcards();
     generateNewQuiz();
